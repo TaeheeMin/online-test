@@ -1,6 +1,8 @@
 package goodee.gdj58.online.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,11 @@ public class EmployeeService {
 	// 빈안에 employeeMapper에 들어갈 수 있는 객체가 있는지 확인한다
 	private EmployeeMapper employeeMapper;
 	
-	public List<Employee> getEmpList() {
-		return employeeMapper.selectEmployeeList();
+	public List<Employee> getEmpList(int currentPage, int rowPerPage) {
+		int beginRow = (currentPage - 1) * rowPerPage;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		return employeeMapper.selectEmployeeList(paramMap);
 	}
 }
