@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>addEmp</title>
+		<title>login</title>
 	</head>
 	<body>
 		<!-- 메뉴 -->
@@ -12,8 +12,8 @@
 			<c:import url="/WEB-INF/view/inc/empMenu.jsp"></c:import>
 		</div>
 		
-		<h3>사원추가</h3>
-		<form method="post" action="${pageContext.request.contextPath}/employee/addEmp">
+		<h3>로그인</h3>
+		<form method="post" action="${pageContext.request.contextPath}/employee/loginEmp">
 			<table border="1">
 				<tr>
 					<td>ID</td>
@@ -23,12 +23,8 @@
 					<td>PASSWORD</td>
 					<td><input type="password" name="empPw"></td>
 				</tr>
-				<tr>
-					<td>NAME</td>
-					<td><input type="text" name="empName"></td>
-				</tr>
 			</table>
-			<button type="submit">등록</button>
+			<button type="submit">로그인</button>
 		</form>
 	</body>
 </html>

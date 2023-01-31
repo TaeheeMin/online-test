@@ -20,7 +20,11 @@ public class EmployeeService {
 	// 빈안에 employeeMapper에 들어갈 수 있는 객체가 있는지 확인한다
 	private EmployeeMapper employeeMapper;
 	
-	public int deleteEmployee(int empNo) {
+	public Employee login(Employee emp) {
+		return employeeMapper.login(emp);
+	}
+	
+	public int removeEmployee(int empNo) {
 		return employeeMapper.deleteEmployee(empNo);
 	}
 	

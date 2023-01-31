@@ -2,6 +2,8 @@ package goodee.gdj58.online.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,39 +18,82 @@ import goodee.gdj58.online.vo.Employee;
 public class EmployeeController {
 	@Autowired EmployeeService employeeService;
 	
+	// 로그인
+	@GetMapping("/employee/loginEmp")
+	public String loginEmp(HttpSession session) {
+		// 로그인 필요 -> employee/loginEmp
+		// 이미 로그인 중이면 리스트 -> redirect:/employee/empList
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		if(loginEmp != null) {
+			return "redirect:/employee/empList";
+		}
+		return "employee/loginEmp";
+	}
+	
+	@PostMapping("/employee/loginEmp")
+	public String loginEmp(HttpSession session, Employee emp) {
+		Employee resultEmp =  employeeService.login(emp);
+		if(resultEmp == null) {
+			System.out.println("사원 로그인 실패");
+			return "redirect:/employee/loginEmp";
+		}
+		System.out.println("사원 로그인 성공");
+		session.setAttribute("loginEmp", resultEmp);
+		return "redirect:/employee/empList";
+	}
+	
+	// 로그아웃
+	@GetMapping("/employee/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/employee/loginEmp";
+	}
+	
 	// 삭제
 	@GetMapping("/employee/removeEmp")
-	public String removeEmp(@RequestParam(value = "empNo") int  empNo) {
-		int row = employeeService.deleteEmployee(empNo);
+	public String removeEmp(@RequestParam(value = "empNo") int  empNo, HttpSession session) {
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		if(loginEmp == null) {
+			return "redirect:/employee/loginEmp";
+		}
+		int row = employeeService.removeEmployee(empNo);
 		if(row == 1) {
-			System.out.println("삭제성공");
-		} else {
-			System.out.println("삭제실패");
+			System.out.println("사원 삭제성공");
 		}
 		return "redirect:/employee/empList"; // 리스트로 이동
 	}
 	
 	// 입력 폼
 	@GetMapping("/employee/addEmp")
-	public String addEmp() {
+	public String addEmp(HttpSession session) {
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		if(loginEmp == null) {
+			return "redirect:/employee/loginEmp";
+		}
 		return"employee/addEmp"; // forword
 	}
 	
 	// addEmp 배개변수 받아옴 -> 오버로딩
 	@PostMapping("/employee/addEmp")
-	public String addEmp(Employee employee) {
+	public String addEmp(Employee employee, HttpSession session) {
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		if(loginEmp == null) {
+			return "redirect:/employee/loginEmp";
+		}
 		int row = employeeService.addEmployee(employee);
 		if(row == 1) {
-			System.out.println("입력성공");
-		} else {
-			System.out.println("입력실패");
+			System.out.println("사원 등록성공");
 		}
 		return "redirect:/employee/empList"; // CM -> C
 		// sendRedirect와 동일 -> redirect:
 	}
 	
 	@GetMapping("/employee/empList")
-	public String empList(Model model, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage) {
+	public String empList(Model model, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage, HttpSession session) {
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		if(loginEmp == null) {
+			return "redirect:/employee/loginEmp";
+		}
 		// request.getParameter와 동일 int currentPage = request.getParameter("currentPage"); 형변환 따로 할 필요 없이 알아서 해줌
 		// defaultValue = "1" null 이면 1을 넣어줌
 		// System.out.println("currentPage : " + currentPage);
