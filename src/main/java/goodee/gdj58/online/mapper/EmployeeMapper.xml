@@ -1,12 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.online.mapper.EmployeeMapper">
+	
+	<!-- deleteEmp -->
+	<delete id="deleteEmployee" parameterType="int">
+		DELETE 
+		FROM employee
+		WHERE emp_no = #{empNo}
+	</delete>
+	
+	<!-- addEmp -->
+	<insert id="insertEmployee" parameterType="goodee.gdj58.online.vo.Employee"> <!-- resultType이 없음 알아서 int 타입을 반환함 -->
+		INSERT INTO employee (
+			emp_id
+			, emp_pw
+			, emp_name
+		) VALUES (
+			#{empId}
+			,PASSWORD(#{empPw})
+			,#{empName}	
+		)
+	</insert>
+	
+	<!-- empList -->
 	<select id="selectEmployeeList" resultType="goodee.gdj58.online.vo.Employee" parameterType="java.util.Map"> <!-- java.util.Map -> map으로 단축 표현 가능함 -->
 		SELECT 
 			emp_no empNo <!-- re.getInt("emp_no"), new employee().setEmpNo() 필드명 일치 시키는 단순한 방법(as명사용) resultMap사용해서 설정가능-->
 			, emp_id empId
 			, emp_name empName
 		FROM employee
+		ORDER BY emp_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 </mapper>

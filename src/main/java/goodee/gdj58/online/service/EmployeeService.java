@@ -20,6 +20,14 @@ public class EmployeeService {
 	// 빈안에 employeeMapper에 들어갈 수 있는 객체가 있는지 확인한다
 	private EmployeeMapper employeeMapper;
 	
+	public int deleteEmployee(int empNo) {
+		return employeeMapper.deleteEmployee(empNo);
+	}
+	
+	public int addEmployee(Employee employee) {
+		return employeeMapper.insertEmployee(employee);
+	}
+	
 	public List<Employee> getEmpList(int currentPage, int rowPerPage) {
 		int beginRow = (currentPage - 1) * rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
