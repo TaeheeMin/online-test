@@ -88,6 +88,7 @@ public class EmployeeController {
 		// sendRedirect와 동일 -> redirect:
 	}
 	
+	// 사원 목록
 	@GetMapping("/employee/empList")
 	public String empList(Model model, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage, HttpSession session) {
 		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
@@ -102,4 +103,6 @@ public class EmployeeController {
 		model.addAttribute("currentPage",currentPage);
 		return "employee/empList";
 	}
+	
+	
 }
