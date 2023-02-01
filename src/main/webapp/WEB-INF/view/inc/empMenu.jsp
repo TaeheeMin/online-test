@@ -5,5 +5,6 @@
 	<a href="${pageContext.request.contextPath}/student/studentList">학생관리</a>
 	<a href="${pageContext.request.contextPath}/employee/modifyEmpPw">정보수정</a>
 	<a href="${pageContext.request.contextPath}/employee/logout">로그아웃</a>
+	<a href="${pageContext.request.contextPath}/teacher/teacherMain">강사</a>
 </div>
 	
