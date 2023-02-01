@@ -10,7 +10,7 @@ import goodee.gdj58.online.vo.Employee;
 @Mapper
 public interface EmployeeMapper {
 	// 쿼리 작성 방법 - @Select("")작성가능하나 마이바티스 이용해서 작성
-	
+	int updateEmployeePw(Map<String, Object> paramMap);
 	Employee login(Employee employee);
 	int deleteEmployee(int empNo);
 	int insertEmployee(Employee employee);

@@ -11,12 +11,39 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import goodee.gdj58.online.mapper.IdMapper;
 import goodee.gdj58.online.service.EmployeeService;
+import goodee.gdj58.online.service.Idservice;
 import goodee.gdj58.online.vo.Employee;
 
 @Controller
 public class EmployeeController {
 	@Autowired EmployeeService employeeService;
+	@Autowired private Idservice idservice;
+	
+	// 비밀번호 수정
+	@GetMapping("/employee/modifyEmpPw")
+	public String modifyEmpPw(HttpSession session) {
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		if(loginEmp == null) {
+			return "redirect:/employee/loginEmp";
+		}
+		return "employee/modifyEmpPw";
+	}
+	
+	@PostMapping("/employee/modifyEmpPw")
+	public String modifyEmpPw(HttpSession session, @RequestParam(value = "oldPw", required = true) String oldPw, @RequestParam(value = "newPw", required = true) String newPw) {
+		// required = true -> null 못들어오게함 defalut값이라 생략가능
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		if(loginEmp == null) {
+			return "redirect:/employee/loginEmp";
+		}
+		int row = employeeService.modifyEmployeePw(oldPw, newPw, loginEmp.getEmpNo());
+		if(row == 1) {
+			System.out.println("사원 비밀번호 수정성공");
+		}
+		return "redirect:/employee/empList";
+	}
 	
 	// 로그인
 	@GetMapping("/employee/loginEmp")
@@ -63,7 +90,7 @@ public class EmployeeController {
 		return "redirect:/employee/empList"; // 리스트로 이동
 	}
 	
-	// 입력 폼
+	// 사원 추가
 	@GetMapping("/employee/addEmp")
 	public String addEmp(HttpSession session) {
 		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
@@ -75,15 +102,25 @@ public class EmployeeController {
 	
 	// addEmp 배개변수 받아옴 -> 오버로딩
 	@PostMapping("/employee/addEmp")
-	public String addEmp(Employee employee, HttpSession session) {
+	public String addEmp(Employee employee, HttpSession session, Model model) {
 		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
 		if(loginEmp == null) {
 			return "redirect:/employee/loginEmp";
 		}
-		int row = employeeService.addEmployee(employee);
-		if(row == 1) {
-			System.out.println("사원 등록성공");
+		
+		// id 중복확인
+		String idCheck = idservice.getIdCheck(employee.getEmpId());
+		if(idCheck != null) { // null이면 아이디 사용가능
+			System.out.println("아이디 중복");
+			model.addAttribute("msg", "아이디 중복");
+			return "redirect:/employee/addEmp";
 		}
+		
+		int row = employeeService.addEmployee(employee);
+		if(row == 0) {
+			model.addAttribute("msg", "사원등록 실패");
+		}
+		System.out.println("사원 등록성공");
 		return "redirect:/employee/empList"; // CM -> C
 		// sendRedirect와 동일 -> redirect:
 	}
