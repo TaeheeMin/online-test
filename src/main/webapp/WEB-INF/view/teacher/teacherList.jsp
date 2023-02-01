@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>empList</title>
+		<title>Teacher List</title>
 	</head>
 	<body>
 		<!-- 메뉴 -->

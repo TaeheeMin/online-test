@@ -27,7 +27,7 @@ public class EmployeeController {
 	@Autowired private TeacherService teacherService;
 	@Autowired private StudentService studentService;
 	
-	// 비밀번호 수정
+	// 사원 비밀번호 수정
 	@GetMapping("/employee/modifyEmpPw")
 	public String modifyEmpPw(HttpSession session) {
 		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
@@ -51,7 +51,7 @@ public class EmployeeController {
 		return "redirect:/employee/empList";
 	}
 	
-	// 로그인
+	// 사원 로그인
 	@GetMapping("/employee/loginEmp")
 	public String loginEmp(HttpSession session) {
 		// 로그인 필요 -> employee/loginEmp
@@ -75,14 +75,14 @@ public class EmployeeController {
 		return "redirect:/employee/empList";
 	}
 	
-	// 로그아웃
+	// 사원 로그아웃
 	@GetMapping("/employee/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/employee/loginEmp";
 	}
 	
-	// 삭제
+	// 사원 삭제
 	@GetMapping("/employee/removeEmp")
 	public String removeEmp(@RequestParam(value = "empNo") int  empNo, HttpSession session) {
 		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
