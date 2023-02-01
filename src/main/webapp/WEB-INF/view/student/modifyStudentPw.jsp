@@ -9,10 +9,10 @@
 	<body>
 		<!-- 메뉴 -->
 		<div>
-			<c:import url="/WEB-INF/view/inc/teacherMenu.jsp"></c:import>
+			<c:import url="/WEB-INF/view/inc/studentMenu.jsp"></c:import>
 		</div>
-		<h3>${loginTeacher.teacherName}님 비밀번호 수정</h3>
-		<form method="post" action="${pageContext.request.contextPath}/teacher/modifyTeacherPw">
+		<h3>${loginStudent.studentName}님 비밀번호 수정</h3>
+		<form method="post" action="${pageContext.request.contextPath}/student/modifyStudentPw">
 			<table border="1">
 				<tr>
 					<td>PASSWORD</td>

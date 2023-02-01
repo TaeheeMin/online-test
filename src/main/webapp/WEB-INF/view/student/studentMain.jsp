@@ -4,15 +4,15 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>강사</title>
+		<title>학생</title>
 	</head>
 	<body>
 		<!-- 메뉴 -->
 		<div>
-			<c:import url="/WEB-INF/view/inc/teacherMenu.jsp"></c:import>
+			<c:import url="/WEB-INF/view/inc/studentMenu.jsp"></c:import>
 		</div>
 		
-		<h3>강사 메인</h3>
+		<h3>학생 메인</h3>
 		
 	</body>
 </html>

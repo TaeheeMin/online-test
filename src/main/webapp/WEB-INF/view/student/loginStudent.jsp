@@ -4,24 +4,24 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>강사</title>
+		<title>학생login</title>
 	</head>
 	<body>
 		<!-- 메뉴 -->
 		<div>
-			<c:import url="/WEB-INF/view/inc/teacherMenu.jsp"></c:import>
+			<c:import url="/WEB-INF/view/inc/studentMenu.jsp"></c:import>
 		</div>
 		
-		<h3>강사 로그인</h3>
-		<form method="post" action="${pageContext.request.contextPath}/teacher/loginTeacher">
+		<h3>학생 로그인</h3>
+		<form method="post" action="${pageContext.request.contextPath}/student/loginStudent">
 			<table border="1">
 				<tr>
 					<td>ID</td>
-					<td><input type="text" name="teacherId"></td>
+					<td><input type="text" name="studentId"></td>
 				</tr>
 				<tr>
 					<td>PASSWORD</td>
-					<td><input type="password" name="teacherPw"></td>
+					<td><input type="password" name="studentPw"></td>
 				</tr>
 			</table>
 			<button type="submit">로그인</button>

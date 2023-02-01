@@ -7,9 +7,10 @@ import org.apache.ibatis.annotations.Mapper;
 
 import goodee.gdj58.online.vo.Student;
 
-
 @Mapper
 public interface StudentMapper {
+	int updateStudentPw(Map<String, Object> paramMap);
+	Student login(Student student);
 	int deleteStudent(int empNo);
 	int insertStudent(Student student);
 	List<Student> selectStudentList(Map<String, Object> paramMap);
