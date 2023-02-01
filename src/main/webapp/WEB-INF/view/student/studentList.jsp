@@ -20,7 +20,7 @@
 				<option value="20">20
 				<option value="30">30
 			</select>
-			<input name="word" placeholder="사원 이름 검색">
+			<input name="word" placeholder="학생 이름 검색">
 			<button type="submit">검색</button>
 		</form>
 		<table border="1">
