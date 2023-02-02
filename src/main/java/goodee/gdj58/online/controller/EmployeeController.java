@@ -108,8 +108,8 @@ public class EmployeeController {
 		log.debug("\u001B[31m" +  word + "  <=  word");
 		log.debug("\u001B[31m" + currentPage + "  <=  currentPage");
 		log.debug("\u001B[31m" + rowPerPage + "  <=  rowPerPage");
-		List<Employee> list = employeeService.getEmpList(currentPage, rowPerPage, word);
 		int count = employeeService.getEmpCount(word);
+		List<Employee> list = employeeService.getEmpList(currentPage, rowPerPage, word);
 		int page = 10; // 페이징 목록 개수
 		int beginPage = ((currentPage - 1)/page) * page + 1; // 시작 페이지
 		int endPage = beginPage + page - 1; // 페이징 목록 끝
