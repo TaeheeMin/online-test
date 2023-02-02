@@ -11,16 +11,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import goodee.gdj58.online.service.Idservice;
 import goodee.gdj58.online.service.TeacherService;
 import goodee.gdj58.online.vo.Employee;
-import goodee.gdj58.online.vo.Student;
 import goodee.gdj58.online.vo.Teacher;
 
 
 @Controller
 public class TeacherController {
+	@Autowired private Idservice idservice;
 	@Autowired private TeacherService teacherService;
 	
+	// 2) 강사 기능
 	// 강사 비밀번호 수정
 	@GetMapping("/teacher/modifyTeacherPw")
 	public String modifyTeacherPw(HttpSession session) {
@@ -81,5 +83,66 @@ public class TeacherController {
 			return "redirect:/teacher/loginTeacher";
 		}
 		return "teacher/teacherMain";
+	}
+	
+	// 1) 관리자 기능
+	// 강사 삭제
+	@GetMapping("/employee/removeTeacher")
+	public String removeTeacher(@RequestParam(value = "teacherNo") int  teacherNo, HttpSession session) {
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		if(loginEmp == null) {
+			return "redirect:/employee/loginEmp";
+		}
+		int row = teacherService.removeTeacher(teacherNo);
+		if(row == 1) {
+			System.out.println("강사 삭제성공");
+		}
+		return "redirect:/employee/teacherList"; // 리스트로 이동
+	}
+	
+	// 강사 추가
+	@GetMapping("/employee/addTeacher")
+	public String addTeacher(HttpSession session) {
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		if(loginEmp == null) {
+			return "redirect:/employee/loginEmp";
+		}
+		return"employee/addTeacher";
+	}
+	
+	@PostMapping("/employee/addTeacher")
+	public String addTeacher(Teacher teacher, HttpSession session, Model model) {
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		if(loginEmp == null) {
+			return "redirect:/employee/loginEmp";
+		}
+		
+		// id 중복확인
+		String idCheck = idservice.getIdCheck(teacher.getTeacherId());
+		if(idCheck != null) { // null이면 아이디 사용가능
+			System.out.println("아이디 중복");
+			model.addAttribute("msg", "아이디 중복");
+			return "redirect:/employee/addTeacher";
+		}
+		
+		int row = teacherService.addTeacher(teacher);
+		if(row == 0) {
+			model.addAttribute("msg", "강사등록 실패");
+		}
+		System.out.println("강사 등록성공");
+		return "redirect:/employee/teacherList"; 
+	}
+
+	// 강사 목록
+	@GetMapping("/employee/teacherList")
+	public String teacherList(Model model, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage, HttpSession session) {
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		if(loginEmp == null) {
+			return "redirect:/employee/loginEmp";
+		}
+		List<Teacher> list = teacherService.getTeacherList(currentPage, rowPerPage);
+		model.addAttribute("list",list);
+		model.addAttribute("currentPage",currentPage);
+		return "employee/teacherList";
 	}
 }

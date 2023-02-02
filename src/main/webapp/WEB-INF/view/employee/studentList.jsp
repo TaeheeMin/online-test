@@ -13,8 +13,8 @@
 		</div>
 		
 		<h3>Student List</h3>
-		<a href="${pageContext.request.contextPath}/student/addStudent">학생등록</a>
-		<form method="post" action="${pageContext.request.contextPath}/student/studentList">
+		<a href="${pageContext.request.contextPath}/employee/addStudent">학생등록</a>
+		<form method="post" action="${pageContext.request.contextPath}/employee/studentList">
 			<select name="rowPerPage">
 				<option value="10">10
 				<option value="20">20
@@ -34,7 +34,7 @@
 					<td>${s.studentId}</td>
 					<td>${s.studentName}</td>
 					<td>
-						<a href="${pageContext.request.contextPath}/student/removeStudent?studentNo=${s.studentNo}">삭제</a>
+						<a href="${pageContext.request.contextPath}/employee/removeStudent?studentNo=${s.studentNo}">삭제</a>
 					</td>
 				</tr>
 		 	</c:forEach>
@@ -44,13 +44,13 @@
 		<div>
 			<c:choose>
 				<c:when test="${currentPage == 1}">
-					<a href="${pageContext.request.contextPath}/student/studentList?currentPage=1">처음</a>
-					<a href="${pageContext.request.contextPath}/student/studentList?currentPage=${currentPage+1}">다음</a>
+					<a href="${pageContext.request.contextPath}/employee/studentList?currentPage=1">처음</a>
+					<a href="${pageContext.request.contextPath}/employeet/studentList?currentPage=${currentPage+1}">다음</a>
 				</c:when>
 				<c:otherwise>
-					<a href="${pageContext.request.contextPath}/student/studentList?currentPage=${currentPage-1}">이전</a>
-					<a href="${pageContext.request.contextPath}/student/studentList?currentPage=1">처음</a>
-					<a href="${pageContext.request.contextPath}/student/studentList?currentPage=${currentPage+1}">다음</a>
+					<a href="${pageContext.request.contextPath}/employee/studentList?currentPage=${currentPage-1}">이전</a>
+					<a href="${pageContext.request.contextPath}/employee/studentList?currentPage=1">처음</a>
+					<a href="${pageContext.request.contextPath}/employee/studentList?currentPage=${currentPage+1}">다음</a>
 				</c:otherwise>
 			</c:choose>
 		</div>
