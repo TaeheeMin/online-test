@@ -44,11 +44,12 @@ public class TeacherService {
 	}
 	
 	// 강사목록
-	public List<Teacher> getTeacherList(int currentPage, int rowPerPage) {
+	public List<Teacher> getTeacherList(int currentPage, int rowPerPage, String word) {
 		int beginRow = (currentPage - 1) * rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("word", word);
 		return teacherMapper.selectTeacherList(paramMap);
 	}
 }

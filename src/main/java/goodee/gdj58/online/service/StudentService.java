@@ -42,11 +42,12 @@ public class StudentService {
 	}
 	
 	// 학생목록
-	public List<Student> getStudentList(int currentPage, int rowPerPage) {
+	public List<Student> getStudentList(int currentPage, int rowPerPage, String word) {
 		int beginRow = (currentPage - 1) * rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("word", word);
 		return studentMapper.selectStudentList(paramMap);
 	}
 }

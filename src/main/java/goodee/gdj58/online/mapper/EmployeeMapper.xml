@@ -45,6 +45,11 @@
 			, emp_id empId
 			, emp_name empName
 		FROM employee
+		<where>
+		    <if test="word != null || word != ''">
+		       emp_name LIKE CONCAT('%', #{word}, '%')
+		    </if>
+	  	</where>
 		ORDER BY emp_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>

@@ -92,20 +92,27 @@ public class EmployeeController {
 		if(row == 0) {
 			model.addAttribute("errorMsg", "사원등록 실패");
 		}
-		log.debug("\u001B[31m"+"사원 등록성공");
+		log.debug("\u001B[31m" + "사원 등록성공");
 		return "redirect:/employee/empList"; // CM -> C
 		// sendRedirect와 동일 -> redirect:
 	}
 	
 	// 사원 목록
 	@GetMapping("/employee/empList")
-	public String empList(Model model, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage) {
+	public String empList(Model model
+							, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage
+							, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage
+							, @RequestParam(value = "word", defaultValue = "") String word) {
 		// request.getParameter와 동일 int currentPage = request.getParameter("currentPage"); 형변환 따로 할 필요 없이 알아서 해줌
 		// defaultValue = "1" null 이면 1을 넣어줌
-		// System.out.println("currentPage : " + currentPage);
-		List<Employee> list = employeeService.getEmpList(currentPage, rowPerPage);
+		log.debug("\u001B[31m" +  word + "  <=  word");
+		log.debug("\u001B[31m" + currentPage + "  <=  currentPage");
+		log.debug("\u001B[31m" + rowPerPage + "  <=  rowPerPage");
+		List<Employee> list = employeeService.getEmpList(currentPage, rowPerPage, word);
 		model.addAttribute("list",list); // request.setAttribute랑 동일한
 		model.addAttribute("currentPage",currentPage);
+		model.addAttribute("rowPerPage",rowPerPage);
+		model.addAttribute("word",word);
 		return "employee/empList";
 	}
 }

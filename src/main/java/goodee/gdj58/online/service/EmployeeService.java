@@ -47,11 +47,12 @@ public class EmployeeService {
 	}
 	
 	// 사원목록
-	public List<Employee> getEmpList(int currentPage, int rowPerPage) {
+	public List<Employee> getEmpList(int currentPage, int rowPerPage, String word) {
 		int beginRow = (currentPage - 1) * rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("word", word);
 		return employeeMapper.selectEmployeeList(paramMap);
 	}
 }

@@ -45,6 +45,11 @@
 			, teacher_id teacherId
 			, teacher_name teacherName
 		FROM teacher
+		<where>
+		    <if test="word != null || word != ''">
+		       teacher_name LIKE CONCAT('%', #{word}, '%')
+		    </if>
+	  	</where>
 		ORDER BY teacher_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>

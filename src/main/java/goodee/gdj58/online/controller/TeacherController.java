@@ -104,10 +104,17 @@ public class TeacherController {
 
 	// 강사 목록
 	@GetMapping("/employee/teacherList")
-	public String teacherList(Model model, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage, HttpSession session) {
-		List<Teacher> list = teacherService.getTeacherList(currentPage, rowPerPage);
+	public String teacherList(Model model
+							, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage
+							, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage
+							, @RequestParam(value = "word", defaultValue = "") String word) {
+		log.debug("\u001B[31m" +  word + "  <=  word");
+		log.debug("\u001B[31m" + currentPage + "  <=  currentPage");
+		log.debug("\u001B[31m" + rowPerPage + "  <=  rowPerPage");
+		List<Teacher> list = teacherService.getTeacherList(currentPage, rowPerPage, word);
 		model.addAttribute("list",list);
 		model.addAttribute("currentPage",currentPage);
+		model.addAttribute("word",word);
 		return "employee/teacherList";
 	}
 }

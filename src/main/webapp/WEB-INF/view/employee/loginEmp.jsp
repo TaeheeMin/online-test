@@ -13,7 +13,7 @@
 		</div>
 		<!-- 로그인 전 -->
 		<c:if test="${loginEmp == null}">
-			<h3>로그인</h3>
+			<h3>관리자 로그인</h3>
 			<form method="post" action="${pageContext.request.contextPath}/loginEmp">
 				<table border="1">
 					<tr>

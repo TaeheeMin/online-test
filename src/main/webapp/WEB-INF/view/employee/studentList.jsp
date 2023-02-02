@@ -14,13 +14,13 @@
 		
 		<h3>Student List</h3>
 		<a href="${pageContext.request.contextPath}/employee/addStudent">학생등록</a>
-		<form method="post" action="${pageContext.request.contextPath}/employee/studentList">
+		<form method="get" action="${pageContext.request.contextPath}/employee/studentList">
 			<select name="rowPerPage">
 				<option value="10">10
 				<option value="20">20
 				<option value="30">30
 			</select>
-			<input name="word" placeholder="학생 이름 검색">
+			<input name="word" placeholder="학생 이름 검색"  value="${word}">
 			<button type="submit">검색</button>
 		</form>
 		<table border="1">
@@ -44,13 +44,13 @@
 		<div>
 			<c:choose>
 				<c:when test="${currentPage == 1}">
-					<a href="${pageContext.request.contextPath}/employee/studentList?currentPage=1">처음</a>
-					<a href="${pageContext.request.contextPath}/employeet/studentList?currentPage=${currentPage+1}">다음</a>
+					<a href="${pageContext.request.contextPath}/employee/studentList?currentPage=1&word=${word}">처음</a>
+					<a href="${pageContext.request.contextPath}/employeet/studentList?currentPage=${currentPage+1}&word=${word}">다음</a>
 				</c:when>
 				<c:otherwise>
-					<a href="${pageContext.request.contextPath}/employee/studentList?currentPage=${currentPage-1}">이전</a>
-					<a href="${pageContext.request.contextPath}/employee/studentList?currentPage=1">처음</a>
-					<a href="${pageContext.request.contextPath}/employee/studentList?currentPage=${currentPage+1}">다음</a>
+					<a href="${pageContext.request.contextPath}/employee/studentList?currentPage=${currentPage-1}&word=${word}">이전</a>
+					<a href="${pageContext.request.contextPath}/employee/studentList?currentPage=1&word=${word}">처음</a>
+					<a href="${pageContext.request.contextPath}/employee/studentList?currentPage=${currentPage+1}&word=${word}">다음</a>
 				</c:otherwise>
 			</c:choose>
 		</div>
