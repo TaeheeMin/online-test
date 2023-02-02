@@ -53,4 +53,15 @@
 		ORDER BY teacher_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
+	
+	<!-- teacherList Count -->
+	<select id="teacherListCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM teacher
+		<where>
+		    <if test="word != null || word != ''">
+		       teacher_name LIKE CONCAT('%', #{word}, '%')
+		    </if>
+	  	</where>	
+	</select>
 </mapper>

@@ -50,4 +50,8 @@ public class StudentService {
 		paramMap.put("word", word);
 		return studentMapper.selectStudentList(paramMap);
 	}
+	// 학생 목록 개수
+	public int getStudentCount(String word) {
+		return studentMapper.studentListCount(word);
+	}
 }

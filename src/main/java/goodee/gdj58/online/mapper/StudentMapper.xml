@@ -53,4 +53,15 @@
 		ORDER BY student_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
+	
+	<!-- studentList Count -->
+	<select id="studentListCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM student
+		<where>
+		    <if test="word != null || word != ''">
+		       student_name LIKE CONCAT('%', #{word}, '%')
+		    </if>
+	  	</where>	
+	</select>
 </mapper>

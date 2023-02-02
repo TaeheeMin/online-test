@@ -53,4 +53,15 @@
 		ORDER BY emp_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
+	
+	<!-- empList Count -->
+	<select id="empListCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM employee
+		<where>
+		    <if test="word != null || word != ''">
+		       emp_name LIKE CONCAT('%', #{word}, '%')
+		    </if>
+	  	</where>	
+	</select>
 </mapper>

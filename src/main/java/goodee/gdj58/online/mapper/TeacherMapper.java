@@ -14,4 +14,5 @@ public interface TeacherMapper {
 	int deleteTeacher(int teacherNo);
 	int inserTeacher(Teacher teacher);
 	List<Teacher> selectTeacherList(Map<String, Object> paramMap);
+	int teacherListCount(String word);
 }

@@ -55,4 +55,9 @@ public class EmployeeService {
 		paramMap.put("word", word);
 		return employeeMapper.selectEmployeeList(paramMap);
 	}
+	
+	// 사원 목록 개수
+	public int getEmpCount(String word) {
+		return employeeMapper.empListCount(word);
+	}
 }

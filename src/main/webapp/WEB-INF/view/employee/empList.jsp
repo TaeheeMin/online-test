@@ -42,17 +42,15 @@
 		
 		<!-- 페이징 -->
 		<div>
-			<c:choose>
-				<c:when test="${currentPage == 1}">
-					<a href="${pageContext.request.contextPath}/employee/empList?currentPage=1&word=${word}">처음</a>
-					<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage+1}&word=${word}">다음</a>
-				</c:when>
-				<c:otherwise>
-					<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage-1}&word=${word}">이전</a>
-					<a href="${pageContext.request.contextPath}/employee/empList?currentPage=1&word=${word}">처음</a>
-					<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage+1}&word=${word}">다음</a>
-				</c:otherwise>
-			</c:choose>
+			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=1&word=${word}">HOME</a>
+			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage-1}&searchWord=${searchWord}">&#128072;</a>
+			<c:forEach var="i" begin="${beginPage}" end="${endPage}" step="1">
+				<span>
+					<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${i}&word=${word}">${i}</a>
+				</span>
+			</c:forEach>
+			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage+1}&searchWord=${searchWord}">&#128073;</a>
+			<a href="${pageContext.request.contextPath}/employee/empList?rowPerPage=${rowPerPage}&currentPage=${lastPage}">END</a>
 		</div>
 	</body>
 </html>

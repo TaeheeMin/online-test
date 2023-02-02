@@ -52,4 +52,9 @@ public class TeacherService {
 		paramMap.put("word", word);
 		return teacherMapper.selectTeacherList(paramMap);
 	}
+	
+	// 사원 목록 개수
+	public int getTeacherCount(String word) {
+		return teacherMapper.teacherListCount(word);
+	}
 }

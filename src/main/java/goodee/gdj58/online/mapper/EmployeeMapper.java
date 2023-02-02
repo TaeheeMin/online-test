@@ -15,4 +15,5 @@ public interface EmployeeMapper {
 	int deleteEmployee(int empNo);
 	int insertEmployee(Employee employee);
 	List<Employee> selectEmployeeList(Map<String, Object> paramMap);
+	int empListCount(String word);
 }

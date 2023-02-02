@@ -109,10 +109,24 @@ public class EmployeeController {
 		log.debug("\u001B[31m" + currentPage + "  <=  currentPage");
 		log.debug("\u001B[31m" + rowPerPage + "  <=  rowPerPage");
 		List<Employee> list = employeeService.getEmpList(currentPage, rowPerPage, word);
-		model.addAttribute("list",list); // request.setAttribute랑 동일한
-		model.addAttribute("currentPage",currentPage);
-		model.addAttribute("rowPerPage",rowPerPage);
-		model.addAttribute("word",word);
+		int count = employeeService.getEmpCount(word);
+		int page = 10; // 페이징 목록 개수
+		int beginPage = ((currentPage - 1)/page) * page + 1; // 시작 페이지
+		int endPage = beginPage + page - 1; // 페이징 목록 끝
+		int lastPage = (int)Math.ceil((double)count / (double)rowPerPage); // 마지막 페이지
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
+		model.addAttribute("list", list); // request.setAttribute랑 동일한
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("rowPerPage", rowPerPage);
+		model.addAttribute("word", word);
+		model.addAttribute("beginPage", beginPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("lastPage", lastPage);
+		log.debug("\u001B[31m" + beginPage + "  <=  beginPage");
+		log.debug("\u001B[31m" + endPage + "  <=  endPage");
+		log.debug("\u001B[31m" + lastPage + "  <=  lastPage");
 		return "employee/empList";
 	}
 }
