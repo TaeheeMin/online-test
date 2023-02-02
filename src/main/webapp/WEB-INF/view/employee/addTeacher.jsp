@@ -13,6 +13,7 @@
 		</div>
 		
 		<h3>강사추가</h3>
+		<div>${errorMsg}</div>
 		<form method="post" action="${pageContext.request.contextPath}/employee/addTeacher">
 			<table border="1">
 				<tr>

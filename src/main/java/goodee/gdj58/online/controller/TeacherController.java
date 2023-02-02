@@ -15,8 +15,9 @@ import goodee.gdj58.online.service.Idservice;
 import goodee.gdj58.online.service.TeacherService;
 import goodee.gdj58.online.vo.Employee;
 import goodee.gdj58.online.vo.Teacher;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 @Controller
 public class TeacherController {
 	@Autowired private Idservice idservice;
@@ -25,45 +26,30 @@ public class TeacherController {
 	// 2) 강사 기능
 	// 강사 비밀번호 수정
 	@GetMapping("/teacher/modifyTeacherPw")
-	public String modifyTeacherPw(HttpSession session) {
-		Teacher loginTeacher = (Teacher)session.getAttribute("loginTeacher");
-		if(loginTeacher == null) {
-			return "redirect:/teacher/loginTeacher";
-		}
+	public String modifyTeacherPw() {
 		return "teacher/modifyTeacherPw";
 	}
 	
 	@PostMapping("/teacher/modifyTeacherPw")
 	public String modifyTeacherPw(HttpSession session, @RequestParam(value = "oldPw") String oldPw, @RequestParam(value = "newPw") String newPw) {
 		Teacher loginTeacher = (Teacher)session.getAttribute("loginTeacher");
-		if(loginTeacher == null) {
-			return "redirect:/teacher/loginTeacher";
-		}
 		int row = teacherService.modifyTeacherPw(oldPw, newPw, loginTeacher.getTeacherNo());
 		if(row == 1) {
-			System.out.println("강사 비밀번호 수정성공");
+			log.debug("\u001B[31m"+"강사 비밀번호 수정 성공");
 		}
 		return "redirect:/teacher/teacherMain";
 	}
 	
 	// 강사 로그인
-	@GetMapping("/teacher/loginTeacher")
-	public String loginTeacher(HttpSession session) {
-		Teacher loginTeacher = (Teacher)session.getAttribute("loginTeacher");
-		if(loginTeacher != null) {
-			System.out.println("강사 로그인중");
-			return "redirect:/teacher/teacherMain";
-		}
+	@GetMapping("/loginTeacher")
+	public String loginTeacher() {
+		log.debug("\u001B[31m"+"loginTeacher 폼");
 		return "teacher/loginTeacher";
 	}
-	@PostMapping("/teacher/loginTeacher")
+	@PostMapping("/loginTeacher")
 	public String loginTeacher(HttpSession session, Teacher teacher) {
 		Teacher resultTeacher =  teacherService.login(teacher);
-		if(resultTeacher == null) {
-			System.out.println("강사 로그인 실패");
-			return "redirect:/teacher/loginTeacher";
-		}
-		System.out.println("강사 로그인 성공");
+		log.debug("\u001B[31m"+"강사 로그인 성공");
 		session.setAttribute("loginTeacher", resultTeacher);
 		return "redirect:/teacher/teacherMain";
 	}
@@ -77,25 +63,17 @@ public class TeacherController {
 	
 	// 강사 메인
 	@GetMapping("/teacher/teacherMain")
-	public String teacherMain(HttpSession session) {
-		Teacher loginTeacher = (Teacher)session.getAttribute("loginTeacher");
-		if(loginTeacher == null) {
-			return "redirect:/teacher/loginTeacher";
-		}
+	public String teacherMain() {
 		return "teacher/teacherMain";
 	}
 	
 	// 1) 관리자 기능
 	// 강사 삭제
 	@GetMapping("/employee/removeTeacher")
-	public String removeTeacher(@RequestParam(value = "teacherNo") int  teacherNo, HttpSession session) {
-		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
-		if(loginEmp == null) {
-			return "redirect:/employee/loginEmp";
-		}
+	public String removeTeacher(@RequestParam(value = "teacherNo") int  teacherNo) {
 		int row = teacherService.removeTeacher(teacherNo);
 		if(row == 1) {
-			System.out.println("강사 삭제성공");
+			log.debug("\u001B[31m"+"강사 삭제 성공");
 		}
 		return "redirect:/employee/teacherList"; // 리스트로 이동
 	}
@@ -103,20 +81,11 @@ public class TeacherController {
 	// 강사 추가
 	@GetMapping("/employee/addTeacher")
 	public String addTeacher(HttpSession session) {
-		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
-		if(loginEmp == null) {
-			return "redirect:/employee/loginEmp";
-		}
 		return"employee/addTeacher";
 	}
 	
 	@PostMapping("/employee/addTeacher")
 	public String addTeacher(Teacher teacher, HttpSession session, Model model) {
-		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
-		if(loginEmp == null) {
-			return "redirect:/employee/loginEmp";
-		}
-		
 		// id 중복확인
 		String idCheck = idservice.getIdCheck(teacher.getTeacherId());
 		if(idCheck != null) { // null이면 아이디 사용가능
@@ -136,10 +105,6 @@ public class TeacherController {
 	// 강사 목록
 	@GetMapping("/employee/teacherList")
 	public String teacherList(Model model, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage, HttpSession session) {
-		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
-		if(loginEmp == null) {
-			return "redirect:/employee/loginEmp";
-		}
 		List<Teacher> list = teacherService.getTeacherList(currentPage, rowPerPage);
 		model.addAttribute("list",list);
 		model.addAttribute("currentPage",currentPage);

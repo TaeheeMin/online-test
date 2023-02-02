@@ -14,18 +14,17 @@ import javax.servlet.http.HttpSession;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j // static Log log = new Log();
-@WebFilter("/employee/*")
-public class EmpLoginFilter implements Filter {
+@Slf4j
+@WebFilter("/teacher/*")
+public class TeacherLoginFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		log.debug("\u001B[31m"+"EmpLoginFilter"); 
-		
+		log.debug("\u001B[31m"+"TeacherLoginFilter"); 
 		if(request instanceof HttpServletRequest) { // instanceof 형변환 확인용
 			HttpServletRequest req = (HttpServletRequest)request;
 			HttpSession session = ((HttpServletRequest) request).getSession();
-			if(session.getAttribute("loginEmp") == null) {
-				((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/loginEmp");
+			if(session.getAttribute("loginTeacher") == null) {
+				((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/loginTeacher");
 				// web component라서 contextPath 필요
 				return;
 			}
@@ -33,10 +32,6 @@ public class EmpLoginFilter implements Filter {
 			log.debug("웹브라우저 요청만 허용합니다."); 
 			return;
 		}
-		
-		// controller 전
-		chain.doFilter(request, response); // 3) chain.doFilter() 실행 -> "/employee/*" 맵핑 실행
-		// controller 후
+		chain.doFilter(request, response);
 	}
-	
 }
