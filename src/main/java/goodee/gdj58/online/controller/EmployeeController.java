@@ -11,14 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import goodee.gdj58.online.mapper.IdMapper;
 import goodee.gdj58.online.service.EmployeeService;
 import goodee.gdj58.online.service.Idservice;
-import goodee.gdj58.online.service.StudentService;
-import goodee.gdj58.online.service.TeacherService;
 import goodee.gdj58.online.vo.Employee;
-import goodee.gdj58.online.vo.Student;
-import goodee.gdj58.online.vo.Teacher;
 
 @Controller
 public class EmployeeController {

@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import goodee.gdj58.online.mapper.StudentMapper;
 import goodee.gdj58.online.vo.Student;
-import goodee.gdj58.online.vo.Teacher;
 
 @Service
 @Transactional
