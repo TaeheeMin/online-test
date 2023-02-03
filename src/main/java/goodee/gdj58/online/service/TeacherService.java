@@ -10,11 +10,26 @@ import org.springframework.transaction.annotation.Transactional;
 
 import goodee.gdj58.online.mapper.TeacherMapper;
 import goodee.gdj58.online.vo.Teacher;
+import goodee.gdj58.online.vo.Test;
 
 @Service
 @Transactional
 public class TeacherService {
 	@Autowired private TeacherMapper teacherMapper;
+	
+	// 강사 시험 목록
+	public List<Test> getTestList(int currentPage, int rowPerPage) {
+		int beginRow = (currentPage - 1) * rowPerPage;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		return teacherMapper.selectTestList(paramMap);
+	}
+	
+	// 시험 개수
+	public int getTestCount() {
+		return teacherMapper.testListCount();
+	}
 	
 	// 강사 비밀번호수정
 	public int modifyTeacherPw(String oldPw, String newPw, int teacherNo) {

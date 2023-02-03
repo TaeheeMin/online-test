@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import goodee.gdj58.online.service.Idservice;
 import goodee.gdj58.online.service.TeacherService;
 import goodee.gdj58.online.vo.Teacher;
+import goodee.gdj58.online.vo.Test;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -21,7 +22,37 @@ import lombok.extern.slf4j.Slf4j;
 public class TeacherController {
 	@Autowired private Idservice idservice;
 	@Autowired private TeacherService teacherService;
+	// 3) 시험 관련 기능
+	// 시험 등록
 	
+	// 시험 목록
+	@GetMapping("/teacher/testList")
+	public String testList(Model model
+			, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage
+			, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage) {
+		log.debug("\u001B[31m" + currentPage + "  <=  currentPage");
+		log.debug("\u001B[31m" + rowPerPage + "  <=  rowPerPage");
+		List<Test> list = teacherService.getTestList(currentPage, rowPerPage);
+		int count = teacherService.getTestCount();
+		int page = 10; // 페이징 목록 개수
+		int beginPage = ((currentPage - 1)/page) * page + 1; // 시작 페이지
+		int endPage = beginPage + page - 1; // 페이징 목록 끝
+		int lastPage = (int)Math.ceil((double)count / (double)rowPerPage); // 마지막 페이지
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
+		model.addAttribute("list",list);
+		model.addAttribute("currentPage",currentPage);
+		model.addAttribute("rowPerPage", rowPerPage);
+		model.addAttribute("beginPage", beginPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("lastPage", lastPage);
+		log.debug("\u001B[31m" + beginPage + "  <=  beginPage");
+		log.debug("\u001B[31m" + endPage + "  <=  endPage");
+		log.debug("\u001B[31m" + lastPage + "  <=  lastPage");
+		return "teacher/testList";
+	}
+
 	// 2) 강사 기능
 	// 강사 비밀번호 수정
 	@GetMapping("/teacher/modifyTeacherPw")
@@ -121,7 +152,6 @@ public class TeacherController {
 		}
 		model.addAttribute("list",list);
 		model.addAttribute("currentPage",currentPage);
-		model.addAttribute("word",word);
 		model.addAttribute("rowPerPage", rowPerPage);
 		model.addAttribute("word", word);
 		model.addAttribute("beginPage", beginPage);

@@ -43,13 +43,13 @@
 		<!-- 페이징 -->
 		<div>
 			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=1&word=${word}">HOME</a>
-			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage-1}&searchWord=${searchWord}">&#128072;</a>
+			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage-1}&word=${word}">&#128072;</a>
 			<c:forEach var="i" begin="${beginPage}" end="${endPage}" step="1">
 				<span>
 					<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${i}&word=${word}">${i}</a>
 				</span>
 			</c:forEach>
-			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage+1}&searchWord=${searchWord}">&#128073;</a>
+			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage+1}&word=${word}">&#128073;</a>
 			<a href="${pageContext.request.contextPath}/employee/empList?rowPerPage=${rowPerPage}&currentPage=${lastPage}">END</a>
 		</div>
 	</body>
