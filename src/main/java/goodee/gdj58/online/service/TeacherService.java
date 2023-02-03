@@ -16,6 +16,10 @@ import goodee.gdj58.online.vo.Test;
 @Transactional
 public class TeacherService {
 	@Autowired private TeacherMapper teacherMapper;
+	// 시험 등록
+	public int addTest(Test test) {
+		return teacherMapper.insertTest(test);
+	}
 	
 	// 강사 시험 목록
 	public List<Test> getTestList(int currentPage, int rowPerPage) {

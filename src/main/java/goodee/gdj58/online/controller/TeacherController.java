@@ -24,6 +24,13 @@ public class TeacherController {
 	@Autowired private TeacherService teacherService;
 	// 3) 시험 관련 기능
 	// 시험 등록
+	@GetMapping("/teacher/addTest")
+	public String addTest() {
+		return "teacher/addTest";
+	}
+	
+	@PostMapping("/teacher/addTest")
+	
 	
 	// 시험 목록
 	@GetMapping("/teacher/testList")
