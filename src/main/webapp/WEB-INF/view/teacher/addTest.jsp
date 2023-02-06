@@ -27,7 +27,7 @@
 					<td><input type="date" name="testDate"></td>
 				</tr>
 			</table>
-			<button type="submit">등록</button>
+			<button type="submit">다음</button>
 		</form>
 	</body>
 </html>

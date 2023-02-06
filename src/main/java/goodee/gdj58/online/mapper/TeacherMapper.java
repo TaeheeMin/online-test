@@ -10,6 +10,9 @@ import goodee.gdj58.online.vo.Test;
 
 @Mapper
 public interface TeacherMapper {
+	int insertQuestion(Map<String, Object> paramMap);
+	List<Map<String, Object>> selectTestOne(int testNo);
+	int deleteTest(int testNo);
 	int insertTest(Test test);
 	List<Test> selectTestList(Map<String, Object> paramMap);
 	int testListCount();

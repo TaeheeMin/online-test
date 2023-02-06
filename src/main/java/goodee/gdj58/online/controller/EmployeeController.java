@@ -63,7 +63,7 @@ public class EmployeeController {
 	
 	// 사원 삭제
 	@GetMapping("/employee/removeEmp")
-	public String removeEmp(@RequestParam(value = "empNo") int  empNo) {
+	public String removeEmp(@RequestParam(value = "empNo") int empNo) {
 		int row = employeeService.removeEmployee(empNo);
 		if(row == 1) {
 			log.debug("\u001B[31m"+"사원 삭제성공");

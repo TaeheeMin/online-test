@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.online.mapper.TeacherMapper">
+	<!-- 시험 문제 보기 확인 -->
+	<select id="selectTestOne" resultType="java.util.Map" parameterType="int">
+		SELECT
+		t.test_title testTitle
+		, q.question_no questionNo
+		, q.test_no testNo
+		, q.question_no questionNo
+		, q.question_idx questionIdx
+		, q.question_title questionTitle
+		, e.example_idx exampleIdx
+		, e.example_content exampleTitle
+		FROM question q
+		INNER JOIN example e ON q.question_no = e.question_no
+		INNER JOIN test t ON t.test_no = q.test_no
+		WHERE q.test_no = #{testNo}
+	</select>
+
+	<!-- 문제 등록 -->
+	<insert id="insertQuestion" parameterType="java.util.Map">
+		INSERT INTO question(test_no, question_idx, question_title)
+		VALUES(
+			(SELECT test_no testNo FROM test ORDER BY test_no DESC LIMIT 0,1)
+			, #{questionIdx}
+			, #{questionTitle})
+	</insert>
+	
+	<!-- 시험 문제보기 -->
+	<select id="selectTestOne3" resultType="java.util.Map" parameterType="int">
+		SELECT
+		t.test_title testTitle
+		, t.test_no testNo
+		, q.question_no questionNo
+		, q.question_idx questionIdx
+		, q.question_title questionTitle
+		FROM test t INNER JOIN question q
+		ON t.test_no = q.test_no
+		WHERE t.test_no = #{testNo}
+	</select>
+	
+	<!-- 시험 삭제 -->
+	<delete id="deleteTest" parameterType="int">
+		DELETE 
+		FROM test 
+		WHERE test_no = #{testNo}
+	</delete>
+	
 	<!-- 시험 추가 -->
 	<insert id="insertTest" parameterType="goodee.gdj58.online.vo.Test">
 		INSERT INTO test(test_title, test_date) VALUES (#{testTitle}, NOW())

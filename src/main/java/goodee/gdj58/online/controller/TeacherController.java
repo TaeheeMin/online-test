@@ -1,6 +1,8 @@
 package goodee.gdj58.online.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,14 +25,62 @@ public class TeacherController {
 	@Autowired private Idservice idservice;
 	@Autowired private TeacherService teacherService;
 	// 3) 시험 관련 기능
+	// 문제 등록
+	@GetMapping("/teacher/addQuestion")
+	public String addQuestion(Model model
+							, @RequestParam(value = "questionCount", defaultValue = "1") int questionCount) {
+		model.addAttribute("questionCount", questionCount);
+		return "teacher/addQuestion";
+	}
+	@PostMapping("/teacher/addQuestion")
+	public String addQuestion(@RequestParam(value = "questionIdx") int questionIdx
+								,@RequestParam(value = "questionTitle") String questionTitle) {
+		log.debug("\u001B[31m" + questionTitle +"	<= questionTitle");
+		log.debug("\u001B[31m" + questionIdx +"	<= questionIdx");
+		int row = teacherService.addQuestion(questionIdx, questionTitle);
+		log.debug("\u001B[31m" + "강사 등록성공");
+		return "redirect:/teacher/addQuestion"; 
+	}
+	
+	// 시험 상세보기
+	@GetMapping("/teacher/testOne")
+	public String getTestOne(@RequestParam(value = "testNo") int testNo, Model model) {
+		log.debug("\u001B[31m" + testNo +"	<= testNo");
+		List<Map<String, Object>> list = teacherService.getTestOne(testNo);
+		log.debug("list확인 : " + list.size());
+		model.addAttribute("list",list);
+		//model.addAttribute("testNo",testNo);
+		return "teacher/testOne";
+	}
+	
+	// 시험 삭제
+	@GetMapping("/teacher/removeTest")
+	public String removeTest(@RequestParam(value = "testNo") int testNo) {
+		int row = teacherService.removeTest(testNo);
+		if(row == 1) {
+			log.debug("\u001B[31m"+"시험 삭제 성공");
+		}
+		log.debug("\u001B[31m" + testNo + "	<= testNo");
+		return "redirect:/teacher/testList";
+	}
+	
 	// 시험 등록
 	@GetMapping("/teacher/addTest")
 	public String addTest() {
 		return "teacher/addTest";
 	}
-	
 	@PostMapping("/teacher/addTest")
-	
+	public String addTest(@RequestParam(value = "testTitle") String testTitle
+							, @RequestParam(value = "testDate") String testDate) {
+		Test test = new Test();
+		test.setTestTitle(testTitle);
+		test.setTestDate(testDate);
+		int row  = teacherService.addTest(test);
+		if(row == 1) {
+			log.debug("\u001B[31m"+"시험 등록완료");
+		}
+		return "redirect:/teacher/addQuestion";
+	}
 	
 	// 시험 목록
 	@GetMapping("/teacher/testList")
@@ -126,7 +176,7 @@ public class TeacherController {
 		// id 중복확인
 		String idCheck = idservice.getIdCheck(teacher.getTeacherId());
 		if(idCheck != null) { // null이면 아이디 사용가능
-			System.out.println("아이디 중복");
+			log.debug("\u001B[31m" + "아이디 중복");
 			model.addAttribute("msg", "아이디 중복");
 			return "redirect:/employee/addTeacher";
 		}
@@ -135,7 +185,7 @@ public class TeacherController {
 		if(row == 0) {
 			model.addAttribute("msg", "강사등록 실패");
 		}
-		System.out.println("강사 등록성공");
+		log.debug("\u001B[31m" + "강사 등록성공");
 		return "redirect:/employee/teacherList"; 
 	}
 

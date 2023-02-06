@@ -26,13 +26,16 @@
 			<tr>
 				<td>시험</td>
 				<td>날짜</td>
+				<td>삭제</td>
 			</tr>
 			<c:forEach var="t" items="${list}">
 				<tr>
-					<td>${t.testTitle}</td>
+					<td>
+						<a href="${pageContext.request.contextPath}/teacher/testOne?testNo=${t.testNo}">${t.testTitle}</a>
+					</td>
 					<td>${t.testDate}</td>
 					<td>
-						<a href="${pageContext.request.contextPath}/test/removeTest?testNo=${t.testNo}">삭제</a>
+						<a href="${pageContext.request.contextPath}/teacher/removeTest?testNo=${t.testNo}">삭제</a>
 					</td>
 				</tr>
 		 	</c:forEach>

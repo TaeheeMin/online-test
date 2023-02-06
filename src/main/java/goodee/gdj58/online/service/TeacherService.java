@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import goodee.gdj58.online.mapper.TeacherMapper;
+import goodee.gdj58.online.vo.Question;
 import goodee.gdj58.online.vo.Teacher;
 import goodee.gdj58.online.vo.Test;
 
@@ -16,6 +17,24 @@ import goodee.gdj58.online.vo.Test;
 @Transactional
 public class TeacherService {
 	@Autowired private TeacherMapper teacherMapper;
+	// 문제 등록
+	public int addQuestion(int questionIdx, String questionTitle) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("questionIdx", questionIdx);
+		paramMap.put("questionTitle", questionTitle);
+		return teacherMapper.insertQuestion(paramMap);
+	}
+	
+	// 시험 상세보기
+	public List<Map<String, Object>> getTestOne(int testNo) {
+		return teacherMapper.selectTestOne(testNo);
+	}
+	
+	// 시험 삭제
+	public int removeTest(int testNo) {
+		return teacherMapper.deleteTest(testNo);
+	}
+	
 	// 시험 등록
 	public int addTest(Test test) {
 		return teacherMapper.insertTest(test);

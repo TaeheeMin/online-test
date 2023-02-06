@@ -6,7 +6,7 @@ import lombok.Data;
 public class Question {
 	private int quesitonNo;
 	private int testNo;
-	private int quesitonIdk;
+	private int quesitonIdx;
 	private String quesitonTitle;
 	
 }
