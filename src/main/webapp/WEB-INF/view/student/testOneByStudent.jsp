@@ -7,16 +7,20 @@
 		<title>${test.testTitle}</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/modalStyle.css">
-		<c:forEach var="i" begin="1" end="${questionCount}" step="1">
-			<script>
-				$(document).ready(function() {
-					$('#questionBtn${i}').click(function() {
-						let example${i} = document.querySelectorAll('.example${i}');
-						console.log(example${i})
-						$('#questionForm${i}').submit();
+		<c:forEach var="t" items="${list}">
+			<c:if test="${t.exampleIdx == 1}">
+				<script>
+					$(document).ready(function(){
+						$('#testBtn').click(function() {
+							if($('input:radio[id=exampleAnswer${t.questionIdx}]').is(':checked')) { // 답 선택->체크 true
+								let answer = $('input:radio[id=exampleAnswer${t.questionIdx}]:checked').val(); // 체크된 보기번호 저장
+								$('#answer${t.questionIdx}').val(answer); // 히든값에 넣어줌
+							}
+							$('#testForm').submit();
+						});
 					});
-				});
-			</script>
+				</script>
+			</c:if>
 		</c:forEach>
 	</head>
 	<body>
@@ -26,59 +30,34 @@
 		</div>
 		
 		<h3>${test.testTitle} 상세보기</h3>
-		<div>
-			<c:forEach var="i" begin="1" end="${questionCount}" step="1" >
-				<c:forEach var="t" items="${list}">
-					<c:if test="${t.questionIdx == i}">
-					    <button type="button" class="collapsible" onclick="collapse(this);">${t.questionIdx}. ${t.questionTitle}</button>
-					</c:if>
-				</c:forEach>
-					
-			    <div class="content">
-					<c:forEach var="e" begin="0" end="${list.size()}" step="1" items="${list}">
-					    <c:if test="${e.exampleIdx == 1 && e.questionIdx == i}">
-							<input type="radio" id="exampleAnswer" name="examplAnswer" value="1">&#10112; ${e.exampleContent}
-						</c:if>
-						<c:if test="${e.exampleIdx == 2 && e.questionIdx == i}">
-							<input type="radio" id="exampleAnswer" name="examplAnswer" value="2">&#10113; ${e.exampleContent}
-						</c:if>
-						<c:if test="${e.exampleIdx == 3 && e.questionIdx == i}">
-							<input type="radio" id="exampleAnswer" name="examplAnswer" value="3">&#10114; ${e.exampleContent}
-						</c:if>
-						<c:if test="${e.exampleIdx == 4 && e.questionIdx == i}">
-							<input type="radio" id="exampleAnswer" name="examplAnswer" value="4">&#10115; ${e.exampleContent}
-							<br>
-						</c:if>
-		   			</c:forEach>
-			    </div>
-			</c:forEach>
-		</div>
-		<hr>
+		
 		<!-- 문제 상세보기 -->
-		<form method="post" action="${pageContext.request.contextPath}/student/addPaper">
+		<form id="testForm" method="post" action="${pageContext.request.contextPath}/student/addPaper">
 			<c:forEach var="t" items="${list}">
 				<c:if test="${t.exampleIdx == 1}">
 					${t.questionIdx}. ${t.questionTitle}
+					<input type="hidden" id="answer${t.questionIdx}" name="answer" value="">
+					<input type="hidden" name="studentNo" value="${loginStudent.getStudentNo() }">
+					<input type="hidden" name="questionNo" value="${t.questionNo}">
 				</c:if>
 				<br>
-				<input type="hidden" name="studentNo" value="${loginStudent.getStudentNo() }">
-				<input type="hidden" name="questionNo" value="${t.questionNo }">
 				<c:if test="${t.exampleIdx == 1}">
-					<input type="radio" id="exampleAnswer" name="answer" value="1">&#10112; ${t.exampleContent}
+					<input type="radio" id="exampleAnswer${t.questionIdx}" name="answer${t.questionIdx}" value="1">&#10112; ${t.exampleContent}
 				</c:if>
 				<c:if test="${t.exampleIdx == 2}">
-					<input type="radio" id="exampleAnswer" name="answer" value="2">&#10113; ${t.exampleContent}
+					<input type="radio" id="exampleAnswer${t.questionIdx}" name="answer${t.questionIdx}" value="2">&#10113; ${t.exampleContent}
 				</c:if>
 				<c:if test="${t.exampleIdx == 3}">
-					<input type="radio" id="exampleAnswer" name="answer" value="3">&#10114; ${t.exampleContent}
+					<input type="radio" id="exampleAnswer${t.questionIdx}" name="answer${t.questionIdx}" value="3">&#10114; ${t.exampleContent}
 				</c:if>
 				<c:if test="${t.exampleIdx == 4}">
-					<input type="radio" id="exampleAnswer" name="answer" value="4">&#10115; ${t.exampleContent}
+					<input type="radio" id="exampleAnswer${t.questionIdx}" name="answer${t.questionIdx}" value="4">&#10115; ${t.exampleContent}
+					<br>
 					<br>
 				</c:if>
 			</c:forEach>
-			<button type="submit">제출</button>
-		
+			<br>
+			<button type="button" id="testBtn">제출</button>
 		</form>
 		
 		<!-- script -->

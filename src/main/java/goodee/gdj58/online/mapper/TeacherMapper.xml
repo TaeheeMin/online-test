@@ -36,7 +36,7 @@
 		, q.question_idx questionIdx
 		, q.question_title questionTitle
 		, e.example_idx exampleIdx
-		, e.example_content exampleTitle
+		, e.example_content exampleContent
 		, e.example_answer exampleAnswer
 		FROM question q
 		INNER JOIN example e ON q.question_no = e.question_no

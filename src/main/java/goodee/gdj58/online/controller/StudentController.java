@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.gdj58.online.service.Idservice;
 import goodee.gdj58.online.service.StudentService;
+import goodee.gdj58.online.vo.Example;
 import goodee.gdj58.online.vo.Paper;
 import goodee.gdj58.online.vo.Student;
 import goodee.gdj58.online.vo.Test;
@@ -27,10 +28,19 @@ public class StudentController {
 	// 2) 학생기능
 	// 답안지 제출
 	@PostMapping("/student/addPaper")
-	public String addPaper(Paper paper) {
-		int row = studentService.addPaper(paper);
-		if(row == 0) {
-			log.debug("\u001B[31m"+"답안지 등록성공");
+	public String addPaper(@RequestParam(value = "studentNo") int studentNo
+							, @RequestParam(value = "questionNo") int[] questionNo
+							, @RequestParam(value = "answer") int[] answer) {
+		Paper[] paper = new Paper[questionNo.length];
+		for(int i=0; i<questionNo.length; i++) {
+			paper[i] = new Paper();
+			paper[i].setStudentNo(studentNo);
+			paper[i].setQuestionNo(questionNo[i]);
+			paper[i].setAnswer(answer[i]);
+			int row = studentService.addPaper(paper[i]);
+			if(row == 1) {
+				log.debug("\u001B[31m" + "답안지 등록 성공");
+			}
 		}
 		return "redirect:/student/testListByStudent"; 
 	}

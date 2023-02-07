@@ -40,7 +40,6 @@ public class TeacherController {
 		}
 		// 보기 4개 고정
 		Example[] example = new Example[4];
-		log.debug("\u001B[31m"+"exampleLength : "+example.length);
 		for(int i=0; i<example.length; i++) {
 			example[i] = new Example();
 			example[i].setQuestionNo(question.getQuestionNo());
@@ -54,7 +53,6 @@ public class TeacherController {
 			if(addExample == 1) {
 				log.debug("\u001B[31m" + (i+1) + "보기 등록 성공");
 			}
-			
 		}
 		return "redirect:/teacher/testOne?testNo="+question.getTestNo(); 
 	}
@@ -63,20 +61,23 @@ public class TeacherController {
 	@GetMapping("/teacher/testOne")
 	public String getTestOne(Model model
 							, @RequestParam(value = "testNo") int testNo
-							, @RequestParam(value = "questionCount", defaultValue = "1") int questionCount) {
+							, @RequestParam(value = "question", defaultValue = "1") int question) {
 		List<Map<String, Object>> list = teacherService.getTestOne(testNo);
 		Test test = teacherService.getTestTitle(testNo); // 테스트 정보
 		model.addAttribute("test",test);
 		model.addAttribute("list",list);
 		log.debug("\u001B[31m" + list.size()/4 + "	<= 문제 개수");
+		int questionCount = list.size()/4;
+		/*
 		if(list.size()/4 == 1) {
 			questionCount = 1;
 		} else if(list.size()/4 > 1 && list.size()/4 < 6) {
 			questionCount = 5;
 		} else if(list.size()/4 > 5) {
 			questionCount = 10;
-		}
+		}*/
 		model.addAttribute("questionCount", questionCount);
+		model.addAttribute("question", question);
 		return "teacher/testOne";
 	}
 	
