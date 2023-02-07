@@ -68,8 +68,15 @@ public class TeacherController {
 		Test test = teacherService.getTestTitle(testNo); // 테스트 정보
 		model.addAttribute("test",test);
 		model.addAttribute("list",list);
+		log.debug("\u001B[31m" + list.size()/4 + "	<= 문제 개수");
+		if(list.size()/4 == 1) {
+			questionCount = 1;
+		} else if(list.size()/4 > 1 && list.size()/4 < 6) {
+			questionCount = 5;
+		} else if(list.size()/4 > 5) {
+			questionCount = 10;
+		}
 		model.addAttribute("questionCount", questionCount);
-		//model.addAttribute("testNo",testNo);
 		return "teacher/testOne";
 	}
 	

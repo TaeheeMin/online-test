@@ -31,10 +31,9 @@
 		<div>
 			<c:import url="/WEB-INF/view/inc/teacherMenu.jsp"></c:import>
 		</div>
+		
 		<h3>${test.testTitle} 상세보기</h3>
-		<br>
-		<!-- 문제 -->
-		<h2>문제 등록</h2>
+		
 		<!-- 문제 개수 -->
 		<div>
 			<form id="questionCountForm" method="get" action="${pageContext.request.contextPath}/teacher/testOne">
@@ -76,6 +75,7 @@
 						<!-- 문제등록 -->
 						<input type="hidden" class="questionIdx" name="questionIdx" value="${i}" readonly="readonly">
 						<input type="text" class="questionTitle" name="questionTitle" placeholder="문제를 입력하세요">
+						<!-- 보기등록 -->
 						<br>
 						1번
 						<input type="text" name="exampleContent" class="example${i}" placeholder="보기를 입력하세요">
@@ -105,10 +105,6 @@
 		    </c:forEach>
 		</div>
 		
-
-		<script src="${pageContext.request.contextPath}/resources/modalJs.js">
-		</script>
-		
 		<!-- 문제 상세보기 -->
 		<div>
 			<h5>1번</h5>
@@ -117,7 +113,10 @@
 			</c:forEach>
 			<c:forEach var="t" items="${list}">
 				보기 ${t.exampleIdx}	${t.exampleTitle} ${t.exampleAnswer} <br>
-				</c:forEach>
+			</c:forEach>
 		</div>
+		
+		<!-- script -->
+		<script src="${pageContext.request.contextPath}/resources/modalJs.js"></script>
 	</body>
 </html>

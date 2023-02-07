@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.online.mapper.StudentMapper">
+	<!-- 답안지 제출 -->
+	<insert id="insertPaper" parameterType="goodee.gdj58.online.vo.Paper">
+		INSERT INTO paper (
+			student_no
+			, question_no
+			, answer
+		) VALUES (
+			#{studentNo}
+			,#{questionNo}
+			,#{answer}	
+		)
+	</insert>
+	
+	<!-- 시험 상세보기 -->
+	<select id="selectTestOne" resultType="java.util.Map" parameterType="int">
+		SELECT
+		t.test_title testTitle
+		, q.question_no questionNo
+		, q.test_no testNo
+		, q.question_no questionNo
+		, q.question_idx questionIdx
+		, q.question_title questionTitle
+		, e.example_idx exampleIdx
+		, e.example_content exampleContent
+		FROM question q
+		INNER JOIN example e ON q.question_no = e.question_no
+		INNER JOIN test t ON t.test_no = q.test_no
+		WHERE q.test_no = #{testNo}
+	</select>
+	
+	<select id="selectTestTitle" resultType="goodee.gdj58.online.vo.Test" parameterType="int">
+		SELECT
+		test_title testTitle
+		,test_no testNo
+		,test_date testDate
+		FROM test
+		WHERE test_no = #{testNo}
+	</select>
+	
+	<!-- 시험 목록 -->
+	<select id="selectTestList" resultType="goodee.gdj58.online.vo.Test">
+		SELECT 
+			test_no testNo
+			, test_title testTitle
+			, test_date testDate
+		FROM test
+		ORDER BY test_date DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- testList Count -->
+	<select id="testListCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM test	
+	</select>
+	
 	<!-- updatePw -->
 	<update id="updateStudentPw" parameterType="java.util.Map">
 		UPDATE student 

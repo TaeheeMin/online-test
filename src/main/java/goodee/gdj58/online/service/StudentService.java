@@ -9,12 +9,43 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import goodee.gdj58.online.mapper.StudentMapper;
+import goodee.gdj58.online.vo.Paper;
 import goodee.gdj58.online.vo.Student;
+import goodee.gdj58.online.vo.Test;
 
 @Service
 @Transactional
 public class StudentService {
 	@Autowired private StudentMapper studentMapper;
+	
+	// 2) 학생 기능
+	// 답안지 제출
+	public int addPaper(Paper paper) {
+		return studentMapper.insertPaper(paper);
+	}
+	
+	// 시험 상세보기
+	public Test getTestTitle(int testNo) {
+		return studentMapper.selectTestTitle(testNo);
+	}
+	public List<Map<String, Object>> getTestOne(int testNo) {
+		return studentMapper.selectTestOne(testNo);
+	}
+	
+	// 학생 시험 목록
+	public List<Test> getTestList(int currentPage, int rowPerPage) {
+		int beginRow = (currentPage - 1) * rowPerPage;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		return studentMapper.selectTestList(paramMap);
+	}
+	
+	// 시험 개수
+	public int getTestCount() {
+		return studentMapper.testListCount();
+	}
+	
 	// 학생 비밀번호수정
 	public int modifyStudentPw(String oldPw, String newPw, int studentNo) {
 		//System.out.println("oldPw : " + oldPw);
@@ -31,6 +62,8 @@ public class StudentService {
 	public Student login(Student student) {
 		return studentMapper.login(student);
 	}
+	
+	// 1) 관리자 기능
 	// 학생삭제
 	public int removeStudent(int studentNo) {
 		return studentMapper.deleteStudent(studentNo);
