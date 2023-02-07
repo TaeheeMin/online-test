@@ -6,7 +6,7 @@ import lombok.Data;
 public class Example {
 	private int exampleNo;
 	private int questionNo;
-	private int exampleIdk;
+	private int exampleIdx;
 	private String exampleContent;
 	private String exampleAnswer;
 }

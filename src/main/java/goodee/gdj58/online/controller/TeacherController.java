@@ -1,6 +1,5 @@
 package goodee.gdj58.online.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.gdj58.online.service.Idservice;
 import goodee.gdj58.online.service.TeacherService;
+import goodee.gdj58.online.vo.Example;
+import goodee.gdj58.online.vo.Question;
 import goodee.gdj58.online.vo.Teacher;
 import goodee.gdj58.online.vo.Test;
 import lombok.extern.slf4j.Slf4j;
@@ -25,30 +26,49 @@ public class TeacherController {
 	@Autowired private Idservice idservice;
 	@Autowired private TeacherService teacherService;
 	// 3) 시험 관련 기능
-	// 문제 등록
-	@GetMapping("/teacher/addQuestion")
-	public String addQuestion(Model model
-							, @RequestParam(value = "questionCount", defaultValue = "1") int questionCount) {
-		model.addAttribute("questionCount", questionCount);
-		return "teacher/addQuestion";
-	}
+	// 시험 등록
 	@PostMapping("/teacher/addQuestion")
-	public String addQuestion(@RequestParam(value = "questionIdx") int questionIdx
-								,@RequestParam(value = "questionTitle") String questionTitle) {
-		log.debug("\u001B[31m" + questionTitle +"	<= questionTitle");
-		log.debug("\u001B[31m" + questionIdx +"	<= questionIdx");
-		int row = teacherService.addQuestion(questionIdx, questionTitle);
-		log.debug("\u001B[31m" + "강사 등록성공");
-		return "redirect:/teacher/addQuestion"; 
+	public String addQuestion(Question question
+								, @RequestParam(value = "exampleContent") String[] exampleContent
+								, @RequestParam(value = "exampleIdx") int[] exampleIdx
+								, @RequestParam(value = "examplAnswer") int examplAnswer) {
+		int addQuestion = teacherService.addQuestion(question);
+		log.debug("\u001B[31m" + question.getQuestionNo() + "	<=questionNo");
+		
+		if(addQuestion == 1) {
+			log.debug("\u001B[31m" + "문제 등록성공");
+		}
+		// 보기 4개 고정
+		Example[] example = new Example[4];
+		log.debug("\u001B[31m"+"exampleLength : "+example.length);
+		for(int i=0; i<example.length; i++) {
+			example[i] = new Example();
+			example[i].setQuestionNo(question.getQuestionNo());
+			example[i].setExampleContent(exampleContent[i]);
+			example[i].setExampleIdx(exampleIdx[i]);
+			example[i].setExampleAnswer("오답");
+			if(examplAnswer == (i+1)) {
+				example[i].setExampleAnswer("정답");
+			} 
+			int addExample = teacherService.addExample(example[i]);
+			if(addExample == 1) {
+				log.debug("\u001B[31m" + (i+1) + "보기 등록 성공");
+			}
+			
+		}
+		return "redirect:/teacher/testOne?testNo="+question.getTestNo(); 
 	}
 	
 	// 시험 상세보기
 	@GetMapping("/teacher/testOne")
-	public String getTestOne(@RequestParam(value = "testNo") int testNo, Model model) {
-		log.debug("\u001B[31m" + testNo +"	<= testNo");
+	public String getTestOne(Model model
+							, @RequestParam(value = "testNo") int testNo
+							, @RequestParam(value = "questionCount", defaultValue = "1") int questionCount) {
 		List<Map<String, Object>> list = teacherService.getTestOne(testNo);
-		log.debug("list확인 : " + list.size());
+		Test test = teacherService.getTestTitle(testNo); // 테스트 정보
+		model.addAttribute("test",test);
 		model.addAttribute("list",list);
+		model.addAttribute("questionCount", questionCount);
 		//model.addAttribute("testNo",testNo);
 		return "teacher/testOne";
 	}
@@ -79,7 +99,7 @@ public class TeacherController {
 		if(row == 1) {
 			log.debug("\u001B[31m"+"시험 등록완료");
 		}
-		return "redirect:/teacher/addQuestion";
+		return "redirect:/teacher/testList";
 	}
 	
 	// 시험 목록

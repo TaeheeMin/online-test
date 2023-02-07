@@ -2,7 +2,7 @@ package goodee.gdj58.online.vo;
 
 import lombok.Data;
 
-@Data 
+@Data
 public class Employee {
 	private int empNo;
 	private String empId;
