@@ -14,17 +14,15 @@
 				});
 			});
 		</script>
-		<c:forEach var="i" begin="${questionCount + 1}" end="10" step="1">
-			<script>
-				$(document).ready(function() {
-					$('#questionBtn${i}').click(function() {
-						let example${i} = document.querySelectorAll('.example${i}');
-						console.log(example${i})
-						$('#questionForm${i}').submit();
-					});
+		<script>
+			$(document).ready(function() {
+				$('#questionBtn').click(function() {
+					let example = document.querySelectorAll('.example');
+					console.log(example)
+					$('#questionForm').submit();
 				});
-			</script>
-		</c:forEach>
+			});
+		</script>
 	</head>
 	<body>
 		<!-- 메뉴 -->
@@ -35,37 +33,35 @@
 		<h3>${test.testTitle} 상세보기</h3>
 		<c:if test="${questionCount < 10}">
 			<div>
-				<c:forEach var="i" begin="${questionCount + 1}" end="10" step="1">
-				    <button type="button" class="collapsible" onclick="collapse(this);">${i}번</button>
-				    <div class="content">
-				        <form id="questionForm${i}" method="post" action="${pageContext.request.contextPath}/teacher/addQuestion">
-							<input type="hidden" name="testNo" value="${test.testNo}">
-							<!-- 문제등록 -->
-							<input type="hidden" class="questionIdx" name="questionIdx" value="${i}" readonly="readonly">
-							<input type="text" class="questionTitle" name="questionTitle" placeholder="문제를 입력하세요">
-							<!-- 보기등록 -->
-							<br>
-							<input type="radio" id="exampleAnswer" name="examplAnswer" value="1">&#10112;
-							<input type="text" name="exampleContent" class="example${i}" placeholder="보기를 입력하세요">
-							<input type="hidden" class="exampleIdx" name="exampleIdx" value="1" readonly="readonly">
-							<br>
-							<input type="radio" id="exampleAnswer" name="examplAnswer" value="2">&#10113; 
-							<input type="text" name="exampleContent" class="example${i}" placeholder="보기를 입력하세요">
-							<input type="hidden" class="exampleIdx" name="exampleIdx" value="2" readonly="readonly">
-							<br>
-							<input type="radio" id="exampleAnswer" name="examplAnswer" value="3">&#10114;
-							<input type="text" name="exampleContent" class="example${i}" placeholder="보기를 입력하세요">
-							<input type="hidden" class="exampleIdx" name="exampleIdx" value="3" readonly="readonly">
-							<br>
-							<input type="radio" id="exampleAnswer" name="examplAnswer" value="4">&#10115; 
-							<input type="text" name="exampleContent" class="example${i}" placeholder="보기를 입력하세요">
-							<input type="hidden" class="exampleIdx" name="exampleIdx" value="4" readonly="readonly">
-							<br>
-							<br>
-							<button type="button" id="questionBtn${i}">등록</button>
-						</form>
-				    </div>
-			    </c:forEach>
+			    <button type="button" class="collapsible" onclick="collapse(this);">${questionCount +1}번</button>
+			    <div class="content">
+			        <form id="questionForm" method="post" action="${pageContext.request.contextPath}/teacher/addQuestion">
+						<input type="hidden" name="testNo" value="${test.testNo}">
+						<!-- 문제등록 -->
+						<input type="hidden" class="questionIdx" name="questionIdx" value="${questionCount +1}" readonly="readonly">
+						<input type="text" class="questionTitle" name="questionTitle" placeholder="문제를 입력하세요">
+						<!-- 보기등록 -->
+						<br>
+						<input type="radio" id="exampleAnswer" name="examplAnswer" value="1">&#10112;
+						<input type="text" name="exampleContent" class="example" placeholder="보기를 입력하세요">
+						<input type="hidden" id="exampleIdx" name="exampleIdx" value="1" readonly="readonly">
+						<br>
+						<input type="radio" id="exampleAnswer" name="examplAnswer" value="2">&#10113; 
+						<input type="text" name="exampleContent" class="example" placeholder="보기를 입력하세요">
+						<input type="hidden" id="exampleIdx" name="exampleIdx" value="2" readonly="readonly">
+						<br>
+						<input type="radio" id="exampleAnswer" name="examplAnswer" value="3">&#10114;
+						<input type="text" name="exampleContent" class="example" placeholder="보기를 입력하세요">
+						<input type="hidden" id="exampleIdx" name="exampleIdx" value="3" readonly="readonly">
+						<br>
+						<input type="radio" id="exampleAnswer" name="examplAnswer" value="4">&#10115; 
+						<input type="text" name="exampleContent" class="example" placeholder="보기를 입력하세요">
+						<input type="hidden" id="exampleIdx" name="exampleIdx" value="4" readonly="readonly">
+						<br>
+						<br>
+						<button type="button" id="questionBtn">등록</button>
+					</form>
+			    </div>
 			</div>
 		</c:if>
 		
