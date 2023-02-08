@@ -2,13 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.online.mapper.StudentMapper">
 	<!-- 시험 결과보기 -->
+	<!--  -->
 	<select id="selectTestAnswer" resultType="java.util.Map" parameterType="int">
-		SELECT q.question_idx questionIdx
+		select
+		p.answer answer
+		, q.question_no questionNo
+		, q.test_no testNo
+		, q.question_no questionNo
+		, q.question_idx questionIdx
+		, q.question_title questionTitle
 		, e.example_idx exampleIdx
-		, e.example_answer exampleAnswer 
-		FROM question q 
-		INNER JOIN example e ON q.question_no = e.question_no 
-		WHERE q.test_no=#{testNo} AND e.example_answer='정답'
+		, e.example_content exampleContent
+		from paper p 
+		inner join question q on p.question_no =q.question_no 
+		inner join test t on t.test_no = q.test_no 
+		inner join example e on e.question_no =q.question_no 
+		where t.test_no = #{testNo} and e.example_answer ='정답'
 	</select>
 	
 	<!-- 답안지 제출 -->

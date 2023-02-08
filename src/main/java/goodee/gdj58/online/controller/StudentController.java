@@ -33,8 +33,10 @@ public class StudentController {
 		// 정답 가져와서 오답이면 빨간색으로 표시 내가 체크한 값 select 체크로 변경
 		List<Map<String, Object>> list = studentService.getTestOne(testNo);
 		Test test = studentService.getTestTitle(testNo); // 테스트 정보
+		List<Map<String, Object>> answer = studentService.getTestAnswer(testNo);
 		model.addAttribute("test",test);
 		model.addAttribute("list",list);
+		model.addAttribute("answer",answer);
 		return "student/testResult";
 	}
 	

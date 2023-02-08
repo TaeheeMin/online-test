@@ -19,6 +19,11 @@ public class StudentService {
 	@Autowired private StudentMapper studentMapper;
 	
 	// 2) 학생 기능
+	// 답안지 확인
+	public List<Map<String, Object>> getTestAnswer(int testNo) {
+		return studentMapper.selectTestAnswer(testNo);
+	} 
+	
 	// 답안지 제출
 	public int addPaper(Paper paper) {
 		return studentMapper.insertPaper(paper);
