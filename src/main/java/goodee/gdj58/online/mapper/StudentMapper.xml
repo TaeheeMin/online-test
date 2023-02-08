@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.online.mapper.StudentMapper">
+	<!-- 시험 결과보기 -->
+	<select id="selectTestAnswer" resultType="java.util.Map" parameterType="int">
+		SELECT q.question_idx questionIdx
+		, e.example_idx exampleIdx
+		, e.example_answer exampleAnswer 
+		FROM question q 
+		INNER JOIN example e ON q.question_no = e.question_no 
+		WHERE q.test_no=#{testNo} AND e.example_answer='정답'
+	</select>
+	
 	<!-- 답안지 제출 -->
 	<insert id="insertPaper" parameterType="goodee.gdj58.online.vo.Paper">
 		INSERT INTO paper (

@@ -9,20 +9,20 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/modalStyle.css">
 		<script>
 			$(document).ready(function() {
-				$('#questionCount').change(function() {
+				$('#question').change(function() {
 					$('#questionCountForm').submit();   
 				});
 			});
 		</script>
-			<script>
-				$(document).ready(function() {
-					$('#questionBtn').click(function() {
-						let example = document.querySelectorAll('.example');
-						console.log(example)
-						$('#questionForm').submit();
-					});
+		<script>
+			$(document).ready(function() {
+				$('#questionBtn').click(function() {
+					let example = document.querySelectorAll('.example');
+					console.log(example)
+					$('#questionForm').submit();
 				});
-			</script>
+			});
+		</script>
 	</head>
 	<body>
 		<!-- 메뉴 -->
@@ -100,6 +100,7 @@
 			    </div>
 			</div>
 		</c:if>
+		
 		<!-- 문제 상세보기 -->
 		<c:forEach var="t" items="${list}">
 			<c:if test="${t.exampleIdx == 1}">
@@ -122,11 +123,14 @@
 					<br>
 				</c:when>
 			</c:choose>
-			
-				
-			
 		</c:forEach>
 		<br>
+		
+		<!-- 답 출력 -->
+		<c:forEach var="a" items="${answer}">
+			${a.questionIdx}번 ${a.exampleIdx}<br>
+		</c:forEach>
+		
 		<!-- script -->
 		<script src="${pageContext.request.contextPath}/resources/modalJs.js"></script>
 	</body>

@@ -11,6 +11,7 @@ import goodee.gdj58.online.vo.Test;
 
 @Mapper
 public interface StudentMapper {
+	List<Map<String, Object>> selectTestAnswer(int testNo);
 	int insertPaper(Paper paper);
 	List<Map<String, Object>> selectTestOne(int testNo);
 	Test selectTestTitle(int testNo);

@@ -26,6 +26,16 @@
     	</selectKey>  
 	</insert>
 	
+	<!-- 시험 답보기 -->
+	<select id="selectTestAnswer" resultType="java.util.Map" parameterType="int">
+		SELECT q.question_idx questionIdx
+		, e.example_idx exampleIdx
+		, e.example_answer exampleAnswer 
+		FROM question q 
+		INNER JOIN example e ON q.question_no = e.question_no 
+		WHERE q.test_no=#{testNo} AND e.example_answer='정답'
+	</select>
+	
 	<!-- 시험 상세보기 -->
 	<select id="selectTestOne" resultType="java.util.Map" parameterType="int">
 		SELECT

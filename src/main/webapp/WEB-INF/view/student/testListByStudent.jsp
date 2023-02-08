@@ -25,7 +25,7 @@
 			<tr>
 				<td>시험</td>
 				<td>날짜</td>
-				<td>응시</td>
+				<td>결과</td>
 			</tr>
 			<c:forEach var="t" items="${list}">
 				<tr>
@@ -34,7 +34,7 @@
 					</td>
 					<td>${t.testDate}</td>
 					<td>
-						<a href="${pageContext.request.contextPath}/student/?testNo=${t.testNo}">보기</a>
+						<a href="${pageContext.request.contextPath}/student/testResult?testNo=${t.testNo}">보기</a>
 					</td>
 				</tr>
 		 	</c:forEach>

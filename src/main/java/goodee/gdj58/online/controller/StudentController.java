@@ -26,6 +26,18 @@ public class StudentController {
 	@Autowired private Idservice idservice;
 	
 	// 2) 학생기능
+	// 결과확인
+	@GetMapping("/student/testResult")
+	public String getResult(Model model
+							, @RequestParam(value = "testNo") int testNo) {
+		// 정답 가져와서 오답이면 빨간색으로 표시 내가 체크한 값 select 체크로 변경
+		List<Map<String, Object>> list = studentService.getTestOne(testNo);
+		Test test = studentService.getTestTitle(testNo); // 테스트 정보
+		model.addAttribute("test",test);
+		model.addAttribute("list",list);
+		return "student/testResult";
+	}
+	
 	// 답안지 제출
 	@PostMapping("/student/addPaper")
 	public String addPaper(@RequestParam(value = "studentNo") int studentNo

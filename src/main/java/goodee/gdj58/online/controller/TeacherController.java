@@ -64,18 +64,12 @@ public class TeacherController {
 							, @RequestParam(value = "question", defaultValue = "1") int question) {
 		List<Map<String, Object>> list = teacherService.getTestOne(testNo);
 		Test test = teacherService.getTestTitle(testNo); // 테스트 정보
+		List<Map<String, Object>> answer = teacherService.getTestAnswer(testNo);
 		model.addAttribute("test",test);
 		model.addAttribute("list",list);
+		model.addAttribute("answer",answer);
 		log.debug("\u001B[31m" + list.size()/4 + "	<= 문제 개수");
 		int questionCount = list.size()/4;
-		/*
-		if(list.size()/4 == 1) {
-			questionCount = 1;
-		} else if(list.size()/4 > 1 && list.size()/4 < 6) {
-			questionCount = 5;
-		} else if(list.size()/4 > 5) {
-			questionCount = 10;
-		}*/
 		model.addAttribute("questionCount", questionCount);
 		model.addAttribute("question", question);
 		return "teacher/testOne";
