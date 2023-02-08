@@ -6,7 +6,7 @@
 		<meta charset="UTF-8">
 		<title>${test.testTitle}</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/modalStyle.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
 		<script>
 			$(document).ready(function() {
 				$('#questionCount').change(function() {
@@ -14,7 +14,7 @@
 				});
 			});
 		</script>
-		<c:forEach var="i" begin="1" end="${questionCount}" step="1">
+		<c:forEach var="i" begin="${questionCount + 1}" end="10" step="1">
 			<script>
 				$(document).ready(function() {
 					$('#questionBtn${i}').click(function() {
@@ -33,90 +33,111 @@
 		</div>
 		
 		<h3>${test.testTitle} 상세보기</h3>
-		
-		<!-- 문제 개수 -->
-		<div>
-			<form id="questionCountForm" method="get" action="${pageContext.request.contextPath}/teacher/testOne">
-				<input type="hidden" name="testNo" value="${test.testNo}">
-				<c:choose>
-					<c:when test="${questionCount == 1}">
-						<select name="questionCount" id="questionCount">
-							<option value="1" selected="selected">1
-							<option value="5">5
-							<option value="10">10
-						</select>
-					</c:when>
-					<c:when test="${questionCount == 5}">
-						<select name="questionCount" id="questionCount">
-							<option value="1">1
-							<option value="5" selected="selected">5
-							<option value="10">10
-						</select>
-					</c:when>
-					<c:when test="${questionCount == 10}">
-						<select name="questionCount" id="questionCount">
-							<option value="1">1
-							<option value="5">5
-							<option value="10" selected="selected">10
-						</select>
-					</c:when>
-				</c:choose>
-			</form>
-		</div>
-		
-		<br>
-		
-		<div>
-			<c:forEach var="i" begin="1" end="${questionCount}" step="1">
-			    <button type="button" class="collapsible" onclick="collapse(this);">${i}번</button>
-			    <div class="content">
-			        <form id="questionForm${i}" method="post" action="${pageContext.request.contextPath}/teacher/addQuestion">
-						<input type="hidden" name="testNo" value="${test.testNo}">
-						<!-- 문제등록 -->
-						<input type="hidden" class="questionIdx" name="questionIdx" value="${i}" readonly="readonly">
-						<input type="text" class="questionTitle" name="questionTitle" placeholder="문제를 입력하세요">
-						<!-- 보기등록 -->
-						<br>
-						1번
-						<input type="text" name="exampleContent" class="example${i}" placeholder="보기를 입력하세요">
-						<input type="hidden" class="exampleIdx" name="exampleIdx" value="1" readonly="readonly">
-						<br>
-						2번 
-						<input type="text" name="exampleContent" class="example${i}" placeholder="보기를 입력하세요">
-						<input type="hidden" class="exampleIdx" name="exampleIdx" value="2" readonly="readonly">
-						<br>
-						3번 
-						<input type="text" name="exampleContent" class="example${i}" placeholder="보기를 입력하세요">
-						<input type="hidden" class="exampleIdx" name="exampleIdx" value="3" readonly="readonly">
-						<br>
-						4번 
-						<input type="text" name="exampleContent" class="example${i}" placeholder="보기를 입력하세요">
-						<input type="hidden" class="exampleIdx" name="exampleIdx" value="4" readonly="readonly">
-						<br>
-						정답 
-						<input type="radio" id="exampleAnswer" name="examplAnswer" value="1">1
-						<input type="radio" id="exampleAnswer" name="examplAnswer" value="2">2
-						<input type="radio" id="exampleAnswer" name="examplAnswer" value="3">3
-						<input type="radio" id="exampleAnswer" name="examplAnswer" value="4">4
-						<br>
-						<button type="button" id="questionBtn${i}">등록</button>
-					</form>
-			    </div>
-		    </c:forEach>
-		</div>
+		<c:if test="${questionCount < 10}">
+			<div>
+				<c:forEach var="i" begin="${questionCount + 1}" end="10" step="1">
+				    <button type="button" class="collapsible" onclick="collapse(this);">${i}번</button>
+				    <div class="content">
+				        <form id="questionForm${i}" method="post" action="${pageContext.request.contextPath}/teacher/addQuestion">
+							<input type="hidden" name="testNo" value="${test.testNo}">
+							<!-- 문제등록 -->
+							<input type="hidden" class="questionIdx" name="questionIdx" value="${i}" readonly="readonly">
+							<input type="text" class="questionTitle" name="questionTitle" placeholder="문제를 입력하세요">
+							<!-- 보기등록 -->
+							<br>
+							<input type="radio" id="exampleAnswer" name="examplAnswer" value="1">&#10112;
+							<input type="text" name="exampleContent" class="example${i}" placeholder="보기를 입력하세요">
+							<input type="hidden" class="exampleIdx" name="exampleIdx" value="1" readonly="readonly">
+							<br>
+							<input type="radio" id="exampleAnswer" name="examplAnswer" value="2">&#10113; 
+							<input type="text" name="exampleContent" class="example${i}" placeholder="보기를 입력하세요">
+							<input type="hidden" class="exampleIdx" name="exampleIdx" value="2" readonly="readonly">
+							<br>
+							<input type="radio" id="exampleAnswer" name="examplAnswer" value="3">&#10114;
+							<input type="text" name="exampleContent" class="example${i}" placeholder="보기를 입력하세요">
+							<input type="hidden" class="exampleIdx" name="exampleIdx" value="3" readonly="readonly">
+							<br>
+							<input type="radio" id="exampleAnswer" name="examplAnswer" value="4">&#10115; 
+							<input type="text" name="exampleContent" class="example${i}" placeholder="보기를 입력하세요">
+							<input type="hidden" class="exampleIdx" name="exampleIdx" value="4" readonly="readonly">
+							<br>
+							<br>
+							<button type="button" id="questionBtn${i}">등록</button>
+						</form>
+				    </div>
+			    </c:forEach>
+			</div>
+		</c:if>
 		
 		<!-- 문제 상세보기 -->
 		<div>
-			<h5>1번</h5>
 			<c:forEach var="t" items="${list}">
-				문제 ${t.questionIdx}번 ${t.questionTitle}<br>
-			</c:forEach>
-			<c:forEach var="t" items="${list}">
-				보기 ${t.exampleIdx}	${t.exampleTitle} ${t.exampleAnswer} <br>
+				<c:if test="${t.exampleIdx == 1}">
+					${t.questionIdx}. ${t.questionTitle}
+				</c:if>
+				<br>
+				<c:if test="${t.exampleIdx == 1}">
+					<c:choose>
+						<c:when test="${t.exampleAnswer eq '정답'}">
+							<span style="font-weight: bold; color: red;">
+								&#10112; ${t.exampleContent}
+							</span> 
+						</c:when>
+						<c:otherwise>
+							<span>
+								&#10112; ${t.exampleContent}
+							</span>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+				<c:if test="${t.exampleIdx == 2}">
+					<c:choose>
+						<c:when test="${t.exampleAnswer eq '정답'}">
+							<span style="font-weight: bold; color: red;">
+								&#10113; ${t.exampleContent}
+							</span> 
+						</c:when>
+						<c:otherwise>
+							<span>
+								&#10113; ${t.exampleContent}
+							</span>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+				<c:if test="${t.exampleIdx == 3}">
+					<c:choose>
+						<c:when test="${t.exampleAnswer eq '정답'}">
+							<span style="font-weight: bold; color: red;">
+								&#10114; ${t.exampleContent}
+							</span> 
+						</c:when>
+						<c:otherwise>
+							<span>
+								&#10114; ${t.exampleContent}
+							</span>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+				<c:if test="${t.exampleIdx == 4}">
+					<c:choose>
+						<c:when test="${t.exampleAnswer eq '정답'}">
+							<span style="font-weight: bold; color: red;">
+								&#10115; ${t.exampleContent}
+							</span> 
+						</c:when>
+						<c:otherwise>
+							<span>
+								&#10115; ${t.exampleContent}
+							</span>
+						</c:otherwise>
+					</c:choose>
+					<br>
+					<br>
+				</c:if>
 			</c:forEach>
 		</div>
 		
 		<!-- script -->
-		<script src="${pageContext.request.contextPath}/resources/modalJs.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js.js"></script>
 	</body>
 </html>

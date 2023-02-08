@@ -19,9 +19,6 @@ public class StudentService {
 	@Autowired private StudentMapper studentMapper;
 	
 	// 2) 학생 기능
-	public int getQuestionInfo(int testNo) {
-		return studentMapper.selectQuestionInfo(testNo);
-	}
 	// 점수확인
 	public int getScore(int testNo, int studentNo) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -42,6 +39,10 @@ public class StudentService {
 	public int addPaper(Paper paper) {
 		return studentMapper.insertPaper(paper);
 	}
+	public int getAnswer(int questionNo) {
+		return studentMapper.selectAnswer(questionNo);
+	}
+	
 	
 	// 시험 상세보기
 	public Test getTestTitle(int testNo) {

@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.online.mapper.StudentMapper">
-	<!-- 문제개수 -->
-	<select id="selectQuestionInfo" resultType="int" parameterType="int">
-		SELECT question_idx questionIdx
-		FROM question
-		WHERE test_no = #{testNo} 
-		ORDER BY question_idx DESC 
-		LIMIT 0,1 
-	</select>
-	
 	<!-- 시험 점수 -->
 	<select id="score" resultType="int" parameterType="java.util.Map">
 		SELECT COUNT(*) score
@@ -53,12 +44,21 @@
 			student_no
 			, question_no
 			, answer
+			, answer_check
 		) VALUES (
 			#{studentNo}
 			,#{questionNo}
-			,#{answer}	
+			,#{answer}
+			,#{answerCheck}	
 		)
 	</insert>
+	
+	<!-- 문제별 답 -->
+	<select id="selectAnswer" parameterType="int" resultType="int">
+		SELECT example_idx exampleIdx
+		FROM example
+		WHERE question_no = #{questionNo} AND example_answer = '정답'
+	</select>
 	
 	<!-- 시험 상세보기 -->
 	<select id="selectTestOne" resultType="java.util.Map" parameterType="int">

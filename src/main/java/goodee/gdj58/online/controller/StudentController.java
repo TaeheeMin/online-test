@@ -24,25 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class StudentController {
 	@Autowired StudentService studentService;
 	@Autowired private Idservice idservice;
-	
 	// 2) 학생기능
-	// 결과확인
-	@GetMapping("/student/testResult")
-	public String getResult(HttpSession session, Model model
-							, @RequestParam(value = "testNo") int testNo) {
-		Student loginStudent = (Student)session.getAttribute("loginStudent");
-		Test test = studentService.getTestTitle(testNo); // 테스트 정보
-		List<Map<String, Object>> answer = studentService.getTestAnswer(testNo, loginStudent.getStudentNo());
-		int score = studentService.getScore(testNo, loginStudent.getStudentNo());
-		int questionIdx = studentService.getQuestionInfo(testNo);
-		log.debug("\u001B[31m" + score + "	<=score");
-		model.addAttribute("test", test);
-		model.addAttribute("answer", answer);
-		model.addAttribute("score", score);
-		model.addAttribute("questionIdx", questionIdx);
-		return "student/testResult";
-	}
-	
 	// 답안지 제출
 	@PostMapping("/student/addPaper")
 	public String addPaper(@RequestParam(value = "studentNo") int studentNo
@@ -54,6 +36,14 @@ public class StudentController {
 			paper[i].setStudentNo(studentNo);
 			paper[i].setQuestionNo(questionNo[i]);
 			paper[i].setAnswer(answer[i]);
+			int getAnswer = studentService.getAnswer(questionNo[i]);
+			log.debug("\u001B[31m" + getAnswer +"	<=" + questionNo[i] + "번답안");
+			log.debug("\u001B[31m" + answer[i] +"	<=" + questionNo[i] + "번답제출");
+			if(getAnswer == answer[i]) {
+				paper[i].setAnswerCheck("정답");
+			} else {
+				paper[i].setAnswerCheck("오답"); 
+			}
 			int row = studentService.addPaper(paper[i]);
 			if(row == 1) {
 				log.debug("\u001B[31m" + "답안지 등록 성공");
@@ -65,8 +55,9 @@ public class StudentController {
 	
 	// 시험 상세보기
 	@GetMapping("/student/testOneByStudent")
-	public String getTestOne(Model model
+	public String getTestOne(Model model, HttpSession session
 							, @RequestParam(value = "testNo") int testNo) {
+		Student loginStudent = (Student)session.getAttribute("loginStudent");
 		List<Map<String, Object>> list = studentService.getTestOne(testNo);
 		Test test = studentService.getTestTitle(testNo); // 테스트 정보
 		model.addAttribute("test",test);
@@ -74,6 +65,12 @@ public class StudentController {
 		log.debug("\u001B[31m" + list.size()/4 + "	<= 문제 개수");
 		int questionCount = list.size()/4;
 		model.addAttribute("questionCount", questionCount);
+		
+		List<Map<String, Object>> answer = studentService.getTestAnswer(testNo, loginStudent.getStudentNo());
+		int score = studentService.getScore(testNo, loginStudent.getStudentNo());
+		log.debug("\u001B[31m" + score + "	<=score");
+		model.addAttribute("answer", answer);
+		model.addAttribute("score", score);
 		return "student/testOneByStudent";
 	}
 	

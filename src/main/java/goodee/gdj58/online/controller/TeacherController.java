@@ -60,8 +60,7 @@ public class TeacherController {
 	// 시험 상세보기
 	@GetMapping("/teacher/testOne")
 	public String getTestOne(Model model
-							, @RequestParam(value = "testNo") int testNo
-							, @RequestParam(value = "question", defaultValue = "1") int question) {
+							, @RequestParam(value = "testNo") int testNo) {
 		List<Map<String, Object>> list = teacherService.getTestOne(testNo);
 		Test test = teacherService.getTestTitle(testNo); // 테스트 정보
 		List<Map<String, Object>> answer = teacherService.getTestAnswer(testNo);
@@ -71,11 +70,10 @@ public class TeacherController {
 		log.debug("\u001B[31m" + list.size()/4 + "	<= 문제 개수");
 		int questionCount = list.size()/4;
 		model.addAttribute("questionCount", questionCount);
-		model.addAttribute("question", question);
 		return "teacher/testOne";
 	}
 	
-	// 시험 삭제
+	// 시험 삭제(문제, 응시자 없을때만 가능)
 	@GetMapping("/teacher/removeTest")
 	public String removeTest(@RequestParam(value = "testNo") int testNo) {
 		int row = teacherService.removeTest(testNo);
