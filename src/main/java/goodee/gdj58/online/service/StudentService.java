@@ -19,9 +19,23 @@ public class StudentService {
 	@Autowired private StudentMapper studentMapper;
 	
 	// 2) 학생 기능
+	public int getQuestionInfo(int testNo) {
+		return studentMapper.selectQuestionInfo(testNo);
+	}
+	// 점수확인
+	public int getScore(int testNo, int studentNo) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("testNo", testNo);
+		paramMap.put("studentNo", studentNo);
+		return studentMapper.score(paramMap);
+	}
+	
 	// 답안지 확인
-	public List<Map<String, Object>> getTestAnswer(int testNo) {
-		return studentMapper.selectTestAnswer(testNo);
+	public List<Map<String, Object>> getTestAnswer(int testNo, int studentNo) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("testNo", testNo);
+		paramMap.put("studentNo", studentNo);
+		return studentMapper.selectTestAnswer(paramMap);
 	} 
 	
 	// 답안지 제출
