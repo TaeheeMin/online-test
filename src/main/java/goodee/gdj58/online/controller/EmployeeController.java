@@ -50,14 +50,7 @@ public class EmployeeController {
 		log.debug("\u001B[31m"+"사원 로그인 성공");
 		Employee resultEmp =  employeeService.login(emp);
 		session.setAttribute("loginEmp", resultEmp);
-		return "redirect:/employee/empList";
-	}
-	
-	// 사원 로그아웃
-	@GetMapping("/employee/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/employee/loginEmp";
+		return "redirect:/main";
 	}
 	
 	// 사원 삭제

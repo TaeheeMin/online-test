@@ -159,14 +159,7 @@ public class TeacherController {
 		Teacher resultTeacher =  teacherService.login(teacher);
 		log.debug("\u001B[31m"+"강사 로그인 성공");
 		session.setAttribute("loginTeacher", resultTeacher);
-		return "redirect:/teacher/teacherMain";
-	}
-	
-	// 강사 로그아웃
-	@GetMapping("/teacher/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/teacher/loginTeacher";
+		return "redirect:/main";
 	}
 	
 	// 강사 메인

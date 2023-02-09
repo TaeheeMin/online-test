@@ -128,14 +128,7 @@ public class StudentController {
 		Student resultStudent =  studentService.login(student);
 		log.debug("\u001B[31m"+"학생 로그인 성공");
 		session.setAttribute("loginStudent", resultStudent);
-		return "redirect:/student/studentMain";
-	}
-	
-	// 학생 로그아웃
-	@GetMapping("/student/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/student/loginStudent";
+		return "redirect:/main";
 	}
 	
 	// 학생 메인

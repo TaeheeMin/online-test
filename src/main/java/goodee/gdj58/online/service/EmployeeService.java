@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import goodee.gdj58.online.mapper.EmployeeMapper;
 import goodee.gdj58.online.mapper.IdMapper;
 import goodee.gdj58.online.vo.Employee;
+import goodee.gdj58.online.vo.Test;
 
 @Service
 // service도 객체가 생김(bean)
@@ -19,6 +20,11 @@ import goodee.gdj58.online.vo.Employee;
 public class EmployeeService {
 	// 빈안에 employeeMapper에 들어갈 수 있는 객체가 있는지 확인한다
 	@Autowired private EmployeeMapper employeeMapper;
+	
+	// 메인 시험 목록
+	public List<Test> getMainTestList() {
+		return employeeMapper.selectMainTestList();
+	}
 	
 	// 사원 비밀번호수정
 	public int modifyEmployeePw(String oldPw, String newPw, int empNo) {
