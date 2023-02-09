@@ -20,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class EmployeeController {
 	@Autowired EmployeeService employeeService;
-	@Autowired private Idservice idservice;
 	
 	// 사원 비밀번호 수정
 	@GetMapping("/employee/modifyEmpPw")
@@ -89,6 +88,7 @@ public class EmployeeController {
 			return "redirect:/employee/addEmp";
 		}
 		*/
+		
 		int row = employeeService.addEmployee(employee);
 		if(row == 0) {
 			model.addAttribute("errorMsg", "사원등록 실패");

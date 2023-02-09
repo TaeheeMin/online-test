@@ -11,8 +11,6 @@
 		<div>
 			<c:import url="/WEB-INF/view/inc/teacherMenu.jsp"></c:import>
 		</div>
-		
-		<h3>${loginTeacher.teacherName}님 메인</h3>
-		
+		${loginTeacher.teacherName} 강사님
 	</body>
 </html>

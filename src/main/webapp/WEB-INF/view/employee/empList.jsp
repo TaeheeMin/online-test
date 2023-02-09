@@ -11,7 +11,6 @@
 		<div>
 			<c:import url="/WEB-INF/view/inc/empMenu.jsp"></c:import>
 		</div>
-		
 		<h3>Employee List</h3>
 		<a href="${pageContext.request.contextPath}/employee/addEmp">사원등록</a>
 		<form method="get" action="${pageContext.request.contextPath}/employee/empList">

@@ -40,11 +40,13 @@
 	</body>
 	<script>
 		$('#idck').click(function() {
+			console.log($('#id').val())
 			$.ajax({
-				url:'idck'
+				url:'http://localhost/online-test/employee/idCheck'
 				, type:'get'
 				, data:{id:$('#id').val()}
 				, success:function(model) { //model -> yes/no
+					console.log(model)
 					if(model =='YES') {
 						// 사용가능
 						  $('#empId').val($('#id').val());

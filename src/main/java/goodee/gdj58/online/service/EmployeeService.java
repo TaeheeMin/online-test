@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import goodee.gdj58.online.mapper.EmployeeMapper;
+import goodee.gdj58.online.mapper.IdMapper;
 import goodee.gdj58.online.vo.Employee;
 
 @Service
