@@ -72,7 +72,7 @@
 	
 	<!-- 시험 추가 -->
 	<insert id="insertTest" parameterType="goodee.gdj58.online.vo.Test">
-		INSERT INTO test(test_title, test_date) VALUES (#{testTitle}, NOW())
+		INSERT INTO test(test_title, test_date) VALUES (#{testTitle}, #{testDate})
 	</insert>
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 	<!-- 시험 목록 -->

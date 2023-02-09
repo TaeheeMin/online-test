@@ -89,6 +89,7 @@ public class TeacherController {
 	public String addTest() {
 		return "teacher/addTest";
 	}
+	
 	@PostMapping("/teacher/addTest")
 	public String addTest(@RequestParam(value = "testTitle") String testTitle
 							, @RequestParam(value = "testDate") String testDate) {

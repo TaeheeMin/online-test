@@ -5,6 +5,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>addEmp</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	</head>
 	<body>
 		<!-- 메뉴 -->
@@ -13,13 +14,16 @@
 		</div>
 		
 		<h3>사원추가</h3>
-		<div>${errorMsg}</div>
+		<div>
+			<input type="text" id="id">
+			<button type="button" id="idck">중복검사</button>
+		</div>
 		<form method="post" action="${pageContext.request.contextPath}/employee/addEmp">
 			<table border="1">
 				<tr>
 					<td>ID</td>
 					<td>
-						<input type="text" name="empId">
+						<input type="text" name="empId" id="empId" readonly="readonly">
 					</td>
 				</tr>
 				<tr>
@@ -34,4 +38,22 @@
 			<button type="submit">등록</button>
 		</form>
 	</body>
+	<script>
+		$('#idck').click(function() {
+			$.ajax({
+				url:'idck'
+				, type:'get'
+				, data:{id:$('#id').val()}
+				, success:function(model) { //model -> yes/no
+					if(model =='YES') {
+						// 사용가능
+						  $('#empId').val($('#id').val());
+					} else {
+						// 사용불가능
+						alert($('#id').val()+'는 사용중인 아이디입니다.');
+					}
+				}
+			})
+		});
+	</script>
 </html>

@@ -12,7 +12,7 @@
 			<c:import url="/WEB-INF/view/inc/teacherMenu.jsp"></c:import>
 		</div>
 		
-		<h3>Test List</h3>
+		<h3>${loginTeacher.teacherName}님 Test List</h3>
 		<a href="${pageContext.request.contextPath}/teacher/addTest">시험등록</a>
 		<form method="get" action="${pageContext.request.contextPath}/teacher/testList">
 			<select name="rowPerPage">

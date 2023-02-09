@@ -80,6 +80,7 @@ public class EmployeeController {
 	// addEmp 배개변수 받아옴 -> 오버로딩
 	@PostMapping("/employee/addEmp")
 	public String addEmp(Employee employee, Model model) {
+		/*
 		// id 중복확인
 		String idCheck = idservice.getIdCheck(employee.getEmpId());
 		if(idCheck != null) { // null이면 아이디 사용가능
@@ -87,7 +88,7 @@ public class EmployeeController {
 			model.addAttribute("errorMsg", "아이디 중복");
 			return "redirect:/employee/addEmp";
 		}
-		
+		*/
 		int row = employeeService.addEmployee(employee);
 		if(row == 0) {
 			model.addAttribute("errorMsg", "사원등록 실패");
