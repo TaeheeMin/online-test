@@ -40,7 +40,8 @@
 	</body>
 	<script>
 		$('#idck').click(function() {
-			console.log($('#id').val())
+			console.log($('#id').val());
+			
 			$.ajax({
 				url:'http://localhost/online-test/employee/idCheck'
 				, type:'get'

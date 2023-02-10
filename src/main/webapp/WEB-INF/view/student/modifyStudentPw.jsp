@@ -8,9 +8,6 @@
 	</head>
 	<body>
 		<!-- 메뉴 -->
-		<div>
-			<c:import url="/WEB-INF/view/inc/studentMenu.jsp"></c:import>
-		</div>
 		<h3>${loginStudent.studentName}님 비밀번호 수정</h3>
 		<form method="post" action="${pageContext.request.contextPath}/student/modifyStudentPw">
 			<table border="1">

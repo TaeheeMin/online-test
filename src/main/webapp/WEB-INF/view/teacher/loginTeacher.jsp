@@ -9,9 +9,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/resources/dashboard/assets/img/apple-icon.png">
 		<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/dashboard/assets/img/favicon.png">
-		<title>
-		  Material Dashboard 2 by Creative Tim
-		</title>
 		<!--     Fonts and icons     -->
 		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
 		<!-- Nucleo Icons -->
@@ -27,17 +24,17 @@
 			$(document).ready(function() {
 				// 유효성검사
 				$('#loginBtn').click(function() {
-					// 카테고리
 					if($('#teacherId').val() == '') {
 						$('#msg').text('아이디를 입력해주세요');
+						$('#teacherId').focus();
 						return;
 					} else {
 						$('#msg').text('');
 					}
 					
-					// 내용
 					if($('#teacherPw').val() == '') {
 						$('#msg').text('비밀번호를 입력해주세요');
+						$('#teacherPw').focus();
 						return;
 					} else {
 						$('#msg').text('');
@@ -69,20 +66,30 @@
 		                <span class="navbar-toggler-bar bar3"></span>
 		              </span>
 		            </button>
+	        
 		            <div class="collapse navbar-collapse" id="navigation">
 		              <ul class="navbar-nav mx-auto">
 		                <li class="nav-item">
+		                  <a class="nav-link me-2" href="${pageContext.request.contextPath}/main">
+		                  	 <i class="fas material-icons opacity-6 text-dark me-1">home</i>
+		                    Home
+		                  </a>
+		                </li>
+		                
+		                <li class="nav-item mx-auto">
 		                  <a class="nav-link me-2" href="">
 		                    <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
 		                    Sign Up
 		                  </a>
 		                </li>
+		                
 		                <li class="nav-item">
 		                  <a class="nav-link me-2" href="${pageContext.request.contextPath}/loginTeacher">
 		                    <i class="fas fa-key opacity-6 text-dark me-1"></i>
 		                    Sign In
 		                  </a>
 		                </li>
+		                
 		              </ul>
 		            </div>
 		          </div>
@@ -123,13 +130,16 @@
 		              </div>
 		              <div class="card-body">
 		                <form id="loginForm" role="form" class="text-start" method="post" action="${pageContext.request.contextPath}/loginTeacher">
+	                      <div>
+		                      <p class="mt-4 text-sm text-center" id="msg" style="color: red;"></p>
+	                      </div>
 		                  <div class="input-group input-group-outline my-3">
-		                    <input type="text" class="form-control" name="teacherId" id="teacherId">
-		                    <span id="msg"></span>
+		                  	<label class="form-label">ID</label>
+		                    <input type="text" class="form-control" name="teacherId" id="teacherId" value="t1">
 		                  </div>
 		                  <div class="input-group input-group-outline mb-3">
-		                    <input type="password" class="form-control" name="teacherPw" id="teacherPw">
-		                    <span id="msg"></span>
+		                  	<label class="form-label">Password</label>
+		                    <input type="password" class="form-control" name="teacherPw" id="teacherPw" value="123">
 		                  </div>
 		                  <div class="form-check form-switch d-flex align-items-center mb-3">
 		                    <input class="form-check-input" type="checkbox" id="rememberMe" checked>
@@ -143,21 +153,11 @@
 		                    <a href="" class="text-primary text-gradient font-weight-bold">Sign up</a>
 		                  </p>
 		                </form>
-
-
-
-
-		                
-		                
 		              </div>
 		            </div>
 		          </div>
 		        </div>
 		      </div>
-		      
-		      
-		      
-		      
 		      
 		      <footer class="footer position-absolute bottom-2 py-2 w-100">
 		        <div class="container">
