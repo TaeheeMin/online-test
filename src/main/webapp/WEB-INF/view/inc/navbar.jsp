@@ -43,31 +43,33 @@
           <h6 class="font-weight-bolder mb-0">Dashboard</h6>
         </nav>
           <ul class="navbar-nav  justify-content-end">
-            <c:if test="${loginStudent != null || loginStudent != null || loginEmp != null}">
-	          	<li class="nav-item px-1 d-flex align-items-center">
-					<a class="btn btn-outline-primary btn-sm mb-0 me-3" href="${pageContext.request.contextPath}/logout">Logout</a>
-				</li>
-            </c:if>
-            <c:if test="${loginStudent == null && loginStudent == null && loginEmp == null}">
-            	<li class="nav-item px-1 d-flex align-items-center">
-	              <a href="${pageContext.request.contextPath}/loginEmp" class="nav-link text-body font-weight-bold px-0">
-	                <i class="fa fa-user me-sm-1"></i>
-	                <span class="d-sm-inline d-none">Employee</span>
-	              </a>
-	            </li>
-	            <li class="nav-item px-1 d-flex align-items-center">
-	              <a href="${pageContext.request.contextPath}/loginTeacher" class="nav-link text-body font-weight-bold px-0">
-	                <i class="fa fa-user me-sm-1"></i>
-	                <span class="d-sm-inline d-none">Teacher</span>
-	              </a>
-	            </li>
-	            <li class="nav-item px-1 d-flex align-items-center">
-	              <a href="${pageContext.request.contextPath}/loginStudent" class="nav-link text-body font-weight-bold px-0">
-	                <i class="fa fa-user me-sm-1"></i>
-	                <span class="d-sm-inline d-none">Student</span>
-	              </a>
-	            </li>
-            </c:if>
+	          <c:choose>
+          			<c:when test="${loginStudent != null || loginTeacher != null || loginEmp != null}">
+			          	<li class="nav-item px-1 d-flex align-items-center">
+							<a class="btn btn-outline-primary btn-sm mb-0 me-3" href="${pageContext.request.contextPath}/logout">Logout</a>
+						</li>
+          			</c:when>
+          			<c:when test="${loginStudent == null && loginTeacher == null && loginEmp == null}">
+		            	<li class="nav-item px-1 d-flex align-items-center">
+			              <a href="${pageContext.request.contextPath}/loginEmp" class="nav-link text-body font-weight-bold px-0">
+			                <i class="fa fa-user me-sm-1"></i>
+			                <span class="d-sm-inline d-none">Employee</span>
+			              </a>
+			            </li>
+			            <li class="nav-item px-1 d-flex align-items-center">
+			              <a href="${pageContext.request.contextPath}/loginTeacher" class="nav-link text-body font-weight-bold px-0">
+			                <i class="fa fa-user me-sm-1"></i>
+			                <span class="d-sm-inline d-none">Teacher</span>
+			              </a>
+			            </li>
+			            <li class="nav-item px-1 d-flex align-items-center">
+			              <a href="${pageContext.request.contextPath}/loginStudent" class="nav-link text-body font-weight-bold px-0">
+			                <i class="fa fa-user me-sm-1"></i>
+			                <span class="d-sm-inline d-none">Student</span>
+			              </a>
+			            </li>
+          			</c:when>
+	          </c:choose>
           </ul>
         </div>
     </nav>
