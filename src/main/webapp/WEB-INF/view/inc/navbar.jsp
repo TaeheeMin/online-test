@@ -24,27 +24,27 @@
             	</a>
             </li>
             <li class="breadcrumb-item text-sm text-dark active" aria-current="page">
-            	<c:choose>
-           			<c:when test="${loginEmp != null}">
-           				${loginEmp.empName}
-           			</c:when>
-           			<c:when test="${loginTeacher != null}">
-           				${loginTeacher.teacherName}
-           			</c:when>
-           			<c:when test="${loginStudent != null}">
-           				${loginStudent.studentName}
-           			</c:when>
-           			<c:otherwise>
-           				Dashboard
-           			</c:otherwise>
-           		</c:choose>
+            	<span class="font-weight-bolder mb-0">Dashboard</span>
             </li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+          
         </nav>
           <ul class="navbar-nav  justify-content-end">
 	          <c:choose>
           			<c:when test="${loginStudent != null || loginTeacher != null || loginEmp != null}">
+			          	<li class="nav-item px-1 d-flex align-items-center">
+							<c:choose>
+			           			<c:when test="${loginEmp != null}">
+			           				<span class="text-dark">${loginEmp.empName}님</span>
+			           			</c:when>
+			           			<c:when test="${loginTeacher != null}">
+			           				<span class="text-dark">${loginTeacher.teacherName}님</span>
+			           			</c:when>
+			           			<c:when test="${loginStudent != null}">
+			           				<span class="text-dark">${loginStudent.studentName}님</span>
+			           			</c:when>
+			           		</c:choose>
+						</li>
 			          	<li class="nav-item px-1 d-flex align-items-center">
 							<a class="btn btn-outline-primary btn-sm mb-0 me-3" href="${pageContext.request.contextPath}/logout">Logout</a>
 						</li>
@@ -74,13 +74,3 @@
         </div>
     </nav>
     <!-- End Navbar -->
-	<!--   Core JS Files   -->
-  <script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/core/popper.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/core/bootstrap.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/plugins/chartjs.min.js"></script>
-  <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/material-dashboard.min.js?v=3.0.4"></script>

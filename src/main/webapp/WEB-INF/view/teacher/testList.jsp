@@ -20,13 +20,23 @@
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 		<!-- CSS Files -->
 		<link id="pagestyle" href="${pageContext.request.contextPath}/resources/dashboard/assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
+		<script>
+			$(document).ready(function() {
+				$('#rowPerPage').click(function() {
+					$('#questionCountForm').submit();   
+				});
+			});
+		</script>
 	</head>
+	
 	<body class="g-sidenav-show  bg-gray-200">
-	   <!-- SideNav -->
+	  	<!-- SideNav -->
 		<c:import url="/WEB-INF/view/inc/sidenav.jsp"></c:import>
-	  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ps ps--active-y">
+	  	
+	  	<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ps ps--active-y">
 		<!-- Navbar -->
 		<c:import url="/WEB-INF/view/inc/navbar.jsp"></c:import>
+		
 		<h3>${loginTeacher.teacherName}님 Test List</h3>
 		<a href="${pageContext.request.contextPath}/teacher/addTest">시험등록</a>
 		
@@ -53,40 +63,60 @@
 		<div class="container-fluid py-4">
 			<div class="row">
 		        <div class="col-12">
+		        	
+		        	<div class="col-md-12 mb-lg-0 mb-4">
+              <div class="card mt-4">
+                <div class="card-header pb-0 p-3">
+                  <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                      <h6 class="mb-0">Payment Method</h6>
+                    </div>
+                    <div class="col-6 text-end">
+                      <a class="btn bg-gradient-dark mb-0" href="javascript:;"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Card</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body p-3">
+                  <div class="row">
+                    <div class="col-md-6 mb-md-0 mb-4">
+                      <div class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row">
+                        <img class="w-10 me-3 mb-0" src="../assets/img/logos/mastercard.png" alt="logo">
+                        <h6 class="mb-0">****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;7852</h6>
+                        <i class="material-icons ms-auto text-dark cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Card">edit</i>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row">
+                        <img class="w-10 me-3 mb-0" src="../assets/img/logos/visa.png" alt="logo">
+                        <h6 class="mb-0">****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;5248</h6>
+                        <i class="material-icons ms-auto text-dark cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Card">edit</i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+		        
+		        
+		        
+		        
 		          <div class="card my-4">
 		            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
 		              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-		                <h6 class="text-white text-capitalize ps-3">Projects table</h6>
+		                <h6 class="text-white text-capitalize ps-3">Quiz list</h6>
 		              </div>
-		              
-		              <div class="input-group input-group-static mt-4">
-					     <label for="exampleFormControlSelect1" class="ms-0">Example select</label>
-					     <select class="form-control" id="exampleFormControlSelect1">
-					       <option>1</option>
-					       <option>2</option>
-					       <option>3</option>
-					       <option>4</option>
-					       <option>5</option>
-					     </select>
-					   </div>
-					   <form method="get" action="${pageContext.request.contextPath}/teacher/testList">
-							<select name="rowPerPage">
-								<option value="10">10
-								<option value="20">20
-								<option value="30">30
-							</select>
-							<button type="submit">검색</button>
-						</form>
 		            </div>
-		            
-		            <div class="card-body px-0 pb-2">
+		            <div class="col-6 text-end">
+                      <a class="btn bg-gradient-dark mb-0" href="javascript:;"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Card</a>
+                    </div>
+		            <div class="card-body px-0 pb-2 pt-2">
 		              <div class="table-responsive p-0">
 		                <table class="table align-items-center justify-content-center mb-0">
 		                  <thead>
 		                    <tr>
 		                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quiz</th>
 		                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 align-middle text-center">Date</th>
-		                      <th></th>
+		                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Delete</th>
 		                    </tr>
 		                  </thead>
 		                  <tbody>
@@ -104,7 +134,6 @@
 		                          <td class="align-middle text-center">
 			                       		<span class="text-secondary text-xs font-weight-bold">${t.testDate}</span>
 			                      </td>
-			                      
 			                      <td class="align-middle text-center">
 			                          <a href="${pageContext.request.contextPath}/teacher/removeTest?testNo=${t.testNo}"><i class="fa fa-ellipsis-v text-xs"></i>
 			                          </a>
@@ -120,7 +149,7 @@
 		          <div class="pagination-container">
 			          <ul class="pagination pagination-primary pagination-sm justify-content-center">
 			          	<li class="page-item">
-					        <a class="page-link" href="javascript:;" aria-label="Previous">
+					        <a class="page-link" href="${pageContext.request.contextPath}/teacher/testList?currentPage=${currentPage-1}" aria-label="Previous">
 					          <span aria-hidden="true">
 					          	<span class="material-icons">
 									keyboard_arrow_left
@@ -128,23 +157,13 @@
 							</span>
 				          </a>
 				        </li>
-					    <li class="page-item active">
-					      <a class="page-link" href="javascript:;">1</a>
-					    </li>
+				        <c:forEach var="i" begin="${beginPage}" end="${endPage}" step="1">
+							<li class="page-item active">
+						      <a class="page-link" href="${pageContext.request.contextPath}/teacher/testList?currentPage=${i}">${i}</a>
+						    </li>
+						</c:forEach>
 					    <li class="page-item">
-					      <a class="page-link" href="#link">2</a>
-					    </li>
-					    <li class="page-item">
-					      <a class="page-link" href="#link">3</a>
-					    </li>
-					    <li class="page-item">
-					      <a class="page-link" href="#link">4</a>
-					    </li>
-					    <li class="page-item">
-					      <a class="page-link" href="#link">5</a>
-					    </li>
-					    <li class="page-item">
-					        <a class="page-link" href="javascript:;" aria-label="Previous">
+					        <a class="page-link" href="${pageContext.request.contextPath}/teacher/testList?currentPage=${currentPage+1}" aria-label="Previous">
 					          <span aria-hidden="true">
 					          	<span class="material-icons">
 									keyboard_arrow_right
@@ -154,19 +173,6 @@
 					     </li>
 					  </ul>
 				  </div>
-		          		<div>
-							<a href="${pageContext.request.contextPath}/teacher/testList?currentPage=1">HOME</a>
-							<a href="${pageContext.request.contextPath}/teacher/testList?currentPage=${currentPage-1}">&#128072;</a>
-							<c:forEach var="i" begin="${beginPage}" end="${endPage}" step="1">
-								<span>
-									<a href="${pageContext.request.contextPath}/teacher/testList?currentPage=${i}">${i}</a>
-								</span>
-							</c:forEach>
-							<a href="${pageContext.request.contextPath}/teacher/testList?currentPage=${currentPage+1}">&#128073;</a>
-							<a href="${pageContext.request.contextPath}/teacher/testList?rowPerPage=${rowPerPage}&currentPage=${lastPage}">END</a>
-						</div>
-						<!-- 페이징 -->
-		          
 		        </div>
 		      </div>
 		      
