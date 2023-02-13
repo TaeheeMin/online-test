@@ -22,8 +22,24 @@
 		<link id="pagestyle" href="${pageContext.request.contextPath}/resources/dashboard/assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 		<script>
 			$(document).ready(function() {
-				$('#rowPerPage').click(function() {
-					$('#questionCountForm').submit();   
+				$('#addTestBtn').click(function() {
+					// 유효성 검사
+					if($('#testTitle').val() == '') {
+						$('#msg').text('제목을 입력해주세요');
+						$('#testTitle').focus();
+						return;
+					} else {
+						$('#msg').text('');
+					}
+					
+					if($('#testDate').val() == '') {
+						$('#msg').text('날짜를 입력해주세요');
+						$('#testDate').focus();
+						return;
+					} else {
+						$('#msg').text('');
+					}
+					$('#addTestForm').submit();   
 				});
 			});
 		</script>
@@ -37,114 +53,80 @@
 		<!-- Navbar -->
 		<c:import url="/WEB-INF/view/inc/navbar.jsp"></c:import>
 		
-		<h3>${loginTeacher.teacherName}님 Test List</h3>
-		<a href="${pageContext.request.contextPath}/teacher/addTest">시험등록</a>
-		
-		<table border="1">
-			<tr>
-				<td>시험</td>
-				<td>날짜</td>
-				<td>삭제</td>
-			</tr>
-			<c:forEach var="t" items="${list}">
-				<tr>
-					<td>
-						<a href="${pageContext.request.contextPath}/teacher/testOne?testNo=${t.testNo}">${t.testTitle}</a>
-					</td>
-					<td>${t.testDate}</td>
-					<td>
-						<a href="${pageContext.request.contextPath}/teacher/removeTest?testNo=${t.testNo}">삭제</a>
-					</td>
-				</tr>
-		 	</c:forEach>
-		</table>
-		
-		
 		<div class="container-fluid py-4">
 			<div class="row">
 		        <div class="col-12">
-		        	
 		        	<div class="col-md-12 mb-lg-0 mb-4">
-              <div class="card mt-4">
-                <div class="card-header pb-0 p-3">
-                  <div class="row">
-                    <div class="col-6 d-flex align-items-center">
-                      <h6 class="mb-0">Payment Method</h6>
-                    </div>
-                    <div class="col-6 text-end">
-                      <a class="btn bg-gradient-dark mb-0" href="javascript:;"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Card</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body p-3">
-                  <div class="row">
-                    <div class="col-md-6 mb-md-0 mb-4">
-                      <div class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row">
-                        <img class="w-10 me-3 mb-0" src="../assets/img/logos/mastercard.png" alt="logo">
-                        <h6 class="mb-0">****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;7852</h6>
-                        <i class="material-icons ms-auto text-dark cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Card">edit</i>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row">
-                        <img class="w-10 me-3 mb-0" src="../assets/img/logos/visa.png" alt="logo">
-                        <h6 class="mb-0">****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;5248</h6>
-                        <i class="material-icons ms-auto text-dark cursor-pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Card">edit</i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-		        
-		        
-		        
-		        
-		          <div class="card my-4">
-		            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-		              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-		                <h6 class="text-white text-capitalize ps-3">Quiz list</h6>
-		              </div>
-		            </div>
-		            <div class="col-6 text-end">
-                      <a class="btn bg-gradient-dark mb-0" href="javascript:;"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Card</a>
-                    </div>
-		            <div class="card-body px-0 pb-2 pt-2">
-		              <div class="table-responsive p-0">
-		                <table class="table align-items-center justify-content-center mb-0">
-		                  <thead>
-		                    <tr>
-		                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quiz</th>
-		                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 align-middle text-center">Date</th>
-		                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Delete</th>
-		                    </tr>
-		                  </thead>
-		                  <tbody>
-			                  <c:forEach var="t" items="${list}">
-			                    <tr>
-			                      <td>
-			                        <div class="d-flex px-2">
-			                          <div class="my-auto">
-			                            <h6 class="mb-0 text-sm">
-			                            	<a href="${pageContext.request.contextPath}/teacher/testOne?testNo=${t.testNo}">${t.testTitle}</a>
-			                            </h6>
-			                          </div>
-			                        </div>
-			                      </td>
-		                          <td class="align-middle text-center">
-			                       		<span class="text-secondary text-xs font-weight-bold">${t.testDate}</span>
-			                      </td>
-			                      <td class="align-middle text-center">
-			                          <a href="${pageContext.request.contextPath}/teacher/removeTest?testNo=${t.testNo}"><i class="fa fa-ellipsis-v text-xs"></i>
-			                          </a>
-			                      </td>
-			                    </tr>
-		                    </c:forEach>
-		                  </tbody>
-		                </table>
+		              <div class="card my-4">
+			            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+			              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+			                <h6 class="text-white text-capitalize ps-3">Quiz list</h6>
+			              </div>
+			            </div>
+			            <div class="text-end">
+	                      <a class="btn bg-gradient-dark mb-0 mt-3 px-3 mx-3" id="addTestBtn"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Card</a>
+	                    </div>
+		                <div class="card-body p-3">
+		                  <div class="row">
+		                    <div class="col-md-6 mb-md-0 mb-4">
+		                      <div class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row">
+		                      	<form method="post" action="${pageContext.request.contextPath}/teacher/addTest" id="addTestForm">
+									<div class="input-group input-group-static my-3">
+								      <label>Title</label>
+  									  <input type="text"  class="form-control mb-3" name="testTitle" id="testTitle" >
+  									  
+								      <label>Date</label>
+								      <input type="date" class="form-control" name="testDate" id="testDate">
+								    </div>
+								</form>
+		                      	<div>
+		                      		<p class="text-sm text-center text-primary" id="msg"></p>
+                      			</div>
+		                      </div>
+		                    </div>
+		                    
+		                    <div class="card-body px-0 pb-2 pt-2">
+				              <div class="table-responsive p-0">
+				                <table class="table align-items-center justify-content-center mb-0">
+				                  <thead>
+				                    <tr>
+				                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quiz</th>
+				                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 align-middle text-center">Date</th>
+				                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Delete</th>
+				                    </tr>
+				                  </thead>
+				                  <tbody>
+					                  <c:forEach var="t" items="${list}">
+					                    <tr>
+					                      <td>
+					                        <div class="d-flex px-2">
+					                          <div class="my-auto">
+					                            <h6 class="mb-0 text-sm">
+					                            	<a href="${pageContext.request.contextPath}/teacher/testOne?testNo=${t.testNo}">${t.testTitle}</a>
+					                            </h6>
+					                          </div>
+					                        </div>
+					                      </td>
+				                          <td class="align-middle text-center">
+					                       		<span class="text-secondary text-xs font-weight-bold">${t.testDate}</span>
+					                      </td>
+					                      <td class="align-middle text-center">
+					                          <a href="${pageContext.request.contextPath}/teacher/removeTest?testNo=${t.testNo}"><i class="fa fa-ellipsis-v text-xs"></i>
+					                          </a>
+					                      </td>
+					                    </tr>
+				                    </c:forEach>
+				                  </tbody>
+				                </table>
+				              </div>
+				            </div>
+		                  </div>
+		                </div>
 		              </div>
 		            </div>
 		          </div>
+		        </div>
+		
 		          <!-- 페이징 -->
 		          <div class="pagination-container">
 			          <ul class="pagination pagination-primary pagination-sm justify-content-center">
@@ -174,7 +156,6 @@
 					  </ul>
 				  </div>
 		        </div>
-		      </div>
 		      
 		      <footer class="footer py-4  ">
 		        <div class="container-fluid">

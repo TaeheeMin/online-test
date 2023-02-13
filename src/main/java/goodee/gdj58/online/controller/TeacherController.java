@@ -38,8 +38,7 @@ public class TeacherController {
 		if(addQuestion == 1) {
 			log.debug("\u001B[31m" + "문제 등록성공");
 		}
-		// 보기 4개 고정
-		Example[] example = new Example[4];
+		Example[] example = new Example[4]; // 보기 4개
 		for(int i=0; i<example.length; i++) {
 			example[i] = new Example();
 			example[i].setQuestionNo(question.getQuestionNo());
@@ -145,7 +144,7 @@ public class TeacherController {
 		if(row == 1) {
 			log.debug("\u001B[31m"+"강사 비밀번호 수정 성공");
 		}
-		return "redirect:/teacher/teacherMain";
+		return "redirect:/teacher/modifyTeacherPw";
 	}
 	
 	// 강사 로그인

@@ -76,12 +76,13 @@ public class StudentController {
 	
 	// 시험 목록
 	@GetMapping("/student/testListByStudent")
-	public String testList(Model model
+	public String testList(Model model, HttpSession session
 			, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage
 			, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage) {
 		log.debug("\u001B[31m" + currentPage + "  <=  currentPage");
 		log.debug("\u001B[31m" + rowPerPage + "  <=  rowPerPage");
 		List<Test> list = studentService.getTestList(currentPage, rowPerPage);
+		
 		int count = studentService.getTestCount();
 		int page = 10; // 페이징 목록 개수
 		int beginPage = ((currentPage - 1)/page) * page + 1; // 시작 페이지

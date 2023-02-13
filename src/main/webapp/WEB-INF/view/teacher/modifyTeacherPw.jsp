@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>강사</title>
+		<title>비민번호 변경</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/resources/dashboard/assets/img/apple-icon.png">
@@ -24,6 +24,7 @@
 			$(document).ready(function() {
 				// 유효성검사
 				$('#pwBtn').click(function() {
+					console.log('클릭');
 					if($('#oldPw').val() == '') {
 						$('#msg').text('비밀번호를 입력해주세요');
 						$('#oldPw').focus();
@@ -32,7 +33,7 @@
 						$('#msg').text('');
 					}
 					
-					if($('#newPw).val() == '') {
+					if($('#newPw').val() == '') {
 						$('#msg').text('비밀번호를 입력해주세요');
 						$('#newPw').focus();
 						return;
@@ -123,17 +124,15 @@
 		                </div>
 		                
 		                <div class="card-body">
-		                  <form id="pwForm" role="form" method="post" action="${pageContext.request.contextPath}/teacher/modifyTeacherPw">
 		                  	<div>
-		                      <p class="mt-4 text-sm text-center" id="msg" style="color: red;"></p>
+		                      <p class="text-sm text-center text-primary" id="msg"></p>
 	                      	</div>
-		                    <div class="input-group input-group-outline mb-3">
-		                      <label class="form-label">Password</label>
-		                      <input type="password" class="form-control" name="oldPw" id="oldPw">
+		                  <form id="pwForm" role="form" method="post" action="${pageContext.request.contextPath}/teacher/modifyTeacherPw">
+		                    <div class="input-group input-group-dynamic input-group-outline mb-3">
+		                      <input type="password" class="form-control" name="oldPw" id="oldPw" placeholder="Password">
 		                    </div>
-		                    <div class="input-group input-group-outline mb-3">
-		                      <label class="form-label">new Password</label>
-		                      <input type="password" class="form-control" name="newPw" id="newPw">
+		                    <div class="input-group input-group-dynamic input-group-outline mb-3">
+		                      <input type="password" class="form-control" name="newPw" id="newPw" placeholder="New Password">
 		                    </div>
 		                    <div class="text-center">
 		                      <button type="button" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0" id="pwBtn">Submit</button>

@@ -124,12 +124,10 @@
 		                      <p class="mt-4 text-sm text-center" id="msg" style="color: red;"></p>
 	                      </div>
 		                  <div class="input-group input-group-outline my-3">
-		                  	<label class="form-label">ID</label>
-		                    <input type="text" class="form-control" name="studentId" id="studentId" value="">
+		                    <input type="text" class="form-control" name="studentId" id="studentId" value="s1">
 		                  </div>
 		                  <div class="input-group input-group-outline mb-3">
-		                  	<label class="form-label">Password</label>
-		                    <input type="password" class="form-control" name="studentPw" id="studentPw" value="">
+		                    <input type="password" class="form-control" name="studentPw" id="studentPw" value="123">
 		                  </div>
 		                  <div class="form-check form-switch d-flex align-items-center mb-3">
 		                    <input class="form-check-input" type="checkbox" id="rememberMe" checked>

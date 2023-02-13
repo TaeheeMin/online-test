@@ -22,12 +22,9 @@
 		<link id="pagestyle" href="${pageContext.request.contextPath}/resources/dashboard/assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 		<script>
 			$(document).ready(function() {
-				$('#questionCount').change(function() {
-					$('#questionCountForm').submit();   
-				});
 				$('#questionBtn').click(function() {
-					let example = document.querySelectorAll('.example');
-					console.log(example)
+					
+					
 					$('#questionForm').submit();
 				});
 			});
@@ -35,7 +32,7 @@
 		
 	</head>
 	
-	<body class="g-sidenav-show  bg-gray-200">
+	<body class="g-sidenav-show bg-gray-200">
 		<!-- SideNav -->
 		<c:import url="/WEB-INF/view/inc/sidenav.jsp"></c:import>
 	  	
@@ -49,39 +46,63 @@
 						<div class="card">
 							<div class="card-header pb-0 px-3">
 								<h6 class="mb-0 px-3">${test.testTitle}</h6>
+								<span class="mb-0 px-3 text-sm"><small>문제는 <mark>10번까지</mark> 등록 가능해요.</small></span>
+								<br>
 								<a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
 								<a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">edit</i>Edit</a>
 							</div>
-							<c:if test="${questionCount < 10}">
-							    	${questionCount +1}번
-							        <form id="questionForm" method="post" action="${pageContext.request.contextPath}/teacher/addQuestion">
-										<input type="hidden" name="testNo" value="${test.testNo}">
-										<!-- 문제등록 -->
-										<input type="hidden" class="questionIdx" name="questionIdx" value="${questionCount +1}" readonly="readonly">
-										<input type="text" class="questionTitle" name="questionTitle" placeholder="문제를 입력하세요">
-										<!-- 보기등록 -->
-										<br>
-										<input type="radio" id="exampleAnswer" name="examplAnswer" value="1">&#10112;
-										<input type="text" name="exampleContent" class="example" placeholder="보기를 입력하세요">
-										<input type="hidden" id="exampleIdx" name="exampleIdx" value="1" readonly="readonly">
-										<br>
-										<input type="radio" id="exampleAnswer" name="examplAnswer" value="2">&#10113; 
-										<input type="text" name="exampleContent" class="example" placeholder="보기를 입력하세요">
-										<input type="hidden" id="exampleIdx" name="exampleIdx" value="2" readonly="readonly">
-										<br>
-										<input type="radio" id="exampleAnswer" name="examplAnswer" value="3">&#10114;
-										<input type="text" name="exampleContent" class="example" placeholder="보기를 입력하세요">
-										<input type="hidden" id="exampleIdx" name="exampleIdx" value="3" readonly="readonly">
-										<br>
-										<input type="radio" id="exampleAnswer" name="examplAnswer" value="4">&#10115; 
-										<input type="text" name="exampleContent" class="example" placeholder="보기를 입력하세요">
-										<input type="hidden" id="exampleIdx" name="exampleIdx" value="4" readonly="readonly">
-										<br>
-										<br>
-										<button type="button" id="questionBtn">등록</button>
-									</form>
-							</c:if>
 							
+							<!-- 문제등록 -->
+							<div class="card-body pt-4 p-3">
+					            <div class=" border-0 p-4 mb-2 bg-gray-100 border-radius-lg">
+									<div class=" d-flex flex-column">
+										<c:if test="${questionCount < 10}">
+									    	<strong>${questionCount +1}번</strong>
+									    	
+									        <form id="questionForm" method="post" action="${pageContext.request.contextPath}/teacher/addQuestion">
+												<input type="hidden" name="testNo" value="${test.testNo}">
+												<input type="hidden" class="questionIdx" name="questionIdx" value="${questionCount +1}" readonly="readonly">
+												
+												<!-- 문제제목 -->
+												<div class="input-group input-group-dynamic  mb-4 input-group-sm">
+												    <input type="text" class="form-control" placeholder="Title" aria-label="Username" aria-describedby="basic-addon1" name="questionTitle">
+												</div>
+												
+												<div class="form-check input-group-sm input-group input-group-dynamic">
+												    <!-- 1번 -->
+												    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="1">
+												    <span>&nbsp; &#10112; &nbsp;</span>
+												    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
+													<input type="hidden" id="exampleIdx" name="exampleIdx" value="1">
+												<div class="form-check input-group-sm input-group input-group-dynamic">
+												</div>
+												    <!-- 2번 -->
+												    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="2">
+												    <span>&nbsp; &#10113; &nbsp;</span>
+												    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
+													<input type="hidden" id="exampleIdx" name="exampleIdx" value="2">
+												<div class="form-check input-group-sm input-group input-group-dynamic">
+												</div>
+												    <!-- 3번 -->
+												    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="3">
+												    <span>&nbsp; &#10114; &nbsp;</span>
+												    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
+													<input type="hidden" id="exampleIdx" name="exampleIdx" value="3">
+												<div class="form-check input-group-sm input-group input-group-dynamic">
+												</div>
+												    <!-- 4번 -->
+												    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="4">
+												    <span>&nbsp; &#10115; &nbsp;</span>
+												    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
+													<input type="hidden" id="exampleIdx" name="exampleIdx" value="4">
+												</div>
+												<button type="button" class="btn btn-outline-secondary btn-sm" id="questionBtn">등록</button>
+											</form>
+										</c:if>
+									</div>
+								</div>
+							</div>
+								
 							<!-- question -->
 				            <div class="card-body pt-4 p-3">
 					            <div class=" border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
