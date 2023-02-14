@@ -90,11 +90,7 @@ public class TeacherController {
 	}
 	
 	@PostMapping("/teacher/addTest")
-	public String addTest(@RequestParam(value = "testTitle") String testTitle
-							, @RequestParam(value = "testDate") String testDate) {
-		Test test = new Test();
-		test.setTestTitle(testTitle);
-		test.setTestDate(testDate);
+	public String addTest(Test test) {
 		int row  = teacherService.addTest(test);
 		if(row == 1) {
 			log.debug("\u001B[31m"+"시험 등록완료");
