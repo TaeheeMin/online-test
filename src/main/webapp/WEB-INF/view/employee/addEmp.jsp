@@ -9,10 +9,6 @@
 	</head>
 	<body>
 		<!-- 메뉴 -->
-		<div>
-			<c:import url="/WEB-INF/view/inc/empMenu.jsp"></c:import>
-		</div>
-		
 		<h3>사원추가</h3>
 		<div>
 			<input type="text" id="id">

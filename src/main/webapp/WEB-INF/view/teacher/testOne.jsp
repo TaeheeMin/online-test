@@ -36,134 +36,163 @@
 		<!-- SideNav -->
 		<c:import url="/WEB-INF/view/inc/sidenav.jsp"></c:import>
 	  	
-	  	<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ps ps--active-y">
-			<!-- Navbar -->
-			<c:import url="/WEB-INF/view/inc/navbar.jsp"></c:import>
-			
-			<div class="container-fluid py-4">
-				<div class="row">
-			        <div class="col">
-						<div class="card">
-							<div class="card-header pb-0 px-3">
-								<h6 class="mb-0 px-3">${test.testTitle}</h6>
-								<span class="mb-0 px-3 text-sm"><small>문제는 <mark>10번까지</mark> 등록 가능해요.</small></span>
-								<br>
-								<a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
-								<a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">edit</i>Edit</a>
+	  	<div class="main-content position-relative max-height-vh-100 h-100">
+		<!-- Navbar -->
+		<c:import url="/WEB-INF/view/inc/navbar.jsp"></c:import>
+		<div class="container-fluid py-4">
+			<div class="row">
+		        <div class="col">
+					<div class="card">
+						<div class="card-header pb-0 px-3">
+							<h6 class="mb-0 px-3">${test.testTitle}</h6>
+							<span class="mb-0 px-3 text-sm"><small>문제는 <mark>10번까지</mark> 등록 가능해요.</small></span>
+							<br>
+							<a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
+							<a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">edit</i>Edit</a>
+						</div>
+						
+						<!-- 문제등록 -->
+						<div class="card-body pt-4 p-3">
+				            <div class=" border-0 p-4 mb-2 bg-gray-100 border-radius-lg">
+								<div class=" d-flex flex-column">
+									<c:if test="${questionCount < 10}">
+								    	<strong>${questionCount +1}번</strong>
+								    	
+								        <form id="questionForm" method="post" action="${pageContext.request.contextPath}/teacher/addQuestion">
+											<input type="hidden" name="testNo" value="${test.testNo}">
+											<input type="hidden" class="questionIdx" name="questionIdx" value="${questionCount +1}" readonly="readonly">
+											
+											<!-- 문제제목 -->
+											<div class="input-group input-group-dynamic  mb-4 input-group-sm">
+											    <input type="text" class="form-control" placeholder="Title" aria-label="Username" aria-describedby="basic-addon1" name="questionTitle">
+											</div>
+											
+											<div class="form-check input-group-sm input-group input-group-dynamic">
+											    <!-- 1번 -->
+											    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="1">
+											    <span>&nbsp; &#10112; &nbsp;</span>
+											    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
+												<input type="hidden" id="exampleIdx" name="exampleIdx" value="1">
+											<div class="form-check input-group-sm input-group input-group-dynamic">
+											</div>
+											    <!-- 2번 -->
+											    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="2">
+											    <span>&nbsp; &#10113; &nbsp;</span>
+											    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
+												<input type="hidden" id="exampleIdx" name="exampleIdx" value="2">
+											<div class="form-check input-group-sm input-group input-group-dynamic">
+											</div>
+											    <!-- 3번 -->
+											    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="3">
+											    <span>&nbsp; &#10114; &nbsp;</span>
+											    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
+												<input type="hidden" id="exampleIdx" name="exampleIdx" value="3">
+											<div class="form-check input-group-sm input-group input-group-dynamic">
+											</div>
+											    <!-- 4번 -->
+											    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="4">
+											    <span>&nbsp; &#10115; &nbsp;</span>
+											    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
+												<input type="hidden" id="exampleIdx" name="exampleIdx" value="4">
+											</div>
+											<button type="button" class="btn btn-outline-secondary btn-sm" id="questionBtn">등록</button>
+										</form>
+									</c:if>
+								</div>
 							</div>
 							
-							<!-- 문제등록 -->
-							<div class="card-body pt-4 p-3">
-					            <div class=" border-0 p-4 mb-2 bg-gray-100 border-radius-lg">
-									<div class=" d-flex flex-column">
-										<c:if test="${questionCount < 10}">
-									    	<strong>${questionCount +1}번</strong>
-									    	
-									        <form id="questionForm" method="post" action="${pageContext.request.contextPath}/teacher/addQuestion">
-												<input type="hidden" name="testNo" value="${test.testNo}">
-												<input type="hidden" class="questionIdx" name="questionIdx" value="${questionCount +1}" readonly="readonly">
-												
-												<!-- 문제제목 -->
-												<div class="input-group input-group-dynamic  mb-4 input-group-sm">
-												    <input type="text" class="form-control" placeholder="Title" aria-label="Username" aria-describedby="basic-addon1" name="questionTitle">
-												</div>
-												
-												<div class="form-check input-group-sm input-group input-group-dynamic">
-												    <!-- 1번 -->
-												    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="1">
-												    <span>&nbsp; &#10112; &nbsp;</span>
-												    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
-													<input type="hidden" id="exampleIdx" name="exampleIdx" value="1">
-												<div class="form-check input-group-sm input-group input-group-dynamic">
-												</div>
-												    <!-- 2번 -->
-												    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="2">
-												    <span>&nbsp; &#10113; &nbsp;</span>
-												    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
-													<input type="hidden" id="exampleIdx" name="exampleIdx" value="2">
-												<div class="form-check input-group-sm input-group input-group-dynamic">
-												</div>
-												    <!-- 3번 -->
-												    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="3">
-												    <span>&nbsp; &#10114; &nbsp;</span>
-												    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
-													<input type="hidden" id="exampleIdx" name="exampleIdx" value="3">
-												<div class="form-check input-group-sm input-group input-group-dynamic">
-												</div>
-												    <!-- 4번 -->
-												    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="4">
-												    <span>&nbsp; &#10115; &nbsp;</span>
-												    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
-													<input type="hidden" id="exampleIdx" name="exampleIdx" value="4">
-												</div>
-												<button type="button" class="btn btn-outline-secondary btn-sm" id="questionBtn">등록</button>
-											</form>
+						<!-- question -->
+				            <div class=" border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+								<div class=" d-flex flex-column">
+		            				<c:forEach var="t" items="${list}">
+										<h6 class="mb-3 text-sm">
+											<c:if test="${t.exampleIdx == 1}">
+													${t.questionIdx}. ${t.questionTitle}
+											</c:if>
+										</h6>
+										<c:if test="${t.exampleIdx == 1}">
+											<c:choose>
+												<c:when test="${t.exampleAnswer eq '정답'}">
+													<span class="mb-2 text-xs" style="font-weight: bold; color: red;">&#10112; <span class="text-red font-weight-bold ms-sm-2" >${t.exampleContent}</span></span>
+												</c:when>
+												<c:otherwise>
+													<span class="mb-2 text-xs">&#10112; <span class="ms-sm-2">${t.exampleContent}</span></span>
+												</c:otherwise>
+											</c:choose>
 										</c:if>
-									</div>
+										<c:if test="${t.exampleIdx == 2}">
+											<c:choose>
+												<c:when test="${t.exampleAnswer eq '정답'}">
+													<span class="mb-2 text-xs" style="font-weight: bold; color: red;">&#10113; <span class="text-red font-weight-bold ms-sm-2" >${t.exampleContent}</span></span>
+												</c:when>
+												<c:otherwise>
+													<span class="mb-2 text-xs">&#10113; <span class="ms-sm-2">${t.exampleContent}</span></span>
+												</c:otherwise>
+											</c:choose>
+										</c:if>
+										<c:if test="${t.exampleIdx == 3}">
+											<c:choose>
+												<c:when test="${t.exampleAnswer eq '정답'}">
+													<span class="mb-2 text-xs" style="font-weight: bold; color: red;">&#10114; <span class="text-red font-weight-bold ms-sm-2" >${t.exampleContent}</span></span>
+												</c:when>
+												<c:otherwise>
+													<span class="mb-2 text-xs">&#10114; <span class="ms-sm-2">${t.exampleContent}</span></span>
+												</c:otherwise>
+											</c:choose>
+										</c:if>
+										<c:if test="${t.exampleIdx == 4}">
+											<c:choose>
+												<c:when test="${t.exampleAnswer eq '정답'}">
+													<span class="text-xs" style="font-weight: bold; color: red;">&#10115; <span class="text-red ms-sm-2 font-weight-bold">${t.exampleContent}</span></span>
+													<br>
+												</c:when>
+												<c:otherwise>
+													<span class="text-xs">&#10115; <span class="ms-sm-2">${t.exampleContent}</span></span>
+													<br>
+												</c:otherwise>
+											</c:choose>
+										</c:if>
+									</c:forEach>
 								</div>
 							</div>
-								
-							<!-- question -->
-				            <div class="card-body pt-4 p-3">
-					            <div class=" border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-									<div class=" d-flex flex-column">
-			            				<c:forEach var="t" items="${list}">
-											<h6 class="mb-3 text-sm">
-												<c:if test="${t.exampleIdx == 1}">
-														${t.questionIdx}. ${t.questionTitle}
-												</c:if>
-											</h6>
-											<c:if test="${t.exampleIdx == 1}">
-												<c:choose>
-													<c:when test="${t.exampleAnswer eq '정답'}">
-														<span class="mb-2 text-xs" style="font-weight: bold; color: red;">&#10112; <span class="text-red font-weight-bold ms-sm-2" >${t.exampleContent}</span></span>
-													</c:when>
-													<c:otherwise>
-														<span class="mb-2 text-xs">&#10112; <span class="ms-sm-2">${t.exampleContent}</span></span>
-													</c:otherwise>
-												</c:choose>
-											</c:if>
-											<c:if test="${t.exampleIdx == 2}">
-												<c:choose>
-													<c:when test="${t.exampleAnswer eq '정답'}">
-														<span class="mb-2 text-xs" style="font-weight: bold; color: red;">&#10113; <span class="text-red font-weight-bold ms-sm-2" >${t.exampleContent}</span></span>
-													</c:when>
-													<c:otherwise>
-														<span class="mb-2 text-xs">&#10113; <span class="ms-sm-2">${t.exampleContent}</span></span>
-													</c:otherwise>
-												</c:choose>
-											</c:if>
-											<c:if test="${t.exampleIdx == 3}">
-												<c:choose>
-													<c:when test="${t.exampleAnswer eq '정답'}">
-														<span class="mb-2 text-xs" style="font-weight: bold; color: red;">&#10114; <span class="text-red font-weight-bold ms-sm-2" >${t.exampleContent}</span></span>
-													</c:when>
-													<c:otherwise>
-														<span class="mb-2 text-xs">&#10114; <span class="ms-sm-2">${t.exampleContent}</span></span>
-													</c:otherwise>
-												</c:choose>
-											</c:if>
-											<c:if test="${t.exampleIdx == 4}">
-												<c:choose>
-													<c:when test="${t.exampleAnswer eq '정답'}">
-														<span class="text-xs" style="font-weight: bold; color: red;">&#10115; <span class="text-red ms-sm-2 font-weight-bold">${t.exampleContent}</span></span>
-														<br>
-													</c:when>
-													<c:otherwise>
-														<span class="text-xs">&#10115; <span class="ms-sm-2">${t.exampleContent}</span></span>
-														<br>
-													</c:otherwise>
-												</c:choose>
-											</c:if>
-										</c:forEach>
-									</div>
-								</div>
-			            	</div>
-			            </div>
-			        </div>
-			    </div>
+		            	</div>
+		            </div>
+		        </div>
+		    </div>
+		     <footer class="footer py-4  ">
+		        <div class="container-fluid">
+		          <div class="row align-items-center justify-content-lg-between">
+		            <div class="col-lg-6 mb-lg-0 mb-4">
+		              <div class="copyright text-center text-sm text-muted text-lg-start">
+		                © <script>
+		                  document.write(new Date().getFullYear())
+		                </script>,
+		                made with <i class="fa fa-heart"></i> by
+		                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
+		                for a better web.
+		              </div>
+		            </div>
+		            <div class="col-lg-6">
+		              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+		                <li class="nav-item">
+		                  <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
+		                </li>
+		                <li class="nav-item">
+		                  <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
+		                </li>
+		                <li class="nav-item">
+		                  <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
+		                </li>
+		                <li class="nav-item">
+		                  <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
+		                </li>
+		              </ul>
+		            </div>
+		          </div>
+		        </div>
+		      </footer>
 			</div>
-		</main>
+		</div>
 		<!--   Core JS Files   -->
 		<script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/core/popper.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/core/bootstrap.min.js"></script>

@@ -9,9 +9,6 @@
 	</head>
 	<body>
 		<!-- 메뉴 -->
-		<div>
-			<c:import url="/WEB-INF/view/inc/empMenu.jsp"></c:import>
-		</div>
 		
 		<h3>강사추가</h3>
 		<div>
