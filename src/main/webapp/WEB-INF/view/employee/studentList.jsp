@@ -8,9 +8,6 @@
 	</head>
 	<body>
 		<!-- 메뉴 -->
-		<div>
-			<c:import url="/WEB-INF/view/inc/empMenu.jsp"></c:import>
-		</div>
 		
 		<h3>Student List</h3>
 		<a href="${pageContext.request.contextPath}/employee/addStudent">학생등록</a>

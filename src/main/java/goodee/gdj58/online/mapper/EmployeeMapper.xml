@@ -8,8 +8,8 @@
 			, test_title testTitle
 			, test_date testDate
 		FROM test
-		ORDER BY testNo DESC
-		LIMIT 0, 15
+		ORDER BY testDate DESC
+		LIMIT 0, 5
 	</select>
 	
 	<!-- updatePw -->

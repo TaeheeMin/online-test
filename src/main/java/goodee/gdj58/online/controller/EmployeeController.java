@@ -92,7 +92,7 @@ public class EmployeeController {
 	}
 	
 	// 사원 목록
-	@GetMapping("/employee/adminMain")
+	@GetMapping("/employee/empList")
 	public String empList(Model model
 							, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage
 							, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage
@@ -121,6 +121,12 @@ public class EmployeeController {
 		log.debug("\u001B[31m" + beginPage + "  <=  beginPage");
 		log.debug("\u001B[31m" + endPage + "  <=  endPage");
 		log.debug("\u001B[31m" + lastPage + "  <=  lastPage");
+		return "employee/empList";
+	}
+	
+	@GetMapping("/employee/adminMain")
+	public String adminMain() {
+		log.debug("\u001B[31m"+"adminMain");
 		return "employee/adminMain";
 	}
 }
