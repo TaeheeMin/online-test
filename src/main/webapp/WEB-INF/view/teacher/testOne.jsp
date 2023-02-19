@@ -47,8 +47,8 @@
 							<h6 class="mb-0 px-3">${test.testTitle}</h6>
 							<span class="mb-0 px-3 text-sm"><small>문제는 <mark>10번까지</mark> 등록 가능해요.</small></span>
 							<br>
-							<a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
-							<a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">edit</i>Edit</a>
+							<a class="btn btn-link text-danger text-gradient px-3 mb-0" href=""><i class="material-icons text-sm me-2">delete</i>Delete</a>
+							<a class="btn btn-link text-dark px-3 mb-0" href=""><i class="material-icons text-sm me-2">edit</i>Edit</a>
 						</div>
 						
 						<!-- 문제등록 -->
@@ -63,7 +63,7 @@
 											<input type="hidden" class="questionIdx" name="questionIdx" value="${questionCount +1}" readonly="readonly">
 											
 											<!-- 문제제목 -->
-											<div class="input-group input-group-dynamic  mb-4 input-group-sm">
+											<div class="input-group input-group-dynamic mb-4 input-group-sm">
 											    <input type="text" class="form-control" placeholder="Title" aria-label="Username" aria-describedby="basic-addon1" name="questionTitle">
 											</div>
 											
@@ -73,22 +73,22 @@
 											    <span>&nbsp; &#10112; &nbsp;</span>
 											    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
 												<input type="hidden" id="exampleIdx" name="exampleIdx" value="1">
-											<div class="form-check input-group-sm input-group input-group-dynamic">
 											</div>
+											<div class="form-check input-group-sm input-group input-group-dynamic">
 											    <!-- 2번 -->
 											    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="2">
 											    <span>&nbsp; &#10113; &nbsp;</span>
 											    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
 												<input type="hidden" id="exampleIdx" name="exampleIdx" value="2">
-											<div class="form-check input-group-sm input-group input-group-dynamic">
 											</div>
+											<div class="form-check input-group-sm input-group input-group-dynamic">
 											    <!-- 3번 -->
 											    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="3">
 											    <span>&nbsp; &#10114; &nbsp;</span>
 											    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
 												<input type="hidden" id="exampleIdx" name="exampleIdx" value="3">
-											<div class="form-check input-group-sm input-group input-group-dynamic">
 											</div>
+											<div class="form-check input-group-sm input-group input-group-dynamic mb-4">
 											    <!-- 4번 -->
 											    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="4">
 											    <span>&nbsp; &#10115; &nbsp;</span>

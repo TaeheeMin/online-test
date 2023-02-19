@@ -62,14 +62,15 @@
 				                <h6 class="text-white text-capitalize ps-3">Quiz list</h6>
 				              </div>
 				            </div>
-				            <div class="text-end">
-		                      <a class="btn bg-gradient-dark mb-0 mt-3 px-3 mx-3" id="addTestBtn"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Card</a>
-		                    </div>
 			                <div class="card-body p-3">
 			                  <div class="row">
-			                    <div class="col-md-6 mb-md-0 mb-4">
+			                    <div class="col-md-3 mb-md-0 mb-4 ">
 			                      <div class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row">
 			                      	<form method="post" action="${pageContext.request.contextPath}/teacher/addTest" id="addTestForm">
+				                      	<h6>퀴즈 추가</h6>
+			                      		<div>
+			                      			<p class="text-sm text-center text-primary" id="msg"></p>
+	                      				</div>
 										<div class="input-group input-group-static my-3">
 									      <label>Title</label>
 	  									  <input type="text"  class="form-control mb-3" name="testTitle" id="testTitle" >
@@ -77,10 +78,10 @@
 									      <label>Date</label>
 									      <input type="date" class="form-control" name="testDate" id="testDate">
 									    </div>
+									    <div class="text-end">
+		                      				<a class="btn bg-gradient-dark mb-0 mt-3 px-3 mx-3" id="addTestBtn"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Card</a>
+		                   				 </div>
 									</form>
-			                      	<div>
-			                      		<p class="text-sm text-center text-primary" id="msg"></p>
-	                      			</div>
 			                      </div>
 			                    </div>
 			                    

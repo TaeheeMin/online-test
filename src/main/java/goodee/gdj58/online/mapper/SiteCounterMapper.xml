@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.gdj58.online.mapper.SiteCounterMapper">
+	<insert id="insertCount">
+		INSERT INTO site_counter(counter_date, counter_num) VALUES(CURDATE(), 1)
+	</insert>
+	<update id="updateCount">
+		UPDATE site_counter SET counter_num = counter_num+1 WHERE counter_date = CURDATE()
+	</update>
+	<select id="selectTodayCount" resultType="Integer">
+		SELECT COUNT(*) FROM site_counter WHERE counter_date = CURDATE()
+	</select>
+	<select id="selectTotalCount" resultType="Integer">
+		SELECT IFNULL(SUM(counter_num),0) totalCount FROM site_counter
+	</select>
+</mapper>
