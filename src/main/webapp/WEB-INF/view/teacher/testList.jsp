@@ -139,9 +139,16 @@
 				          </a>
 				        </li>
 				        <c:forEach var="i" begin="${beginPage}" end="${endPage}" step="1">
-							<li class="page-item active">
-						      <a class="page-link" href="${pageContext.request.contextPath}/teacher/testList?currentPage=${i}">${i}</a>
-						    </li>
+				        	<c:if test="${i == currentPage}">
+								<li class="page-item active">
+							      <a class="page-link" href="${pageContext.request.contextPath}/teacher/testList?currentPage=${i}">${i}</a>
+							    </li>
+							</c:if>
+				        	<c:if test="${i != currentPage}">
+								<li class="page-item">
+							      <a class="page-link" href="${pageContext.request.contextPath}/teacher/testList?currentPage=${i}">${i}</a>
+							    </li>
+							</c:if>
 						</c:forEach>
 					    <li class="page-item">
 					        <a class="page-link" href="${pageContext.request.contextPath}/teacher/testList?currentPage=${currentPage+1}" aria-label="Previous">

@@ -23,7 +23,54 @@
 		<script>
 			$(document).ready(function() {
 				$('#questionBtn').click(function() {
+					// 제목 유효성 검사
+					if($('#questionTitle').val() == '') {
+						$('#msg').text('제목을 입력해주세요');
+						$('#questionTitle').focus();
+						return;
+					} else {
+						$('#msg').text('');
+					}
+					// 보기 유효성 검사
+					if($('#example1').val() == ''){
+						$('#msg').text('보기를 입력해주세요');
+						$('#example1').focus();
+					    return;
+					} else {
+						$('#msg').text('');
+					}
 					
+					if($('#example2').val() == ''){
+						$('#msg').text('보기를 입력해주세요');
+						$('#example2').focus();
+					    return;
+					} else {
+						$('#msg').text('');
+					}
+					
+					if($('#example3').val() == ''){
+						$('#msg').text('보기를 입력해주세요');
+						$('#example3').focus();
+					    return;
+					} else {
+						$('#msg').text('');
+					}
+					
+					if($('#example4').val() == ''){
+						$('#msg').text('보기를 입력해주세요');
+						$('#example4').focus();
+					    return;
+					} else {
+						$('#msg').text('');
+					}
+					
+					// 정답 유효성 검사
+					if($("input:radio[name=examplAnswer]:checked").length < 1){
+						$('#msg').text('정답을 체크해주세요');
+					    return;
+					} else {
+						$('#msg').text('');
+					}
 					
 					$('#questionForm').submit();
 				});
@@ -45,7 +92,7 @@
 					<div class="card">
 						<div class="card-header pb-0 px-3">
 							<h6 class="mb-0 px-3">${test.testTitle}</h6>
-							<span class="mb-0 px-3 text-sm"><small>문제는 <mark>10번까지</mark> 등록 가능해요.</small></span>
+							<span class="mb-0 px-3 text-sm"><small>문제는 <mark>20번까지</mark> 등록 가능해요.</small></span>
 							<br>
 							<a class="btn btn-link text-danger text-gradient px-3 mb-0" href=""><i class="material-icons text-sm me-2">delete</i>Delete</a>
 							<a class="btn btn-link text-dark px-3 mb-0" href=""><i class="material-icons text-sm me-2">edit</i>Edit</a>
@@ -53,55 +100,57 @@
 						
 						<!-- 문제등록 -->
 						<div class="card-body pt-4 p-3">
-				            <div class=" border-0 p-4 mb-2 bg-gray-100 border-radius-lg">
-								<div class=" d-flex flex-column">
-									<c:if test="${questionCount < 10}">
-								    	<strong>${questionCount +1}번</strong>
-								    	
-								        <form id="questionForm" method="post" action="${pageContext.request.contextPath}/teacher/addQuestion">
-											<input type="hidden" name="testNo" value="${test.testNo}">
-											<input type="hidden" class="questionIdx" name="questionIdx" value="${questionCount +1}" readonly="readonly">
-											
-											<!-- 문제제목 -->
-											<div class="input-group input-group-dynamic mb-4 input-group-sm">
-											    <input type="text" class="form-control" placeholder="Title" aria-label="Username" aria-describedby="basic-addon1" name="questionTitle">
-											</div>
-											
-											<div class="form-check input-group-sm input-group input-group-dynamic">
-											    <!-- 1번 -->
-											    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="1">
-											    <span>&nbsp; &#10112; &nbsp;</span>
-											    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
-												<input type="hidden" id="exampleIdx" name="exampleIdx" value="1">
-											</div>
-											<div class="form-check input-group-sm input-group input-group-dynamic">
-											    <!-- 2번 -->
-											    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="2">
-											    <span>&nbsp; &#10113; &nbsp;</span>
-											    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
-												<input type="hidden" id="exampleIdx" name="exampleIdx" value="2">
-											</div>
-											<div class="form-check input-group-sm input-group input-group-dynamic">
-											    <!-- 3번 -->
-											    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="3">
-											    <span>&nbsp; &#10114; &nbsp;</span>
-											    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
-												<input type="hidden" id="exampleIdx" name="exampleIdx" value="3">
-											</div>
-											<div class="form-check input-group-sm input-group input-group-dynamic mb-4">
-											    <!-- 4번 -->
-											    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="4">
-											    <span>&nbsp; &#10115; &nbsp;</span>
-											    <input type="text" class="form-control" name="exampleContent" class="example" placeholder="보기를 입력하세요">
-												<input type="hidden" id="exampleIdx" name="exampleIdx" value="4">
-											</div>
-											<button type="button" class="btn btn-outline-secondary btn-sm" id="questionBtn">등록</button>
-										</form>
-									</c:if>
-								</div>
-							</div>
+							<c:if test="${questionCount < 20}">
+					            <div class=" border-0 p-4 mb-2 bg-gray-100 border-radius-lg">
+									<div class=" d-flex flex-column">
+									    	<strong>${questionCount +1}번</strong>
+									    	<div>
+				                      			<p class="text-sm text-center text-primary" id="msg"></p>
+		                      				</div>
+									        <form id="questionForm" method="post" action="${pageContext.request.contextPath}/teacher/addQuestion">
+												<input type="hidden" name="testNo" value="${test.testNo}">
+												<input type="hidden" class="questionIdx" name="questionIdx" value="${questionCount +1}" readonly="readonly">
+												
+												<!-- 문제제목 -->
+												<div class="input-group input-group-dynamic mb-4 input-group-sm">
+												    <input type="text" class="form-control" placeholder="Title" aria-label="Username" aria-describedby="basic-addon1" name="questionTitle" id="questionTitle">
+												</div>
+												
+												<div class="form-check input-group-sm input-group input-group-dynamic">
+												    <!-- 1번 -->
+												    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="1">
+												    <span>&nbsp; &#10112; &nbsp;</span>
+												    <input type="text" class="form-control" name="exampleContent" class="example" id="example1" placeholder="보기를 입력하세요">
+													<input type="hidden" id="exampleIdx" name="exampleIdx" value="1">
+												</div>
+												<div class="form-check input-group-sm input-group input-group-dynamic">
+												    <!-- 2번 -->
+												    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="2">
+												    <span>&nbsp; &#10113; &nbsp;</span>
+												    <input type="text" class="form-control" name="exampleContent" class="example" id="example2" placeholder="보기를 입력하세요">
+													<input type="hidden" id="exampleIdx" name="exampleIdx" value="2">
+												</div>
+												<div class="form-check input-group-sm input-group input-group-dynamic">
+												    <!-- 3번 -->
+												    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="3">
+												    <span>&nbsp; &#10114; &nbsp;</span>
+												    <input type="text" class="form-control" name="exampleContent" class="example" id="example3" placeholder="보기를 입력하세요">
+													<input type="hidden" id="exampleIdx" name="exampleIdx" value="3">
+												</div>
+												<div class="form-check input-group-sm input-group input-group-dynamic mb-4">
+												    <!-- 4번 -->
+												    <input class="form-check-input" type="radio" name="examplAnswer" id="exampleAnswer" value="4">
+												    <span>&nbsp; &#10115; &nbsp;</span>
+												    <input type="text" class="form-control" name="exampleContent" class="example" id="example4" placeholder="보기를 입력하세요">
+													<input type="hidden" id="exampleIdx" name="exampleIdx" value="4">
+												</div>
+												<button type="button" class="btn btn-outline-secondary btn-sm" id="questionBtn">등록</button>
+											</form>
+										</div>
+									</div>
+								</c:if>
 							
-						<!-- question -->
+							<!-- question -->
 				            <div class=" border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
 								<div class=" d-flex flex-column">
 		            				<c:forEach var="t" items="${list}">
@@ -145,9 +194,11 @@
 												<c:when test="${t.exampleAnswer eq '정답'}">
 													<span class="text-xs" style="font-weight: bold; color: red;">&#10115; <span class="text-red ms-sm-2 font-weight-bold">${t.exampleContent}</span></span>
 													<br>
+													<br>
 												</c:when>
 												<c:otherwise>
 													<span class="text-xs">&#10115; <span class="ms-sm-2">${t.exampleContent}</span></span>
+													<br>
 													<br>
 												</c:otherwise>
 											</c:choose>

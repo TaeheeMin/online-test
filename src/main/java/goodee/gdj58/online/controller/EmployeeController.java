@@ -126,7 +126,6 @@ public class EmployeeController {
 	
 	@GetMapping("/employee/adminMain")
 	public String adminMain() {
-		log.debug("\u001B[31m"+"adminMain");
 		return "employee/adminMain";
 	}
 }

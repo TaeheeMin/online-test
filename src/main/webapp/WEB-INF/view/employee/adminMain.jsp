@@ -27,131 +27,218 @@
 		</script>
 	</head>
 	
-	<body class="g-sidenav-show  bg-gray-200">
+	<body class="g-sidenav-show bg-gray-200">
 	  	<!-- SideNav -->
 		<c:import url="/WEB-INF/view/inc/sidenav.jsp"></c:import>
 	  	
 	  	<div class="main-content position-relative max-height-vh-100 h-100">
+			<!-- Navbar -->
 			<c:import url="/WEB-INF/view/inc/navbar.jsp"></c:import>
-			
 			<div class="container-fluid py-4">
-		      <div class="row">
-		        <div class="col-lg-4 col-md-6 mt-4 mb-4">
-		          <div class="card z-index-2 ">
-		            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-		              <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
-		                <div class="chart">
-		                  <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
-		                </div>
-		              </div>
-		            </div>
-		            <div class="card-body">
-		              <h6 class="mb-0 ">Website Views</h6>
-		              <p class="text-sm ">Last Campaign Performance</p>
-		              <hr class="dark horizontal">
-		              <div class="d-flex ">
-		                <i class="material-icons text-sm my-auto me-1">schedule</i>
-		                <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
-		              </div>
-		            </div>
-		          </div>
+				<div class="row">
+			        <div class="col-12">
+			        	<div class="col-md-12 mb-lg-0 mb-4">
+			              <div class="card my-4">
+			                <div class="card-body p-3">
+						        <div class="row gx-4 mb-2">
+						          <div class="col-auto my-auto">
+						            <div class="h-100">
+						              <h5 class="mb-1">
+						                ${loginEmp.empName}님
+						              </h5>
+						              <p class="mb-0 font-weight-normal text-sm">
+						                Employee / ${loginEmp.empId}
+						              </p>
+						            </div>
+						          </div>
+						          <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+						            <div class="nav-wrapper position-relative end-0">
+						              <ul class="nav nav-pills nav-fill p-1" role="tablist">
+						                <li class="nav-item">
+						                  <a class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="${pageContext.request.contextPath}/employee/empList" role="tab" aria-selected="true">
+						                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Employee"></i>
+						                    <span class="ms-1">Employee</span>
+						                  </a>
+						                </li>
+						                <li class="nav-item">
+						                  <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
+						                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Teacher"></i>
+						                    <span class="ms-1">Teacher</span>
+						                  </a>
+						                </li>
+						                <li class="nav-item">
+						                  <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
+						                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Student"></i>
+						                    <span class="ms-1">Student</span>
+						                  </a>
+						                </li>
+						              </ul>
+						            </div>
+						          </div>
+						        </div>
+						        <div class="row">
+						          	<form method="get" action="${pageContext.request.contextPath}/employee/empList">
+										<select name="rowPerPage">
+											<option value="10">10
+											<option value="20">20
+											<option value="30">30
+										</select>
+										<input name="word" placeholder="사원 이름 검색" value="${word}">
+										<button type="submit">검색</button>
+									</form>
+									<table border="1">
+										<tr>
+											<td>아이디</td>
+											<td>이름</td>
+											<td>삭제</td>
+										</tr>
+										<c:forEach var="e" items="${list}">
+											<tr>
+												<td>${e.empId}</td>
+												<td>${e.empName}</td>
+												<td>
+													<a href="${pageContext.request.contextPath}/employee/removeEmp?empNo=${e.empNo}">삭제</a>
+												</td>
+											</tr>
+									 	</c:forEach>
+									</table>
+									
+									<!-- 페이징 -->
+									<div>
+										<a href="${pageContext.request.contextPath}/employee/empList?currentPage=1&word=${word}">HOME</a>
+										<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage-1}&word=${word}">&#128072;</a>
+										<c:forEach var="i" begin="${beginPage}" end="${endPage}" step="1">
+											<span>
+												<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${i}&word=${word}">${i}</a>
+											</span>
+										</c:forEach>
+										<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage+1}&word=${word}">&#128073;</a>
+										<a href="${pageContext.request.contextPath}/employee/empList?rowPerPage=${rowPerPage}&currentPage=${lastPage}">END</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container-fluid py-4">
+			      <div class="row">
+			        <div class="col-lg-4 col-md-6 mt-4 mb-4">
+			          <div class="card z-index-2 ">
+			            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+			              <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+			                <div class="chart">
+			                  <canvas id="chart-bars" class="chart-canvas" height="170"></canvas>
+			                </div>
+			              </div>
+			            </div>
+			            <div class="card-body">
+			              <h6 class="mb-0 ">Website Views</h6>
+			              <p class="text-sm ">Last Campaign Performance</p>
+			              <hr class="dark horizontal">
+			              <div class="d-flex ">
+			                <i class="material-icons text-sm my-auto me-1">schedule</i>
+			                <p class="mb-0 text-sm"> campaign sent 2 days ago </p>
+			              </div>
+			            </div>
+			          </div>
+			        </div>
+			        <div class="col-lg-4 col-md-6 mt-4 mb-4">
+			          <div class="card z-index-2  ">
+			            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+			              <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
+			                <div class="chart">
+			                  <canvas id="chart-line" class="chart-canvas" height="170"></canvas>
+			                </div>
+			              </div>
+			            </div>
+			            <div class="card-body">
+			              <h6 class="mb-0 "> Daily Sales </h6>
+			              <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today sales. </p>
+			              <hr class="dark horizontal">
+			              <div class="d-flex ">
+			                <i class="material-icons text-sm my-auto me-1">schedule</i>
+			                <p class="mb-0 text-sm"> updated 4 min ago </p>
+			              </div>
+			            </div>
+			          </div>
+			        </div>
+			        <div class="col-lg-4 mt-4 mb-3">
+			          <div class="card z-index-2 ">
+			            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+			              <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
+			                <div class="chart">
+			                  <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas>
+			                </div>
+			              </div>
+			            </div>
+			            <div class="card-body">
+			              <h6 class="mb-0 ">Completed Tasks</h6>
+			              <p class="text-sm ">Last Campaign Performance</p>
+			              <hr class="dark horizontal">
+			              <div class="d-flex ">
+			                <i class="material-icons text-sm my-auto me-1">schedule</i>
+			                <p class="mb-0 text-sm">just updated</p>
+			              </div>
+			            </div>
+			          </div>
+			        </div>
 		        </div>
-		        <div class="col-lg-4 col-md-6 mt-4 mb-4">
-		          <div class="card z-index-2  ">
-		            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-		              <div class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
-		                <div class="chart">
-		                  <canvas id="chart-line" class="chart-canvas" height="170"></canvas>
-		                </div>
-		              </div>
-		            </div>
-		            <div class="card-body">
-		              <h6 class="mb-0 "> Daily Sales </h6>
-		              <p class="text-sm "> (<span class="font-weight-bolder">+15%</span>) increase in today sales. </p>
-		              <hr class="dark horizontal">
-		              <div class="d-flex ">
-		                <i class="material-icons text-sm my-auto me-1">schedule</i>
-		                <p class="mb-0 text-sm"> updated 4 min ago </p>
-		              </div>
-		            </div>
-		          </div>
+			        
+				<div class="row">
+			        <div>
+			        	간단 통계자료? 강사수, 직원수, 학생수, 시험 개수, 문제개수 같은거?
+			        </div>
+			        <div>
+			        	<a href="${pageContext.request.contextPath}/employee/empList">
+			        		사원관리
+			        	</a>
+			        </div>
+			        <div>
+			        	<a href="${pageContext.request.contextPath}/employee/teacherList">
+			        		강사관리
+			        	</a>
+			        </div>
+			        <div>
+			        	<a href="${pageContext.request.contextPath}/employee/studentList">
+			        		학생관리
+			        	</a>
+			        </div>
 		        </div>
-		        <div class="col-lg-4 mt-4 mb-3">
-		          <div class="card z-index-2 ">
-		            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-		              <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
-		                <div class="chart">
-		                  <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas>
-		                </div>
-		              </div>
-		            </div>
-		            <div class="card-body">
-		              <h6 class="mb-0 ">Completed Tasks</h6>
-		              <p class="text-sm ">Last Campaign Performance</p>
-		              <hr class="dark horizontal">
-		              <div class="d-flex ">
-		                <i class="material-icons text-sm my-auto me-1">schedule</i>
-		                <p class="mb-0 text-sm">just updated</p>
-		              </div>
-		            </div>
-		          </div>
-		        </div>
-	        </div>
-		        
-			<div class="row">
-		        <div>
-		        	간단 통계자료? 강사수, 직원수, 학생수, 시험 개수, 문제개수 같은거?
-		        </div>
-		        <div>
-		        	<a href="${pageContext.request.contextPath}/employee/empList">
-		        		사원관리
-		        	</a>
-		        </div>
-		        <div>
-		        	<a href="${pageContext.request.contextPath}/employee/teacherList">
-		        		강사관리
-		        	</a>
-		        </div>
-		        <div>
-		        	<a href="${pageContext.request.contextPath}/employee/studentList">
-		        		학생관리
-		        	</a>
-		        </div>
-	        </div>
-		      <footer class="footer py-4  ">
-		        <div class="container-fluid">
-		          <div class="row align-items-center justify-content-lg-between">
-		            <div class="col-lg-6 mb-lg-0 mb-4">
-		              <div class="copyright text-center text-sm text-muted text-lg-start">
-		                © <script>
-		                  document.write(new Date().getFullYear())
-		                </script>,
-		                made with <i class="fa fa-heart"></i> by
-		                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
-		                for a better web.
-		              </div>
-		            </div>
-		            <div class="col-lg-6">
-		              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-		                <li class="nav-item">
-		                  <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
-		                </li>
-		                <li class="nav-item">
-		                  <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
-		                </li>
-		                <li class="nav-item">
-		                  <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
-		                </li>
-		                <li class="nav-item">
-		                  <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
-		                </li>
-		              </ul>
-		            </div>
-		          </div>
-		        </div>
-		      </footer>
-	    	</div>
-	  	</div>
+			      <footer class="footer py-4  ">
+			        <div class="container-fluid">
+			          <div class="row align-items-center justify-content-lg-between">
+			            <div class="col-lg-6 mb-lg-0 mb-4">
+			              <div class="copyright text-center text-sm text-muted text-lg-start">
+			                © <script>
+			                  document.write(new Date().getFullYear())
+			                </script>,
+			                made with <i class="fa fa-heart"></i> by
+			                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
+			                for a better web.
+			              </div>
+			            </div>
+			            <div class="col-lg-6">
+			              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+			                <li class="nav-item">
+			                  <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
+			                </li>
+			                <li class="nav-item">
+			                  <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
+			                </li>
+			                <li class="nav-item">
+			                  <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
+			                </li>
+			                <li class="nav-item">
+			                  <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
+			                </li>
+			              </ul>
+			            </div>
+			          </div>
+			        </div>
+			      </footer>
+		    	</div>
+		  	</div>
+		  </div>
 		<!--   Core JS Files   -->
 		<script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/core/popper.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/core/bootstrap.min.js"></script>

@@ -26,7 +26,7 @@ public class TeacherController {
 	@Autowired private Idservice idservice;
 	@Autowired private TeacherService teacherService;
 	// 3) 시험 관련 기능
-	// 시험 등록
+	// 문제 등록
 	@PostMapping("/teacher/addQuestion")
 	public String addQuestion(Question question
 								, @RequestParam(value = "exampleContent") String[] exampleContent
