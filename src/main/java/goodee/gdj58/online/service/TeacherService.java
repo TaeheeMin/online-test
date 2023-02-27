@@ -18,6 +18,7 @@ import goodee.gdj58.online.vo.Test;
 @Transactional
 public class TeacherService {
 	@Autowired private TeacherMapper teacherMapper;
+	
 	// 보기 등록
 	public int addExample(Example example) {
 		return teacherMapper.insertExample(example);

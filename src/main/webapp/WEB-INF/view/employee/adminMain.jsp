@@ -22,6 +22,17 @@
 		<link id="pagestyle" href="${pageContext.request.contextPath}/resources/dashboard/assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 		<script>
 			$(document).ready(function() {
+				$('#empBtn').click(function(){
+					$('#category').val("employee");
+					$('#listForm').submit();
+				});
+				$('#teacherBtn').click(function(){
+					$('#category').val("teacher");
+					$('#listForm').submit();
+				});
+				$('#studentBtn').click(function(){
+					$('#category').val("student");
+					$('#listForm').submit();
 				});
 			});
 		</script>
@@ -53,31 +64,34 @@
 						          </div>
 						          <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
 						            <div class="nav-wrapper position-relative end-0">
-						              <ul class="nav nav-pills nav-fill p-1" role="tablist">
-						                <li class="nav-item">
-						                  <a class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="${pageContext.request.contextPath}/employee/empList" role="tab" aria-selected="true">
-						                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Employee"></i>
-						                    <span class="ms-1">Employee</span>
-						                  </a>
-						                </li>
-						                <li class="nav-item">
-						                  <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
-						                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Teacher"></i>
-						                    <span class="ms-1">Teacher</span>
-						                  </a>
-						                </li>
-						                <li class="nav-item">
-						                  <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
-						                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Student"></i>
-						                    <span class="ms-1">Student</span>
-						                  </a>
-						                </li>
-						              </ul>
+							            <form method="get" action="${pageContext.request.contextPath}/employee/adminMain" id="listForm">
+							            	<input type="hidden" name="category" id="category" value="">
+							              <ul class="nav nav-pills nav-fill p-1" role="tablist">
+							                <li class="nav-item">
+							                  <a class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="${pageContext.request.contextPath}/employee/empList" role="tab" aria-selected="true" id="empBtn">
+							                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Employee"></i>
+							                    <span class="ms-1">Employee</span>
+							                  </a>
+							                </li>
+							                <li class="nav-item">
+							                  <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false" id="teacherBtn">
+							                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Teacher"></i>
+							                    <span class="ms-1">Teacher</span>
+							                  </a>
+							                </li>
+							                <li class="nav-item">
+							                  <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false" id="studentBtn">
+							                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Student"></i>
+							                    <span class="ms-1">Student</span>
+							                  </a>
+							                </li>
+							              </ul>
+							            </form>
 						            </div>
 						          </div>
 						        </div>
 						        <div class="row">
-						          	<form method="get" action="${pageContext.request.contextPath}/employee/empList">
+						          	<form method="get" action="${pageContext.request.contextPath}/employee/adminMain">
 										<select name="rowPerPage">
 											<option value="10">10
 											<option value="20">20
@@ -239,6 +253,7 @@
 		    	</div>
 		  	</div>
 		  </div>
+		</div>
 		<!--   Core JS Files   -->
 		<script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/core/popper.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/core/bootstrap.min.js"></script>

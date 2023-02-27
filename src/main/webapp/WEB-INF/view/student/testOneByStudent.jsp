@@ -41,7 +41,7 @@
 	  	<!-- SideNav -->
 		<c:import url="/WEB-INF/view/inc/sidenav.jsp"></c:import>
 	  	
-	  	<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ps ps--active-y">
+	  	<div class="main-content position-relative max-height-vh-100 h-100">
 		<!-- Navbar -->
 		<c:import url="/WEB-INF/view/inc/navbar.jsp"></c:import>
 		
@@ -262,7 +262,7 @@
 		          </div>
 		        </div>
 		      </footer>
-		  </main>
+		  </div>
 		  
 		  <!--   Core JS Files   -->
 		  <script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/core/popper.min.js"></script>
