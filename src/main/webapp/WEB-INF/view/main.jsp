@@ -139,13 +139,6 @@
 	            </div>
 	          </div>
 	        </div>
-	        
-	        <div>
-	        	방문자 테스트중
-	        	<br>
-	        	Today : ${todayCount}<br>
-       			Total : ${totalCount}
-	        </div>
 	      </div>
         </div>
 	      <footer class="footer py-4  ">

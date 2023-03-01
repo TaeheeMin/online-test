@@ -122,9 +122,4 @@ public class EmployeeController {
 		log.debug("\u001B[31m" + lastPage + "  <=  lastPage");
 		return "employee/empList";
 	}
-	
-	@GetMapping("/employee/adminMain")
-	public String adminMain() {
-		return "employee/adminMain";
-	}
 }
