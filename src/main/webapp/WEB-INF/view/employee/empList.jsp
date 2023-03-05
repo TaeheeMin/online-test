@@ -22,6 +22,43 @@
 		<link id="pagestyle" href="${pageContext.request.contextPath}/resources/dashboard/assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 		<script>
 			$(document).ready(function() {
+				$('#addEmpBtn').click(function() {
+					// 유효성 검사
+					if($('#id').val() == '') {
+						$('#msg').text('ID 입력 해주세요');
+						$('#id').focus();
+						return;
+					} else {
+						$('#msg').text('');
+					}
+					if($('#empId').val() == '') {
+						$('#msg').text('ID 중복 체크 해주세요');
+						$('#id').focus();
+						return;
+					} else {
+						$('#msg').text('');
+					}
+					
+					if($('#empPw').val() == '') {
+						$('#msg').text('비밀번호를 입력해주세요');
+						$('#empPw').focus();
+						return;
+					} else {
+						$('#msg').text('');
+					}
+					if($('#empName').val() == '') {
+						$('#msg').text('이름을 입력해주세요');
+						$('#empName').focus();
+						return;
+					} else {
+						$('#msg').text('');
+					}
+					$('#addEmpForm').submit();
+					alert('사원 등록 완료');
+				});
+				$('#search').click(function() {
+					$('#serachForm').submit();
+				});
 			});
 		</script>
 	</head>
@@ -33,108 +70,129 @@
 	  	<div class="main-content position-relative max-height-vh-100 h-100">
 			<!-- Navbar -->
 			<c:import url="/WEB-INF/view/inc/navbar.jsp"></c:import>
-			<div class="container-fluid py-4">
-				
-				<div class="row">
-			        	<a href="${pageContext.request.contextPath}/employee/empList">
-			        		사원관리
-			        	</a>
-			        	<a href="${pageContext.request.contextPath}/employee/teacherList">
-			        		강사관리
-			        	</a>
-			        	<a href="${pageContext.request.contextPath}/employee/studentList">
-			        		학생관리
-			        	</a>
-			        </div>
-				
-				<div class="row">
-			        <div class="col-12">
-			        	<div class="col-md-12 mb-lg-0 mb-4">
-			              <div class="card my-4">
-			                <div class="card-body p-3">
-						        <div class="row gx-4 mb-2">
-						          <div class="col-auto my-auto">
-						            <div class="h-100">
-						              <h5 class="mb-1">
-						                ${loginEmp.empName}님
-						              </h5>
-						              <p class="mb-0 font-weight-normal text-sm">
-						                Employee / ${loginEmp.empId}
-						              </p>
-						            </div>
-						          </div>
-						          <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-						            <div class="nav-wrapper position-relative end-0">
-						              <p>EmpList</p>
-						            </div>
-						          </div>
-						        </div>
-						        <div class="row">
-						          	<form method="get" action="${pageContext.request.contextPath}/employee/empList">
-										<select name="rowPerPage">
+	        	<div class="container-fluid py-4">
+					<div class="row">
+				        <div class="col-12">
+				        	<div class="col-md-12 mb-lg-0 mb-4">
+				              <div class="card my-4">
+					            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+					              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+					                <h6 class="text-white text-capitalize ps-3">Employee list</h6>
+					              </div>
+					            </div>
+				                <div class="card-body p-3">
+				                  <div class="row">
+				                    <div class="col-md-3 mb-md-0 mb-4 ">
+				                      <div class="card card-body border card-plain border-radius-lg d-flex align-items-center flex-row">
+				                      	<form method="post" action="${pageContext.request.contextPath}/employee/addEmp" id="addEmpForm">
+					                      	<h6>사원등록</h6>
+				                      		<div>
+				                      			<p class="text-sm text-center text-primary" id="msg"></p>
+		                      				</div>
+											<div class="input-group input-group-static my-3">
+										      <label>ID</label>
+		  									  <input type="text" class="form-control" name="id" id="id" placeholder="ID를 입력해주세요">
+		  									  <input type="text" class="form-control" name="empId" id="empId" readonly="readonly" placeholder="ID CHECK CLICK">
+		  									  
+										      <label>PASSWORD</label>
+										      <input type="password" class="form-control" name="empPw" id="empPw">
+										      
+										      <label>NAME</label>
+										      <input type="text" class="form-control" name="empName" id="empName">
+										    </div>
+										    <div class="text-end">
+			                      				<a class="btn bg-gradient-dark mb-0 mt-3 px-3 mx-3" id="idck">ID CHECK</a>
+			                      				<a class="btn bg-gradient-dark mb-0 mt-3 px-3 mx-3" id="addEmpBtn"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Emp</a>
+			                   				 </div>
+										</form>
+				                      </div>
+				                    </div>
+				                    <div class="text-end">
+				                    <form method="get" action="${pageContext.request.contextPath}/employee/empList" id="serachForm">
+										<select name="rowPerPage" id="rowPerPage">
 											<option value="10">10
 											<option value="20">20
 											<option value="30">30
 										</select>
-										<input name="word" placeholder="사원 이름 검색" value="${word}">
-										<button type="submit">검색</button>
+										<input name="word" id="word" placeholder="사원 이름 검색" value="${word}">
+										<a class="btn bg-gradient-dark mb-0 mt-3 px-3 mx-3" id="search">검색</a>
 									</form>
-									<table border="1">
-										<tr>
-											<td>아이디</td>
-											<td>이름</td>
-											<td>삭제</td>
-										</tr>
-										<c:forEach var="e" items="${list}">
-											<tr>
-												<td>${e.empId}</td>
-												<td>${e.empName}</td>
-												<td>
-													<a href="${pageContext.request.contextPath}/employee/removeEmp?empNo=${e.empNo}">삭제</a>
-												</td>
-											</tr>
-									 	</c:forEach>
-									</table>
-									<!-- 페이징 -->
-						          <div class="pagination-container">
-							          <ul class="pagination pagination-primary pagination-sm justify-content-center">
-							          	<li class="page-item">
-									        <a class="page-link" href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage-1}&word=${word}" aria-label="Previous">
-									          <span aria-hidden="true">
-									          	<span class="material-icons">
-													keyboard_arrow_left
-												</span>
-											</span>
-								          </a>
-								        </li>
-								        <c:forEach var="i" begin="${beginPage}" end="${endPage}" step="1">
-								        	<c:if test="${i == currentPage}">
-												<li class="page-item active">
-											      <a class="page-link" href="${pageContext.request.contextPath}/employee/empList?currentPage=${i}&word=${word}">${i}</a>
-											    </li>
-											</c:if>
-								        	<c:if test="${i != currentPage}">
-												<li class="page-item">
-											      <a class="page-link" href="${pageContext.request.contextPath}/employee/empList?currentPage=${i}&word=${word}">${i}</a>
-											    </li>
-											</c:if>
-										</c:forEach>
-									    <li class="page-item">
-									        <a class="page-link" href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage+1}&word=${word}" aria-label="Previous">
-									          <span aria-hidden="true">
-									          	<span class="material-icons">
-													keyboard_arrow_right
-												</span>
-											</span>
-									        </a>
-									     </li>
-									  </ul>
-								  </div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+									</div>
+									
+				                    <div class="card-body px-0 pb-2 pt-2">
+						              <div class="table-responsive p-0">
+						                <table class="table align-items-center justify-content-center mb-0">
+						                  <thead>
+						                    <tr>
+						                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
+						                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 align-middle text-center">NAME</th>
+						                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Delete</th>
+						                    </tr>
+						                  </thead>
+						                  <tbody>
+							                  <c:forEach var="e" items="${list}">
+							                    <tr>
+							                      <td>
+							                        <div class="d-flex px-2">
+							                          <div class="my-auto">
+							                            <h6 class="mb-0 text-sm">${e.empId}</h6>
+							                          </div>
+							                        </div>
+							                      </td>
+						                          <td class="align-middle text-center">
+							                       		<span class="text-secondary text-xs font-weight-bold">${e.empName}</span>
+							                      </td>
+							                      <td class="align-middle text-center">
+							                          <a href="${pageContext.request.contextPath}/employee/removeEmp?empNo=${e.empNo}" id="remove">삭제</a>
+							                      </td>
+							                    </tr>
+						                    </c:forEach>
+						                  </tbody>
+						                </table>
+						              </div>
+						            </div>
+				                  </div>
+				                </div>
+				              </div>
+				            </div>
+				          </div>
+				        </div>
+				        <!-- 페이징 -->
+			          	<div class="pagination-container">
+				          <ul class="pagination pagination-primary pagination-sm justify-content-center">
+				          	<li class="page-item">
+						        <a class="page-link" href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage-1}&word=${word}" aria-label="Previous">
+						          <span aria-hidden="true">
+						          	<span class="material-icons">
+										keyboard_arrow_left
+									</span>
+								</span>
+					          </a>
+					        </li>
+					        <c:forEach var="i" begin="${beginPage}" end="${endPage}" step="1">
+					        	<c:if test="${i == currentPage}">
+									<li class="page-item active">
+								      <a class="page-link" href="${pageContext.request.contextPath}/employee/empList?currentPage=${i}&word=${word}">${i}</a>
+								    </li>
+								</c:if>
+					        	<c:if test="${i != currentPage}">
+									<li class="page-item">
+								      <a class="page-link" href="${pageContext.request.contextPath}/employee/empList?currentPage=${i}&word=${word}">${i}</a>
+								    </li>
+								</c:if>
+							</c:forEach>
+						    <li class="page-item">
+						        <a class="page-link" href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage+1}&word=${word}" aria-label="Previous">
+						          <span aria-hidden="true">
+						          	<span class="material-icons">
+										keyboard_arrow_right
+									</span>
+								</span>
+						        </a>
+						     </li>
+						  </ul>
+					  </div>
+					  <!-- 페이징 -->
 		        </div>
 			      <footer class="footer py-4  ">
 			        <div class="container-fluid">
@@ -169,8 +227,6 @@
 			        </div>
 			      </footer>
 		    	</div>
-		  	</div>
-		  </div>
 		<!--   Core JS Files   -->
 		<script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/core/popper.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/core/bootstrap.min.js"></script>
@@ -181,4 +237,29 @@
 		<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 		<script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/material-dashboard.min.js?v=3.0.4"></script>
 	</body>
+	<script>
+			$('#idck').click(function() {
+				if($('#id').val() == '') {
+					alert('ID를 입력해주세요.');
+					$('#id').focus();
+					return;
+				} else {
+					$.ajax({
+						url:'http://localhost/online-test/employee/idCheck'
+						, type:'get'
+						, data:{id:$('#id').val()}
+						, success:function(model) { //model -> yes/no
+							console.log(model)
+							if(model =='YES') {
+								// 사용가능
+								  $('#empId').val($('#id').val());
+							} else {
+								// 사용불가능
+								alert($('#id').val()+'는 사용중인 아이디입니다.');
+							}
+						}
+					})
+				}
+			});
+		</script>
 </html>

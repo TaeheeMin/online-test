@@ -63,11 +63,6 @@ public class EmployeeController {
 	}
 	
 	// 사원 추가
-	@GetMapping("/employee/addEmp")
-	public String addEmp(HttpSession session) {
-		return"employee/addEmp"; // forward
-	}
-	
 	// addEmp 배개변수 받아옴 -> 오버로딩
 	@PostMapping("/employee/addEmp")
 	public String addEmp(Employee employee, Model model) {

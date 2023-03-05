@@ -150,11 +150,6 @@ public class StudentController {
 	}
 	
 	// 학생 추가
-	@GetMapping("/employee/addStudent")
-	public String addStudent() {
-		return"employee/addStudent";
-	}
-	
 	@PostMapping("/employee/addStudent")
 	public String addStudent(Student student, Model model) {
 		// id 중복확인

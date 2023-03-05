@@ -21,72 +21,137 @@
 	          </a>
 	        </li>
 	        
-	        <!-- 학생 -->
-	        <li class="nav-item mt-3">
-	          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Student pages</h6>
-	        </li>
-	        <li class="nav-item">
-	          <a class="nav-link text-white " href="${pageContext.request.contextPath}/student/testListByStudent">
-	            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-	              <i class="material-icons opacity-10">assignment</i>
-	            </div>
-	            <span class="nav-link-text ms-1">Quiz</span>
-	          </a>
-	        </li>
-	        <li class="nav-item">
-	          <a class="nav-link text-white " href="${pageContext.request.contextPath}/student/modifyStudentPw">
-	            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-	              <i class="material-icons opacity-10">person</i>
-	            </div>
-	            <span class="nav-link-text ms-1">Profile</span>
-	          </a>
-	        </li>
 	        
-	        <!-- 강사 -->
-	        <li class="nav-item mt-3">
-	          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Teacher pages</h6>
-	        </li>
-	        <li class="nav-item">
-	          <a class="nav-link text-white " href="${pageContext.request.contextPath}/teacher/testList">
-	            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-	              <i class="material-icons opacity-10">assignment</i>
-	            </div>
-	            <span class="nav-link-text ms-1">Quiz</span>
-	          </a>
-	        </li>
-	        <li class="nav-item">
-	          <a class="nav-link text-white " href="${pageContext.request.contextPath}/teacher/modifyTeacherPw">
-	            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-	              <i class="material-icons opacity-10">person</i>
-	            </div>
-	            <span class="nav-link-text ms-1">Profile</span>
-	          </a>
-	        </li>
-	        
-	        <!-- 직원 -->
-	        <li class="nav-item mt-3">
-	          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">admin pages</h6>
-	        </li>
-	        
-	        <li class="nav-item">
-	          <a class="nav-link text-white " href="${pageContext.request.contextPath}/employee/empList">
-	            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-	              <i class="material-icons opacity-10">dashboard</i>
-	            </div>
-	            <span class="nav-link-text ms-1">admin</span>
-	          </a>
-	        </li>
-	        <li class="nav-item">
-	          <a class="nav-link text-white " href="${pageContext.request.contextPath}/employee/modifyEmpPw">
-	            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-	              <i class="material-icons opacity-10">person</i>
-	            </div>
-	            <span class="nav-link-text ms-1">Profile</span>
-	          </a>
-	        </li>
-          
-	      </ul>
+          	<!-- 학생 -->
+	        <c:choose>
+       			<c:when test="${loginStudent != null}">
+			        <li class="nav-item mt-3">
+			          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Student pages</h6>
+			        </li>
+			        <li class="nav-item">
+			          <a class="nav-link text-white " href="${pageContext.request.contextPath}/student/testListByStudent">
+			            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+			              <i class="material-icons opacity-10">assignment</i>
+			            </div>
+			            <span class="nav-link-text ms-1">Quiz</span>
+			          </a>
+			        </li>
+			        <li class="nav-item">
+			          <a class="nav-link text-white " href="${pageContext.request.contextPath}/student/modifyStudentPw">
+			            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+			              <i class="material-icons opacity-10">person</i>
+			            </div>
+			            <span class="nav-link-text ms-1">Profile</span>
+			          </a>
+			        </li>
+       			</c:when>
+       			<c:when test="${loginStudent == null}">
+			        <li class="nav-item mt-3">
+			          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Teacher pages</h6>
+			        </li>
+			        <li class="nav-item">
+			          <a class="nav-link text-white " href="${pageContext.request.contextPath}/student/testListByStudent">
+			            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+			              <i class="material-icons opacity-10">assignment</i>
+			            </div>
+			            <span class="nav-link-text ms-1">Quiz</span>
+			          </a>
+			        </li>
+     			</c:when>
+          </c:choose>
 	      
+	        <!-- 강사 -->
+	        <c:choose>
+       			<c:when test="${loginTeacher != null}">
+			        <li class="nav-item mt-3">
+			          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Teacher pages</h6>
+			        </li>
+			        <li class="nav-item">
+			          <a class="nav-link text-white " href="${pageContext.request.contextPath}/teacher/testList">
+			            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+			              <i class="material-icons opacity-10">assignment</i>
+			            </div>
+			            <span class="nav-link-text ms-1">Quiz</span>
+			          </a>
+			        </li>
+			        <li class="nav-item">
+			          <a class="nav-link text-white " href="${pageContext.request.contextPath}/teacher/modifyTeacherPw">
+			            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+			              <i class="material-icons opacity-10">person</i>
+			            </div>
+			            <span class="nav-link-text ms-1">Profile</span>
+			          </a>
+			        </li>
+       			</c:when>
+       			<c:when test="${loginTeacher == null}">
+			        <li class="nav-item mt-3">
+			          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Teacher pages</h6>
+			        </li>
+			        <li class="nav-item">
+			          <a class="nav-link text-white " href="${pageContext.request.contextPath}/teacher/testList">
+			            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+			              <i class="material-icons opacity-10">assignment</i>
+			            </div>
+			            <span class="nav-link-text ms-1">Quiz</span>
+			          </a>
+			        </li>
+     			</c:when>
+          </c:choose>
+	        
+          	<!-- 직원 -->
+	        <c:choose>
+       			<c:when test="${loginEmp != null}">
+        			<li class="nav-item mt-3">
+				          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">admin pages</h6>
+			        </li>
+			        <li class="nav-item">
+			          <a class="nav-link text-white " href="${pageContext.request.contextPath}/employee/empList">
+			            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+			              <i class="material-icons opacity-10">dashboard</i>
+			            </div>
+			            <span class="nav-link-text ms-1">Employee</span>
+			          </a>
+			        </li>
+			        <li class="nav-item">
+			          <a class="nav-link text-white " href="${pageContext.request.contextPath}/employee/teacherList">
+			            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+			              <i class="material-icons opacity-10">dashboard</i>
+			            </div>
+			            <span class="nav-link-text ms-1">Teacher</span>
+			          </a>
+			        </li>
+			        <li class="nav-item">
+			          <a class="nav-link text-white " href="${pageContext.request.contextPath}/employee/studentList">
+			            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+			              <i class="material-icons opacity-10">dashboard</i>
+			            </div>
+			            <span class="nav-link-text ms-1">Student</span>
+			          </a>
+			        </li>
+			        <li class="nav-item">
+			          <a class="nav-link text-white " href="${pageContext.request.contextPath}/employee/modifyEmpPw">
+			            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+			              <i class="material-icons opacity-10">person</i>
+			            </div>
+			            <span class="nav-link-text ms-1">Profile</span>
+			          </a>
+			        </li>
+       			</c:when>
+       			<c:when test="${loginEmp == null}">
+	       			<li class="nav-item mt-3">
+				          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">admin pages</h6>
+			        </li>
+			        <li class="nav-item">
+			          <a class="nav-link text-white " href="${pageContext.request.contextPath}/employee/empList">
+			            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+			              <i class="material-icons opacity-10">dashboard</i>
+			            </div>
+			            <span class="nav-link-text ms-1">admin</span>
+			          </a>
+			        </li>
+     			</c:when>
+          </c:choose>
+	      </ul>
 	    </div>
 	  </aside>
 </body>

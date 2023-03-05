@@ -175,11 +175,6 @@ public class TeacherController {
 	}
 	
 	// 강사 추가
-	@GetMapping("/employee/addTeacher")
-	public String addTeacher(HttpSession session) {
-		return"employee/addTeacher";
-	}
-	
 	@PostMapping("/employee/addTeacher")
 	public String addTeacher(Teacher teacher, HttpSession session, Model model) {
 		// id 중복확인
