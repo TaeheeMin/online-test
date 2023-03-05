@@ -72,7 +72,7 @@ public class TeacherController {
 		return "teacher/testOne";
 	}
 	
-	// 시험 삭제(문제, 응시자 없을때만 가능)
+	// 시험 삭제
 	@GetMapping("/teacher/removeTest")
 	public String removeTest(@RequestParam(value = "testNo") int testNo) {
 		int row = teacherService.removeTest(testNo);

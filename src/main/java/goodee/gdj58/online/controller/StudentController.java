@@ -28,6 +28,7 @@ public class StudentController {
 	// 답안지 제출
 	@PostMapping("/student/addPaper")
 	public String addPaper(@RequestParam(value = "studentNo") int studentNo
+							, @RequestParam(value = "testNo") int testNo
 							, @RequestParam(value = "questionNo") int[] questionNo
 							, @RequestParam(value = "answer") int[] answer) {
 		Paper[] paper = new Paper[questionNo.length];
@@ -49,7 +50,7 @@ public class StudentController {
 				log.debug("\u001B[31m" + "답안지 등록 성공");
 			}
 		}
-		return "redirect:/student/testListByStudent"; 
+		return "redirect:/student/testOneByStudent?testNo="+testNo; 
 	}
 	
 	

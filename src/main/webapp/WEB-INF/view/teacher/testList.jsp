@@ -111,8 +111,7 @@
 						                       		<span class="text-secondary text-xs font-weight-bold">${t.testDate}</span>
 						                      </td>
 						                      <td class="align-middle text-center">
-						                          <a href="${pageContext.request.contextPath}/teacher/removeTest?testNo=${t.testNo}"><i class="fa fa-ellipsis-v text-xs"></i>
-						                          </a>
+						                          <a href="${pageContext.request.contextPath}/teacher/removeTest?testNo=${t.testNo}"><i class="fa fa-ellipsis-v text-xs"></i></a>
 						                      </td>
 						                    </tr>
 					                    </c:forEach>

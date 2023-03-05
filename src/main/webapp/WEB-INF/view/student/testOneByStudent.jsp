@@ -26,11 +26,17 @@
 				<script>
 					$(document).ready(function(){
 						$('#testBtn').click(function() {
-							if($('input:radio[id=exampleAnswer${t.questionIdx}]').is(':checked')) { // 답 선택->체크 true
-								let answer = $('input:radio[id=exampleAnswer${t.questionIdx}]:checked').val(); // 체크된 보기번호 저장
-								$('#answer${t.questionIdx}').val(answer); // 히든값에 넣어줌
+							if($('input:radio[id=exampleAnswer${t.questionIdx}]:checked').val() == '') {
+								alert('문제를 모두 풀어주세요');
+								return;
+							} else {
+								if($('input:radio[id=exampleAnswer${t.questionIdx}]').is(':checked')) { // 답 선택->체크 true
+									let answer = $('input:radio[id=exampleAnswer${t.questionIdx}]:checked').val(); // 체크된 보기번호 저장
+									$('#answer${t.questionIdx}').val(answer); // 히든값에 넣어줌
+								}
+								$('#testForm').submit();
+								alert('제출완료');
 							}
-							$('#testForm').submit();
 						});
 					});
 				</script>
@@ -45,37 +51,23 @@
 		<!-- Navbar -->
 		<c:import url="/WEB-INF/view/inc/navbar.jsp"></c:import>
 		
-		<div class="container-fluid px-2 px-md-4">
-	      <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');">
-	        <span class="mask  bg-gradient-primary  opacity-6"></span>
-	      </div>
-	      <div class="card card-body mx-3 mx-md-4 mt-n6">
-	        <div class="row gx-4 mb-2">
-	          <div class="col-auto">
-	            <div class="avatar avatar-xl position-relative">
-	              <img src="${pageContext.request.contextPath}/resources/dashboard/assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-	            </div>
-	          </div>
-	          <div class="col-auto my-auto">
-	            <div class="h-100">
-	              <h5 class="mb-1">
-	                ${loginStudent.studentName}님
-	              </h5>
-	              <p class="mb-0 font-weight-normal text-sm">
-	                CEO / Co-Founder
-	              </p>
-	            </div>
-	          </div>
-	        </div>
+	      <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                <h6 class="text-white text-capitalize ps-3">${test.testTitle} 상세보기</h6>
+              </div>
+            </div>
+	      <div class="card-body p-3">
+            <div class="row">
 			<!-- 문제 상세보기 -->
 			<div>
 				<c:if test="${empty answer}">
-					<h6>${test.testTitle} 상세보기</h6>
 					<form id="testForm" method="post" action="${pageContext.request.contextPath}/student/addPaper">
 						<c:forEach var="t" items="${list}">
 							<c:if test="${t.exampleIdx == 1}">
 								${t.questionIdx}. ${t.questionTitle}
 								<input type="hidden" id="answer${t.questionIdx}" name="answer" value="">
+								<input type="hidden" name="testNo" value="${t.testNo}">
 								<input type="hidden" name="studentNo" value="${loginStudent.getStudentNo() }">
 								<input type="hidden" name="questionNo" value="${t.questionNo}">
 							</c:if>
@@ -95,7 +87,7 @@
 								<br>
 							</c:if>
 						</c:forEach>
-						<button id="testBtn">제출</button>
+						<a class="btn bg-gradient-dark mb-0 mt-3 px-3 mx-3" id="testBtn">제출</a>
 					</form>
 				</c:if>
 			</div>
@@ -228,6 +220,7 @@
 				</div>
 			</c:if>
 		</div>
+	</div>
 	</div>
 		
 		<footer class="footer py-4">

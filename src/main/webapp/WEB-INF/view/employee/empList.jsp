@@ -108,15 +108,15 @@
 				                      </div>
 				                    </div>
 				                    <div class="text-end">
-				                    <form method="get" action="${pageContext.request.contextPath}/employee/empList" id="serachForm">
-										<select name="rowPerPage" id="rowPerPage">
-											<option value="10">10
-											<option value="20">20
-											<option value="30">30
-										</select>
-										<input name="word" id="word" placeholder="사원 이름 검색" value="${word}">
-										<a class="btn bg-gradient-dark mb-0 mt-3 px-3 mx-3" id="search">검색</a>
-									</form>
+					                    <form method="get" action="${pageContext.request.contextPath}/employee/empList" id="serachForm">
+											<select name="rowPerPage" id="rowPerPage">
+												<option value="10">10
+												<option value="20">20
+												<option value="30">30
+											</select>
+											<input name="word" id="word" placeholder="사원 이름 검색" value="${word}">
+											<a class="btn bg-gradient-dark mb-0 mt-3 px-3 mx-3" id="search">검색</a>
+										</form>
 									</div>
 									
 				                    <div class="card-body px-0 pb-2 pt-2">
