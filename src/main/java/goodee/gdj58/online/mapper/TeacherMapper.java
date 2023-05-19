@@ -16,6 +16,7 @@ public interface TeacherMapper {
 	int insertQuestion(Question question);
 	List<Map<String, Object>> selectTestAnswer(int testNo);
 	List<Map<String, Object>> selectTestOne(int testNo);
+	Map<String, Object> selectTestDetail(int testNo);
 	Test selectTestTitle(int testNo);
 	int deleteTest(int testNo);
 	int deleteQuestion(int testNo);

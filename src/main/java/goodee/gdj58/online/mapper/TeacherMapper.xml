@@ -75,10 +75,23 @@
 					GROUP BY question_no) p
 				ON p.question_no = q.question_no
 		WHERE q.test_no = #{testNo}
-		
-		
 	</select>
-	
+	<select id="selectTestDetail" resultType="java.util.Map" parameterType="int">
+		SELECT 
+			CONCAT(s.cnt, "/", st.total) applicants
+			, s.cnt cnt
+			, st.total total
+		FROM test t
+		INNER JOIN 
+			(SELECT COUNT(student_no) cnt, test_no, student_no
+				FROM score
+				WHERE test_no = #{testNo}) s
+			ON t.test_no = s.test_no
+		LEFT OUTER JOIN
+				(SELECT COUNT(student_no) total, student_no
+					FROM student) st
+			ON s.student_no = st.student_no
+	</select>
 	<select id="selectTestTitle" resultType="goodee.gdj58.online.vo.Test" parameterType="int">
 		SELECT
 		test_title testTitle

@@ -63,12 +63,15 @@ public class TeacherController {
 		List<Map<String, Object>> list = teacherService.getTestOne(testNo);
 		Test test = teacherService.getTestTitle(testNo); // 테스트 정보
 		List<Map<String, Object>> answer = teacherService.getTestAnswer(testNo);
-		model.addAttribute("test",test);
-		model.addAttribute("list",list);
-		model.addAttribute("answer",answer);
+		model.addAttribute("test",test); // 시험정보
+		model.addAttribute("list",list); // 문제정보
+		model.addAttribute("answer",answer); // 정답
+		Map<String, Object> detail = teacherService.getTestDetail(testNo);
+		model.addAttribute("detail",detail); // 응시인원
 		log.debug("\u001B[31m" + list.size()/4 + "	<= 문제 개수");
 		int questionCount = list.size()/4;
-		model.addAttribute("questionCount", questionCount);
+		model.addAttribute("questionCount", questionCount); // 문항수
+		
 		return "teacher/testOne";
 	}
 	

@@ -47,20 +47,6 @@
 	                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
 	                        <h1 class="h3 mb-0 text-gray-800"></h1>
                             <div>
-	                          	<a href="#" class="btn btn-danger btn-sm btn-icon-split">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-trash"></i>
-                                    </span>
-                                    <span class="text">시험 삭제</span>
-                                </a>
-                                
-                                <a href="#" class="btn btn-info btn-sm btn-icon-split">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-info-circle"></i>
-                                    </span>
-                                    <span class="text">시험 수정</span>
-                                </a>
-                                
 		                        <a href="${pageContext.request.contextPath}/teacher/testList" class="btn btn-primary btn-icon-split btn-sm">
 	                               <span class="icon text-white-50">
 	                                   <i class="fas fa-arrow-right"></i>
@@ -75,7 +61,8 @@
 	                            	<div class="card-header py-3">
 	                                    <div class="row">
 	                            			<div class="col-xl-8">
-		                                    	<h2 class="m-0 font-weight-bold text-primary">${test.testTitle}</h2>
+		                                    	<span class="m-0 font-weight-bold text-primary" style="font-size: 30px;">${test.testTitle}</span>
+		                                    	<span>${test.testDate}</span>
 		                                    </div>
 	                            			<div class="col-xl-4 d-sm-flex justify-content-end">
 			                                    <span>
@@ -86,7 +73,24 @@
 	                                </div>
 		                            
 	                                <div class="card-body">
-	                                	<c:if test="${questionCount < 20}">
+	                                	<c:choose>
+											<c:when test="${detail.applicants == null}">
+												<div class="card mb-4 py-3 border-left-info">
+					                                <div class="card-body">
+					                                    아직 응시자가 없어요!
+					                                </div>
+					                            </div>
+											</c:when>
+											<c:otherwise>
+												<div class="card mb-4 py-3 border-left-info">
+					                                <div class="card-body">
+					                                   ${detail.total}명 중 <mark> ${detail.cnt}명</mark> 응시했어요!
+					                                </div>
+					                            </div>
+											</c:otherwise>
+										</c:choose>
+	                                
+	                                	<c:if test="${questionCount < 20 && detail.applicants == null}">
 								            <div class=" border-0 p-4 mb-2 bg-gray-100 border-radius-lg">
 												<div class=" d-flex flex-column">
 											    	<strong>${questionCount +1}번</strong>
@@ -187,72 +191,76 @@
 													<c:if test="${t.exampleIdx == 4}">
 														<c:choose>
 															<c:when test="${t.exampleAnswer eq '정답'}">
-																<span style="color: red;">&#10115; <span class="text-red">${t.exampleContent}</span></span>
+																<span style="font-weight: bold; color: red;">&#10115; <span class="text-red">${t.exampleContent}</span></span>
 																<br>
-																<div class="card border-left-info shadow h-100 py-2">
-									                                <div class="card-body">
-									                                    <div class="row no-gutters align-items-center">
-									                                        <div class="col mr-2">
-									                                            <div class="d-sm-flex align-items-center justify-content-between">
-										                                            <div class="text-xs font-weight-bold text-info mb-1">
-										                                            	정답률
+																<c:if test="${detail.applicants != null}">
+																	<div class="card border-left-info shadow h-100 py-2">
+										                                <div class="card-body">
+										                                    <div class="row no-gutters align-items-center">
+										                                        <div class="col mr-2">
+										                                            <div class="d-sm-flex align-items-center justify-content-between">
+											                                            <div class="text-xs font-weight-bold text-info mb-1">
+											                                            	정답률
+											                                            </div>
+											                                            <div class="text-xs font-weight-bold text-info mb-1">
+												                                            <span>응시 인원 ${t.cnt }</span>
+											                                            </div>
+										                                        	</div>
+										                                            <div class="row no-gutters align-items-center">
+										                                                <div class="col-auto">
+										                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${t.percen}%</div>
+										                                                </div>
+										                                                <div class="col">
+										                                                    <div class="progress progress-sm mr-2">
+										                                                        <div class="progress-bar bg-info" role="progressbar" style="width: ${t.percen}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+										                                                    </div>
+										                                                </div>
 										                                            </div>
-										                                            <div class="text-xs font-weight-bold text-info mb-1">
-											                                            <span>응시 인원 ${t.cnt }</span>
-										                                            </div>
-									                                        	</div>
-									                                            <div class="row no-gutters align-items-center">
-									                                                <div class="col-auto">
-									                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${t.percen}%</div>
-									                                                </div>
-									                                                <div class="col">
-									                                                    <div class="progress progress-sm mr-2">
-									                                                        <div class="progress-bar bg-info" role="progressbar" style="width: ${t.percen}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-									                                                    </div>
-									                                                </div>
-									                                            </div>
-									                                        </div>
-									                                        <div class="col-auto">
-									                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-									                                        </div>
-									                                    </div>
-									                                </div>
-									                            </div>
+										                                        </div>
+										                                        <div class="col-auto">
+										                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+										                                        </div>
+										                                    </div>
+										                                </div>
+										                            </div>
+																</c:if>
 									                            <br>
 									                            <br>
 															</c:when>
 															<c:otherwise>
 																<span>&#10115; <span class="ms-sm-2">${t.exampleContent}</span></span>
 																<br>
-																<div class="card border-left-info shadow h-100 py-2">
-									                                <div class="card-body">
-									                                    <div class="row no-gutters align-items-center">
-									                                        <div class="col mr-2">
-									                                        	<div class="d-sm-flex align-items-center justify-content-between">
-										                                            <div class="text-xs font-weight-bold text-info mb-1">
-										                                            	정답률
+																<c:if test="${detail.applicants != null}">
+																	<div class="card border-left-info shadow h-100 py-2">
+										                                <div class="card-body">
+										                                    <div class="row no-gutters align-items-center">
+										                                        <div class="col mr-2">
+										                                            <div class="d-sm-flex align-items-center justify-content-between">
+											                                            <div class="text-xs font-weight-bold text-info mb-1">
+											                                            	정답률
+											                                            </div>
+											                                            <div class="text-xs font-weight-bold text-info mb-1">
+												                                            <span>응시 인원 ${t.cnt }</span>
+											                                            </div>
+										                                        	</div>
+										                                            <div class="row no-gutters align-items-center">
+										                                                <div class="col-auto">
+										                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${t.percen}%</div>
+										                                                </div>
+										                                                <div class="col">
+										                                                    <div class="progress progress-sm mr-2">
+										                                                        <div class="progress-bar bg-info" role="progressbar" style="width: ${t.percen}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+										                                                    </div>
+										                                                </div>
 										                                            </div>
-										                                            <div class="text-xs font-weight-bold text-info mb-1">
-											                                            <span>응시 인원 ${t.cnt}</span>
-										                                            </div>
-									                                        	</div>
-									                                            <div class="row no-gutters align-items-center">
-									                                                <div class="col-auto">
-									                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${t.percen}%</div>
-									                                                </div>
-									                                                <div class="col">
-									                                                    <div class="progress progress-sm mr-2">
-									                                                        <div class="progress-bar bg-info" role="progressbar" style="width: ${t.percen}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-									                                                    </div>
-									                                                </div>
-									                                            </div>
-									                                        </div>
-									                                        <div class="col-auto">
-									                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-									                                        </div>
-									                                    </div>
-									                                </div>
-								                            	</div>
+										                                        </div>
+										                                        <div class="col-auto">
+										                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+										                                        </div>
+										                                    </div>
+										                                </div>
+										                            </div>
+																</c:if>
 								                            	<br>
 								                            	<br>
 															</c:otherwise>

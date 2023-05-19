@@ -39,6 +39,9 @@ public class TeacherService {
 	public List<Map<String, Object>> getTestAnswer(int testNo) {
 		return teacherMapper.selectTestAnswer(testNo);
 	}
+	public Map<String, Object> getTestDetail(int testNo) {
+		return teacherMapper.selectTestDetail(testNo);
+	}
 	
 	// 시험 삭제
 	public int removeTest(int testNo) {

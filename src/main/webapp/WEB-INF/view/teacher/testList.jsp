@@ -75,7 +75,7 @@
 						                    </div>
 						                  </form><!-- End Change Password Form -->
 	                                    <hr>
-	                                    시험 등록 후 문제를 등록해주세요!
+	                                    시험 등록 후 문제를 출제해주세요!
 	                                </div>
 	                            </div>
 	                        </div>
@@ -85,7 +85,7 @@
 	                            <div class="card shadow mb-4">
 	                                <div class="card-header py-3 d-sm-flex align-items-center justify-content-between">
 	                                    <h6 class="font-weight-bold text-primary mb-0">시험목록</h6>
-	                                    <p class="mb-0"><mark>응시자가 없을 때</mark> 수정 가능해요!</p>
+	                                    <p class="mb-0"><mark>응시자가 없을 때</mark> 삭제 가능해요!</p>
 	                                </div>
 	                                <div class="card-body">
 	                                	<div class="table-responsive">
