@@ -105,7 +105,7 @@ public class TeacherController {
 			, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage) {
 		log.debug("\u001B[31m" + currentPage + "  <=  currentPage");
 		log.debug("\u001B[31m" + rowPerPage + "  <=  rowPerPage");
-		List<Test> list = teacherService.getTestList(currentPage, rowPerPage);
+		List<Map<String, Object>> list = teacherService.getTestList(currentPage, rowPerPage);
 		int count = teacherService.getTestCount();
 		int page = 10; // 페이징 목록 개수
 		int beginPage = ((currentPage - 1)/page) * page + 1; // 시작 페이지
@@ -154,7 +154,7 @@ public class TeacherController {
 		Teacher resultTeacher =  teacherService.login(teacher);
 		log.debug("\u001B[31m"+"강사 로그인 성공");
 		session.setAttribute("loginTeacher", resultTeacher);
-		return "redirect:/main";
+		return "redirect:/teacher/testList";
 	}
 	
 	// 강사 메인
@@ -179,7 +179,7 @@ public class TeacherController {
 	public String addTeacher(Teacher teacher, HttpSession session, Model model) {
 		// id 중복확인
 		String idCheck = idservice.getIdCheck(teacher.getTeacherId());
-		if(idCheck != null) { // null이면 아이디 사용가능
+		if(idCheck.equals("NO")) { // null(YES)이면 아이디 사용가능 NO->중복
 			log.debug("\u001B[31m" + "아이디 중복");
 			model.addAttribute("msg", "아이디 중복");
 			return "redirect:/employee/addTeacher";

@@ -22,7 +22,6 @@
 		<link id="pagestyle" href="${pageContext.request.contextPath}/resources/dashboard/assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 		<script>
 			$(document).ready(function() {
-<<<<<<< HEAD
 				$('#empBtn').click(function(){
 					$('#category').val("employee");
 					$('#listForm').submit();
@@ -35,8 +34,6 @@
 					$('#category').val("student");
 					$('#listForm').submit();
 				});
-=======
->>>>>>> branch 'master' of https://github.com/TaeheeMin/online-test.git
 			});
 		</script>
 	</head>

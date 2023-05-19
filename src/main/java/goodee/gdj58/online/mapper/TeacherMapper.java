@@ -18,8 +18,10 @@ public interface TeacherMapper {
 	List<Map<String, Object>> selectTestOne(int testNo);
 	Test selectTestTitle(int testNo);
 	int deleteTest(int testNo);
+	int deleteQuestion(int testNo);
+	int deleteExample(int testNo);
 	int insertTest(Test test);
-	List<Test> selectTestList(Map<String, Object> paramMap);
+	List<Map<String, Object>> selectTestList(Map<String, Object> paramMap);
 	int testListCount();
 	int updateTeacherPw(Map<String, Object> paramMap);
 	Teacher login(Teacher teacher);

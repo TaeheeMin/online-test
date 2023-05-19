@@ -16,17 +16,23 @@ import goodee.gdj58.online.vo.Test;
 public class MainController {
 	@Autowired EmployeeService employeeService;
 	// 메인
-	@GetMapping("/main")
+	@GetMapping("/employee/main")
 	public String main(Model model) {
 		List<Test> list = employeeService.getMainTestList();
 		model.addAttribute("list",list);
 		return "/main";
+	}
+	@GetMapping("/home")
+	public String main2(Model model) {
+		List<Test> list = employeeService.getMainTestList();
+		model.addAttribute("list",list);
+		return "/home";
 	}
 	
 	// 로그아웃
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/main";
+		return "redirect:/home";
 	}
 }

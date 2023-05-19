@@ -45,11 +45,17 @@ public class EmployeeController {
 	}
 	
 	@PostMapping("/loginEmp")
-	public String loginEmp(Employee emp, HttpSession session) {
-		log.debug("\u001B[31m"+"사원 로그인 성공");
-		Employee resultEmp =  employeeService.login(emp);
-		session.setAttribute("loginEmp", resultEmp);
-		return "redirect:/main";
+	public String loginEmp(Employee emp, HttpSession session, Model model) {
+		if( employeeService.login(emp) == null) {
+			log.debug("\u001B[31m"+"사원 로그인 실패");
+			 model.addAttribute("msg","로그인 실패");
+			return "redirect:/loginEmp";
+		} else {
+			log.debug("\u001B[31m"+"사원 로그인 성공");
+			Employee resultEmp =  employeeService.login(emp);
+			session.setAttribute("loginEmp", resultEmp);
+			return "redirect:/employee/main";
+		}
 	}
 	
 	// 사원 삭제

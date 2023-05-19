@@ -10,11 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import goodee.gdj58.online.mapper.StudentMapper;
 import goodee.gdj58.online.vo.Paper;
+import goodee.gdj58.online.vo.Score;
 import goodee.gdj58.online.vo.Student;
 import goodee.gdj58.online.vo.Test;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
+@Slf4j
 public class StudentService {
 	@Autowired private StudentMapper studentMapper;
 	
@@ -36,8 +39,40 @@ public class StudentService {
 	} 
 	
 	// 답안지 제출
-	public int addPaper(Paper paper) {
-		return studentMapper.insertPaper(paper);
+	public int addPaper(int studentNo, int testNo, int[] questionNo, int[] answer) {
+		int row = 0;
+		int scoreCount = 0;
+		
+		// paper 등록
+		Paper[] paper = new Paper[questionNo.length];
+		for(int i=0; i<questionNo.length; i++) {
+			paper[i] = new Paper();
+			paper[i].setStudentNo(studentNo);
+			paper[i].setQuestionNo(questionNo[i]);
+			paper[i].setAnswer(answer[i]);
+			int getAnswer = studentMapper.selectAnswer(questionNo[i]);
+			log.debug("\u001B[31m" + getAnswer +"	<=" + questionNo[i] + "번답안");
+			log.debug("\u001B[31m" + answer[i] +"	<=" + questionNo[i] + "번답제출");
+			if(getAnswer == answer[i]) {
+				paper[i].setAnswerCheck("정답");
+				scoreCount++;
+			} else {
+				paper[i].setAnswerCheck("오답"); 
+			}
+			row = studentMapper.insertPaper(paper[i]);
+			log.debug("\u001B[31m" + "답안지 등록 성공");
+		}
+		
+		// score 등록
+		Score score = new Score();
+		score.setStudentNo(studentNo);
+		score.setTestNo(testNo);
+		score.setQuestion(questionNo.length);
+		score.setScore(scoreCount);
+		log.debug("\u001B[31m" + score + "<=score");
+		studentMapper.insertScore(score);
+		
+		return row;
 	}
 	public int getAnswer(int questionNo) {
 		return studentMapper.selectAnswer(questionNo);
@@ -53,14 +88,18 @@ public class StudentService {
 	}
 	
 	// 학생 시험 목록
-	public List<Test> getTestList(int currentPage, int rowPerPage) {
+	public List<Map<String, Object>> getTestList(int currentPage, int rowPerPage, int studentNo) {
 		int beginRow = (currentPage - 1) * rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("studentNo", studentNo);
 		return studentMapper.selectTestList(paramMap);
 	}
 	
+	public List<Map<String, Object>> getTestTotalList(int studentNo) {
+		return studentMapper.selectTestTotalList(studentNo);
+	}
 	// 시험 개수
 	public int getTestCount() {
 		return studentMapper.testListCount();

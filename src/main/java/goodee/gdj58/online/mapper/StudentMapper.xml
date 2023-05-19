@@ -53,6 +53,23 @@
 		)
 	</insert>
 	
+	<!-- score 등록 -->
+	<insert id="insertScore" parameterType="goodee.gdj58.online.vo.Score">
+		INSERT INTO score(
+			student_no
+			, test_no
+			, question
+			, score
+			, createdate
+		) VALUES(
+			#{studentNo}
+			, #{testNo}
+			, #{question}
+			, #{score}
+			, NOW()
+		)
+	</insert>
+	
 	<!-- 문제별 답 -->
 	<select id="selectAnswer" parameterType="int" resultType="int">
 		SELECT example_idx exampleIdx
@@ -89,14 +106,31 @@
 	</select>
 	
 	<!-- 시험 목록 -->
-	<select id="selectTestList" resultType="goodee.gdj58.online.vo.Test">
-		SELECT 
-			test_no testNo
-			, test_title testTitle
-			, test_date testDate
-		FROM test
-		ORDER BY test_date DESC
+	<select id="selectTestList" resultType="java.util.Map" parameterType="int">
+		SELECT
+			t.test_no testNo
+			, t.test_title testTitle
+			, t.test_date testDate
+			, IF(s.score IS NOT NULL , CONCAT(s.score, "/",s.question), '미응시') score
+		FROM test t
+			LEFT OUTER JOIN 
+			(SELECT * FROM score WHERE student_no = #{studentNo}) s
+			ON t.test_no = s.test_no
+		ORDER BY t.test_date DESC
 		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	<select id="selectTestTotalList" resultType="java.util.Map" parameterType="int">
+		SELECT 
+			t.test_no
+			, t.test_title testTitle
+			, t.test_date testDate
+			, IF(s.student_no = #{studentNo} AND s.score IS NOT NULL, '응시', '미응시') state
+		FROM test t 
+			LEFT JOIN score s
+			ON t.test_no = s.test_no
+			LEFT JOIN student st
+			ON s.student_no = s.student_no
+		GROUP BY t.test_no	
 	</select>
 	
 	<!-- testList Count -->
@@ -127,8 +161,8 @@
 	<!-- deleteStudent -->
 	<delete id="deleteStudent" parameterType="int">
 		DELETE 
-		FROM Student
-		WHERE Student_no = #{StudentNo}
+		FROM student
+		WHERE student_no = #{studentNo}
 	</delete>
 	
 	<!-- addStudent -->

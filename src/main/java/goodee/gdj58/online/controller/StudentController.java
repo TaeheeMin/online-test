@@ -31,25 +31,7 @@ public class StudentController {
 							, @RequestParam(value = "testNo") int testNo
 							, @RequestParam(value = "questionNo") int[] questionNo
 							, @RequestParam(value = "answer") int[] answer) {
-		Paper[] paper = new Paper[questionNo.length];
-		for(int i=0; i<questionNo.length; i++) {
-			paper[i] = new Paper();
-			paper[i].setStudentNo(studentNo);
-			paper[i].setQuestionNo(questionNo[i]);
-			paper[i].setAnswer(answer[i]);
-			int getAnswer = studentService.getAnswer(questionNo[i]);
-			log.debug("\u001B[31m" + getAnswer +"	<=" + questionNo[i] + "번답안");
-			log.debug("\u001B[31m" + answer[i] +"	<=" + questionNo[i] + "번답제출");
-			if(getAnswer == answer[i]) {
-				paper[i].setAnswerCheck("정답");
-			} else {
-				paper[i].setAnswerCheck("오답"); 
-			}
-			int row = studentService.addPaper(paper[i]);
-			if(row == 1) {
-				log.debug("\u001B[31m" + "답안지 등록 성공");
-			}
-		}
+		studentService.addPaper(studentNo, testNo, questionNo, answer);
 		return "redirect:/student/testOneByStudent?testNo="+testNo; 
 	}
 	
@@ -61,8 +43,8 @@ public class StudentController {
 		Student loginStudent = (Student)session.getAttribute("loginStudent");
 		List<Map<String, Object>> list = studentService.getTestOne(testNo);
 		Test test = studentService.getTestTitle(testNo); // 테스트 정보
-		model.addAttribute("test",test);
-		model.addAttribute("list",list);
+		model.addAttribute("test", test);
+		model.addAttribute("list", list);
 		log.debug("\u001B[31m" + list.size()/4 + "	<= 문제 개수");
 		int questionCount = list.size()/4;
 		model.addAttribute("questionCount", questionCount);
@@ -82,8 +64,8 @@ public class StudentController {
 			, @RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage) {
 		log.debug("\u001B[31m" + currentPage + "  <=  currentPage");
 		log.debug("\u001B[31m" + rowPerPage + "  <=  rowPerPage");
-		List<Test> list = studentService.getTestList(currentPage, rowPerPage);
-		
+		Student loginStudent = (Student)session.getAttribute("loginStudent");
+		List<Map<String, Object>> list = studentService.getTestList(currentPage, rowPerPage, loginStudent.getStudentNo());
 		int count = studentService.getTestCount();
 		int page = 10; // 페이징 목록 개수
 		int beginPage = ((currentPage - 1)/page) * page + 1; // 시작 페이지
@@ -111,13 +93,18 @@ public class StudentController {
 	}
 	
 	@PostMapping("/student/modifyStudentPw")
-	public String modifyStudentPw(HttpSession session, @RequestParam(value = "oldPw") String oldPw, @RequestParam(value = "newPw") String newPw) {
+	public String modifyStudentPw(HttpSession session, @RequestParam(value = "oldPw") String oldPw, @RequestParam(value = "newPw") String newPw, Model model) {
 		Student loginStudent = (Student)session.getAttribute("loginStudent");
 		int row = studentService.modifyStudentPw(oldPw, newPw, loginStudent.getStudentNo());
 		if(row == 1) {
 			log.debug("\u001B[31m"+"학생 비밀번호 수정성공");
+			return "redirect:/student/testListByStudent";
+		} else {
+			model.addAttribute("msg", "다시 시도해주세요.");
+			model.addAttribute("url", "/student/modifyStudentPw");
+			return "alert";
 		}
-		return "redirect:/student/studentMain";
+		
 	}
 	
 	// 학생 로그인
@@ -130,7 +117,7 @@ public class StudentController {
 		Student resultStudent =  studentService.login(student);
 		log.debug("\u001B[31m"+"학생 로그인 성공");
 		session.setAttribute("loginStudent", resultStudent);
-		return "redirect:/main";
+		return "redirect:/student/testListByStudent";
 	}
 	
 	// 학생 메인
@@ -158,7 +145,7 @@ public class StudentController {
 		if(idCheck != null) { // null이면 아이디 사용가능
 			log.debug("\u001B[31m"+"아이디 중복");
 			model.addAttribute("errorMsg", "아이디 중복");
-			return "redirect:/employee/addTeacher";
+			return "redirect:/employee/studentList";
 		}
 		
 		int row = studentService.addStudent(student);

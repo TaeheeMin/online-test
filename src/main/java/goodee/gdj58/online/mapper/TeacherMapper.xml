@@ -39,19 +39,44 @@
 	<!-- 시험 상세보기 -->
 	<select id="selectTestOne" resultType="java.util.Map" parameterType="int">
 		SELECT
-		t.test_title testTitle
-		, q.question_no questionNo
-		, q.test_no testNo
-		, q.question_no questionNo
-		, q.question_idx questionIdx
-		, q.question_title questionTitle
-		, e.example_idx exampleIdx
-		, e.example_content exampleContent
-		, e.example_answer exampleAnswer
+			t.test_title testTitle
+			, q.question_no questionNo
+			, q.test_no testNo
+			, q.question_no questionNo
+			, q.question_idx questionIdx
+			, q.question_title questionTitle
+			, e.example_idx exampleIdx
+			, e.example_content exampleContent
+			, e.example_answer exampleAnswer
+			, IF(s.cnt IS NOT NULL , CONCAT(s.cnt, '명'), '0명') cnt
+			, p.correct
+			, p.incorrect 
+			, p.percen
 		FROM question q
-		INNER JOIN example e ON q.question_no = e.question_no
-		INNER JOIN test t ON t.test_no = q.test_no
+			INNER JOIN example e
+				ON q.question_no = e.question_no
+			INNER JOIN test t 
+				ON t.test_no = q.test_no
+			LEFT OUTER JOIN
+				(SELECT test_no, student_no, COUNT(student_no) cnt
+					FROM score
+					GROUP BY test_no
+					HAVING COUNT(test_no) > 0) s
+				ON t.test_no = s.test_no
+			LEFT OUTER JOIN student st
+				ON s.student_no = st.student_no
+			LEFT OUTER JOIN 
+				(SELECT 
+						question_no
+						, CONCAT(COUNT(case when answer_check = '정답' then 1 END), '명') correct 
+						, CONCAT(COUNT(case when answer_check = '오답' then 1 END), '명') incorrect 
+						, ROUND((COUNT(case when answer_check = '정답' then 1 END) / COUNT(student_no))*100, 0) percen
+					FROM paper
+					GROUP BY question_no) p
+				ON p.question_no = q.question_no
 		WHERE q.test_no = #{testNo}
+		
+		
 	</select>
 	
 	<select id="selectTestTitle" resultType="goodee.gdj58.online.vo.Test" parameterType="int">
@@ -69,6 +94,24 @@
 		FROM test 
 		WHERE test_no = #{testNo}
 	</delete>
+	<delete id="deleteQuestion" parameterType="int">
+		DELETE 
+		FROM question
+		WHERE question_no IN 
+			(SELECT q.question_no
+			FROM question q
+			WHERE q.test_no = #{testNo})
+	</delete>
+	<delete id="deleteExample" parameterType="int">
+		DELETE 
+		FROM example
+		WHERE example_no IN 
+			(SELECT e.example_no
+			FROM example e
+				LEFT OUTER JOIN question q
+				ON e.question_no = q.question_no
+			WHERE q.test_no = #{testNo})
+	</delete>
 	
 	<!-- 시험 추가 -->
 	<insert id="insertTest" parameterType="goodee.gdj58.online.vo.Test">
@@ -76,14 +119,20 @@
 	</insert>
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 	<!-- 시험 목록 -->
-	<select id="selectTestList" resultType="goodee.gdj58.online.vo.Test">
+	<select id="selectTestList" resultType="java.util.Map">
 		SELECT 
-			test_no testNo
-			, test_title testTitle
-			, test_date testDate
-		FROM test
-		ORDER BY test_date DESC
-		LIMIT #{beginRow}, #{rowPerPage}
+			t.test_no testNo
+			, t.test_title testTitle
+			, t.test_date testDate
+			, IF(s.cnt IS NOT NULL , CONCAT(s.cnt, "명"), null) cnt
+		FROM test t
+			LEFT OUTER JOIN
+			(SELECT test_no, COUNT(student_no) cnt
+			FROM score
+			GROUP BY test_no
+			HAVING COUNT(test_no) > 0) s
+			ON t.test_no = s.test_no
+		ORDER BY t.test_date DESC
 	</select>
 	
 	<!-- testList Count -->

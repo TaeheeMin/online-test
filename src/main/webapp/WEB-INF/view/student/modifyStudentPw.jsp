@@ -4,150 +4,172 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>비민번호 변경</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+		<title>GOODEE Quiz | 똑똑한 공부습관 구디아카데미</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/resources/dashboard/assets/img/apple-icon.png">
-		<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/dashboard/assets/img/favicon.png">
-		<!--     Fonts and icons     -->
-		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-		<!-- Nucleo Icons -->
-		<link href="${pageContext.request.contextPath}/resources/dashboard/assets/css/nucleo-icons.css" rel="stylesheet" />
-		<link href="${pageContext.request.contextPath}/resources/dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
-		<!-- Font Awesome Icons -->
-		<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-		<!-- Material Icons -->
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-		<!-- CSS Files -->
-		<link id="pagestyle" href="${pageContext.request.contextPath}/resources/dashboard/assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
-		<script>
-			$(document).ready(function() {
-				// 유효성검사
-				$('#pwBtn').click(function() {
-					if($('#oldPw').val() == '') {
-						$('#msg').text('비밀번호를 입력해주세요');
-						$('#oldPw').focus();
-						return;
-					} else {
-						$('#msg').text('');
-					}
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+	
+	    <!-- Custom fonts for this template-->
+	    <link href="${pageContext.request.contextPath}/resources/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+	
+	    <!-- Custom styles for this template-->
+	    <link href="${pageContext.request.contextPath}/resources/assets/css/sb-admin-2.css" rel="stylesheet">
+	    
+		<!-- fullcalender -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+		<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
+		
+		<!-- icon -->
+		<script src="https://kit.fontawesome.com/ce71be7920.js" crossorigin="anonymous"></script>
+	</head>
+	<body id="page-top">
+	
+	    <!-- Page Wrapper -->
+	    <div id="wrapper">
+	        <!-- Sidebar -->
+			<c:import url="/WEB-INF/view/inc/sidenav.jsp"></c:import>
+	
+	        <!-- Content Wrapper -->
+	        <div id="content-wrapper" class="d-flex flex-column">
+	
+	            <!-- Main Content -->
+	            <div id="content">
+					<!-- Navbar -->
+					<c:import url="/WEB-INF/view/inc/navbar.jsp"></c:import>
+	
+	                <!-- Begin Page Content -->
+	                <div class="container-fluid">
+						
+	                    <!-- Page Heading -->
+	                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+	                        <h1 class="h3 mb-0 text-gray-800">비밀번호 변경</h1>
+	                    </div>
+	                    <div class="row">
+		                    <div class="col-lg-4">
+		                     <div class="card shadow mb-4">
+		                     	 <!-- Card Body -->
+								<div class="card-body pt-3">
+					              <div class="tab-content pt-2">
+									<div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+		             				  <img class="rounded-circle mb-5" src="${pageContext.request.contextPath}/resources/assets/img/undraw_profile.svg" style="width: 300px;">
+						              <h2>${loginStudent.studentName}</h2>
+						              <div class="social-links mt-2">
+						              	학생
+						              </div>
+						            </div>
+					              </div><!-- End Bordered Tabs -->
+								</div>
+				              </div>
+		                    </div>
+							<div class="col-lg-8">
+	                            <div class="card shadow mb-4">
+                                <!-- Card Body -->
+								<div class="card-body pt-3">
+					              <div class="tab-content pt-2">
 					
-					if($('#newPw').val() == '') {
-						$('#msg').text('비밀번호를 입력해주세요');
-						$('#newPw').focus();
-						return;
-					} else {
-						$('#msg').text('');
-					}
-					$('#pwForm').submit();
-				});
+					                <div class="tab-pane fade profile-overview active show" id="profile-overview" role="tabpanel">
+					                <!-- Change Password Form -->
+					                  <form id="pwForm" method="post" action="${pageContext.request.contextPath}/student/modifyStudentPw">
+											<div>
+						                      <p class="text-sm text-center text-primary" id="mssage"></p>
+					                      	</div>
+					                    <div class="row mb-3">
+					                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">현재 비밀번호</label>
+					                      <div class="col-md-8 col-lg-9">
+					                        <input type="password" class="form-control" name="oldPw" id="oldPw" placeholder="Password">
+					                      </div>
+					                    </div>
+					
+					                    <div class="row mb-3">
+					                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">새 비밀번호</label>
+					                      <div class="col-md-8 col-lg-9">
+					                        <input type="password" class="form-control" id="newPw1" placeholder="Password">
+					                      </div>
+					                    </div>
+					
+					                    <div class="row mb-3">
+					                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">새 비밀번호 확인</label>
+					                      <div class="col-md-8 col-lg-9">
+					                        <input type="password" class="form-control" name="newPw" id="newPw2" placeholder="New Password">
+					                      </div>
+					                    </div>
+					
+					                    <div class="text-center">
+					                      <button type="button" class="btn btn-primary" id="pwBtn">변경</button>
+					                    </div>
+					                  </form><!-- End Change Password Form -->
+					
+					                </div>
+					              </div><!-- End Bordered Tabs -->
+					            </div>
+                            </div>
+						</div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+	
+	            </div>
+	            <!-- End of Main Content -->
+	
+	            <!-- Footer -->
+	            <footer class="sticky-footer bg-white">
+	                <div class="container my-auto">
+	                    <div class="copyright text-center my-auto">
+	                        <span>Copyright &copy; Your Website 2023</span>
+	                    </div>
+	                </div>
+	            </footer>
+	            <!-- End of Footer -->
+	
+	        </div>
+	        <!-- End of Content Wrapper -->
+	
+	    </div>
+	    <!-- End of Page Wrapper -->
+	
+	    <!-- Scroll to Top Button-->
+	    <a class="scroll-to-top rounded" href="#page-top">
+	        <i class="fas fa-angle-up"></i>
+	    </a>
+	   	  
+	    <!-- Bootstrap core JavaScript-->
+	    <script src="${pageContext.request.contextPath}/resources/assets/vendor/jquery/jquery.min.js"></script>
+	    <script src="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	
+	    <!-- Core plugin JavaScript-->
+	    <script src="${pageContext.request.contextPath}/resources/assets//vendor/jquery-easing/jquery.easing.min.js"></script>
+	
+	    <!-- Custom scripts for all pages-->
+	    <script src="${pageContext.request.contextPath}/resources/assets//js/sb-admin-2.min.js"></script>
+	    <script>
+			// 유효성검사
+			$('#pwBtn').click(function() {
+				if($('#oldPw').val() == '') {
+					$('#mssage').text('비밀번호를 입력해주세요');
+					$('#oldPw').focus();
+					return;
+				} else {
+					$('#msg').text('');
+				}
+				
+				if($('#newPw1').val() == '' || $('#newPw2').val() == '') {
+					$('#mssage').text('비밀번호를 입력해주세요');
+					$('#newPw1').focus();
+					return;
+				} else {
+					$('#mssage').text('');
+				}
+				if($('#newPw1').val() != $('#newPw2').val()) {
+					$('#mssage').text('비밀번호를 동일하게 입력해주세요');
+					$('#newPw1').focus();
+					return;
+				} else {
+					$('#mssage').text('');
+				}
+				
+				$('#pwForm').submit();
 			});
 		</script>
-	</head>
-	
-	<body class="">
-	  <div class="container position-sticky z-index-sticky top-0">
-	    <div class="row">
-	      <div class="col-12">
-	        <!-- Navbar -->
-	        <nav class="navbar navbar-expand-lg blur border-radius-lg top-0 z-index-3 shadow position-absolute mt-4 py-2 start-0 end-0 mx-4">
-	          <div class="container-fluid ps-2 pe-0">
-	            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="${pageContext.request.contextPath}/main">
-	              Online Quiz
-	            </a>
-	            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-	              <span class="navbar-toggler-icon mt-2">
-	                <span class="navbar-toggler-bar bar1"></span>
-	                <span class="navbar-toggler-bar bar2"></span>
-	                <span class="navbar-toggler-bar bar3"></span>
-	              </span>
-	            </button>
-	            <div class="collapse navbar-collapse" id="navigation">
-	              <ul class="navbar-nav mx-auto">
-	                <li class="nav-item">
-	                  <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="${pageContext.request.contextPath}/main">
-	                    <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
-	                    Main
-	                  </a>
-	                </li>
-	                <li class="nav-item">
-	                  <a class="nav-link me-2" href="${pageContext.request.contextPath}/student/modifyStudentPw">
-	                    <i class="fa fa-user opacity-6 text-dark me-1"></i>
-	                    Profile
-	                  </a>
-	                </li>
-	                <li class="nav-item">
-	                  <a class="nav-link me-2" href="${pageContext.request.contextPath}/student/testListByStudent">
-	                    <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
-	                    Quiz
-	                  </a>
-	                </li>
-	              </ul>
-	            </div>
-	          </div>
-	        </nav>
-	        <!-- End Navbar -->
-	      </div>
-	    </div>
-	  </div>
-		
-		<main class="main-content  mt-0">
-		    <section>
-		      <div class="page-header min-vh-100">
-		        <div class="container">
-		          <div class="row">
-		            <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">
-		              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url('${pageContext.request.contextPath}/resources/dashboard/assets/img/illustrations/illustration-signup.jpg'); background-size: cover;">
-		              </div>
-		            </div>
-		            <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
-		              <div class="card card-plain">
-		                <div class="card-header">
-		                  <h4 class="font-weight-bolder">${loginStudent.studentName}님</h4>
-		                  <p class="mb-0">Enter your password</p>
-		                </div>
-		                
-		                <div class="card-body">
-		                  	<div>
-		                      <p class="text-sm text-center text-primary" id="msg"></p>
-	                      	</div>
-		                  <form id="pwForm" role="form" method="post" action="${pageContext.request.contextPath}/student/modifyStudentPw">
-		                    <div class="input-group input-group-dynamic input-group-outline mb-3">
-		                      <input type="password" class="form-control" name="oldPw" id="oldPw" placeholder="Password">
-		                    </div>
-		                    <div class="input-group input-group-dynamic input-group-outline mb-3">
-		                      <input type="password" class="form-control" name="newPw" id="newPw" placeholder="New Password">
-		                    </div>
-		                    <div class="text-center">
-		                      <button type="button" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0" id="pwBtn">Submit</button>
-		                    </div>
-		                  </form>
-		                </div>
-		              </div>
-		            </div>
-		          </div>
-		        </div>
-		      </div>
-		    </section>
-		  </main>
-		
-		<!--   Core JS Files   -->
-		<script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/core/popper.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/core/bootstrap.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/plugins/perfect-scrollbar.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/plugins/smooth-scrollbar.min.js"></script>
-		<script>c
-			var win = navigator.platform.indexOf('Win') > -1;
-			if (win && document.querySelector('#sidenav-scrollbar')) {
-				  var options = {
-				    damping: '0.5'
-				  }
-			  Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-			}
-		</script>
-		<!-- Github buttons -->
-		<script async defer src="https://buttons.github.io/buttons.js"></script>
-		<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-		<script src="${pageContext.request.contextPath}/resources/dashboard/assets/js/material-dashboard.min.js?v=3.0.4"></script>
 	</body>
 </html>

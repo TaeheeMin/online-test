@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import goodee.gdj58.online.vo.Paper;
+import goodee.gdj58.online.vo.Score;
 import goodee.gdj58.online.vo.Student;
 import goodee.gdj58.online.vo.Test;
 
@@ -15,9 +16,11 @@ public interface StudentMapper {
 	int selectAnswer(int questionNo);
 	List<Map<String, Object>> selectTestAnswer(Map<String, Object> paramMap);
 	int insertPaper(Paper paper);
+	int insertScore(Score score);
 	List<Map<String, Object>> selectTestOne(int testNo);
 	Test selectTestTitle(int testNo);
-	List<Test> selectTestList(Map<String, Object> paramMap);
+	List<Map<String, Object>> selectTestList(Map<String, Object> paramMap);
+	List<Map<String, Object>> selectTestTotalList(int studentNo);
 	int testListCount();
 	int updateStudentPw(Map<String, Object> paramMap);
 	Student login(Student student);

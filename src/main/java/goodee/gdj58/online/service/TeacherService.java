@@ -42,6 +42,8 @@ public class TeacherService {
 	
 	// 시험 삭제
 	public int removeTest(int testNo) {
+		teacherMapper.deleteExample(testNo);
+		teacherMapper.deleteQuestion(testNo);
 		return teacherMapper.deleteTest(testNo);
 	}
 	
@@ -51,7 +53,7 @@ public class TeacherService {
 	}
 	
 	// 강사 시험 목록
-	public List<Test> getTestList(int currentPage, int rowPerPage) {
+	public List<Map<String, Object>> getTestList(int currentPage, int rowPerPage) {
 		int beginRow = (currentPage - 1) * rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("beginRow", beginRow);
