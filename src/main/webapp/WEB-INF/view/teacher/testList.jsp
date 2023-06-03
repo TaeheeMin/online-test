@@ -94,7 +94,7 @@
 							                    <tr>
 							                      <th class="text-uppercase">title</th>
 							                      <th class="text-uppercase">date</th>
-							                      <th class="text-uppercase align-middle text-center">Delete</th>
+							                      <th class="text-uppercase align-middle text-center"></th>
 							                    </tr>
 							                  </thead>
 							                  <tbody>
@@ -111,7 +111,7 @@
 								                      <td class="align-middle text-center">
 								                      	<c:choose>
 															<c:when test="${t.cnt == null}">
-																<a href="${pageContext.request.contextPath}/teacher/removeTest?testNo=${t.testNo}" class="btn btn-danger btn-circle btn-sm" id="remove">
+																<a href="${pageContext.request.contextPath}/teacher/removeTest?testNo=${t.testNo}" class="btn btn-danger btn-circle btn-sm" style="height: 1.3rem; width: 1.3rem; font-size: 0.5rem;" id="remove">
 						                                        	<i class="fas fa-trash"></i>
 						                                    	</a>
 															</c:when>

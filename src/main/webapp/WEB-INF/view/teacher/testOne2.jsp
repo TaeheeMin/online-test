@@ -22,13 +22,8 @@
 		
 		<!-- icon -->
 		<script src="https://kit.fontawesome.com/ce71be7920.js" crossorigin="anonymous"></script>
-		<style type="text/css">
-			table{
-				table-layout: fixed;
-			}
-		</style>
+		
 	</head>
-	
 	<body id="page-top">
 	
 	    <!-- Page Wrapper -->
@@ -189,90 +184,138 @@
 												</div>
 											</div>
 										</c:if>
-										
                                 		<hr>
                                 		
-                                		<div class="row">
-                                			<div class="col-xl-9 col-md-6">
-                               					<c:forEach var="q" items="${question}">
-	                                				<div class=" border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-														<div class=" d-flex flex-column" style="width: 100%;">
-	  														<h5 style="font-weight: bold; font-color: black; font-size: 1.2rem;" id="question${q.questionIdx}">
-		  														${q.questionIdx}.${q.questionTitle}				                              						
-	  														</h5>
-	                                						<c:forEach var="e" items="${example}">
-	                                							<c:if test="${q.questionNo == e.questionNo}">
-	                                								<c:if test="${e.exampleIdx == 1}">
-																		<c:choose>
-																			<c:when test="${e.exampleAnswer eq '정답'}">
-																				<span style="font-weight: bold; color: red;" class="mb-1">&nbsp; &#10112; ${e.exampleContent}</span>
-																			</c:when>
-																			<c:otherwise>
-																				<span class="mb-1">&nbsp; &#10112; ${e.exampleContent}</span>
-																			</c:otherwise>
-																		</c:choose>
-																	</c:if>
-	                                								<c:if test="${e.exampleIdx == 2}">
-																		<c:choose>
-																			<c:when test="${e.exampleAnswer eq '정답'}">
-																				<span style="font-weight: bold; color: red;" class="mb-1">&nbsp; &#10113; ${e.exampleContent}</span>
-																			</c:when>
-																			<c:otherwise>
-																				<span class="mb-1">&nbsp; &#10113; ${e.exampleContent}</span>
-																			</c:otherwise>
-																		</c:choose>
-																	</c:if>
-	                                								<c:if test="${e.exampleIdx == 3}">
-																		<c:choose>
-																			<c:when test="${e.exampleAnswer eq '정답'}">
-																				<span style="font-weight: bold; color: red;" class="mb-1">&nbsp; &#10114; ${e.exampleContent}</span>
-																			</c:when>
-																			<c:otherwise>
-																				<span class="mb-1">&nbsp; &#10114; ${e.exampleContent}</span>
-																			</c:otherwise>
-																		</c:choose>
-																	</c:if>
-	                                								<c:if test="${e.exampleIdx == 4}">
-																		<c:choose>
-																			<c:when test="${e.exampleAnswer eq '정답'}">
-																				<span style="font-weight: bold; color: red;" class="mb-1">&nbsp; &#10115; ${e.exampleContent}</span>
-																			</c:when>
-																			<c:otherwise>
-																				<span class="mb-1">&nbsp; &#10115; ${e.exampleContent}</span>
-																			</c:otherwise>
-																		</c:choose>
-																	</c:if>
-	                                							</c:if>
-	                                						</c:forEach>
-                                						</div>
-	                                				</div>
-                               					</c:forEach>
-                                			</div>
-                                			<div class="col-xl-3 col-md-6">
-                                				<div class=" border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                                					<div class="row">
-	                                					<div class="mb-3">
-						                                    <span>정답을 클릭하면 해당문제로 이동가능해요!</span>
-					                                    </div>
-	                               						<div class="table-responsive">
-								                			<table class="table align-items-center justify-content-center">
-		                               							<tr>
-		                               								<c:forEach var="a" items="${answer}" varStatus="s">
-		                               									<td>
-		                               										<a href="#question${a.questionIdx}">${a.answer}</a>
-		                               									</td>
-		                               									<c:if test="${s.count%5 == 0}">
-			                               									</tr>
-		                               									</c:if>
-				                                					</c:forEach>
-		                               							</tr>	
-	                               							</table>
-	                               						</div>
-                                					</div>
-                                				</div>
-                                			</div>
-                                		</div>
+                                	
                                 		
+                                		<hr>
+                                		
+                                		<!-- question -->
+							            <div class=" border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+											<div class=" d-flex flex-column" style="width: 100%;">
+					            				<c:forEach var="t" items="${list}">
+													<h6 class="mb-3 text-sm">
+														<c:if test="${t.exampleIdx == 1}">
+														
+															<span style="font-weight: bold; font-color: black; font-size: 1.2rem;">
+																${t.questionIdx}. ${t.questionTitle}
+															</span>
+														</c:if>
+													</h6>
+													<c:if test="${t.exampleIdx == 1}">
+														<c:choose>
+															<c:when test="${t.exampleAnswer eq '정답'}">
+																<span style="font-weight: bold; color: red;">
+																	&#10112; <span class="text-red" >${t.exampleContent}</span>
+																</span>
+															</c:when>
+															<c:otherwise>
+																<span>&#10112; <span class="ms-sm-2">${t.exampleContent}</span></span>
+															</c:otherwise>
+														</c:choose>
+													</c:if>
+													<c:if test="${t.exampleIdx == 2}">
+														<c:choose>
+															<c:when test="${t.exampleAnswer eq '정답'}">
+																<span style="font-weight: bold; color: red;">&#10113; <span class="text-red" >${t.exampleContent}</span></span>
+															</c:when>
+															<c:otherwise>
+																<span>&#10113; <span class="ms-sm-2">${t.exampleContent}</span></span>
+															</c:otherwise>
+														</c:choose>
+													</c:if>
+													<c:if test="${t.exampleIdx == 3}">
+														<c:choose>
+															<c:when test="${t.exampleAnswer eq '정답'}">
+																<span style="font-weight: bold; color: red;">&#10114; <span class="text-red" >${t.exampleContent}</span></span>
+															</c:when>
+															<c:otherwise>
+																<span>&#10114; <span class="ms-sm-2">${t.exampleContent}</span></span>
+															</c:otherwise>
+														</c:choose>
+													</c:if>
+													<c:if test="${t.exampleIdx == 4}">
+														<c:choose>
+															<c:when test="${t.exampleAnswer eq '정답'}">
+																<span style="font-weight: bold; color: red;">&#10115; <span class="text-red">${t.exampleContent}</span></span>
+																<br>
+																<c:if test="${detail.applicants != null}">
+																	<div class="card border-left-info shadow h-100 py-2">
+										                                <div class="card-body">
+										                                    <div class="row no-gutters align-items-center">
+										                                        <div class="col mr-2">
+										                                            <div class="d-sm-flex align-items-center justify-content-between">
+											                                            <div class="text-xs font-weight-bold text-info mb-1">
+											                                            	정답률
+											                                            </div>
+											                                            <div class="text-xs font-weight-bold text-info mb-1">
+												                                            <span>응시 인원 ${t.cnt }</span>
+											                                            </div>
+										                                        	</div>
+										                                            <div class="row no-gutters align-items-center">
+										                                                <div class="col-auto">
+										                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${t.percen}%</div>
+										                                                </div>
+										                                                <div class="col">
+										                                                    <div class="progress progress-sm mr-2">
+										                                                        <div class="progress-bar bg-info" role="progressbar" style="width: ${t.percen}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+										                                                    </div>
+										                                                </div>
+										                                            </div>
+										                                        </div>
+										                                        <div class="col-auto">
+										                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+										                                        </div>
+										                                    </div>
+										                                </div>
+										                            </div>
+																</c:if>
+									                            <br>
+									                            <br>
+															</c:when>
+															<c:otherwise>
+																<span>&#10115; <span class="ms-sm-2">${t.exampleContent}</span></span>
+																<br>
+																<c:if test="${detail.applicants != null}">
+																	<div class="card border-left-info shadow h-100 py-2">
+										                                <div class="card-body">
+										                                    <div class="row no-gutters align-items-center">
+										                                        <div class="col mr-2">
+										                                            <div class="d-sm-flex align-items-center justify-content-between">
+											                                            <div class="text-xs font-weight-bold text-info mb-1">
+											                                            	정답률
+											                                            </div>
+											                                            <div class="text-xs font-weight-bold text-info mb-1">
+												                                            <span>응시 인원 ${t.cnt }</span>
+											                                            </div>
+										                                        	</div>
+										                                            <div class="row no-gutters align-items-center">
+										                                                <div class="col-auto">
+										                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${t.percen}%</div>
+										                                                </div>
+										                                                <div class="col">
+										                                                    <div class="progress progress-sm mr-2">
+										                                                        <div class="progress-bar bg-info" role="progressbar" style="width: ${t.percen}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+										                                                    </div>
+										                                                </div>
+										                                            </div>
+										                                        </div>
+										                                        <div class="col-auto">
+										                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+										                                        </div>
+										                                    </div>
+										                                </div>
+										                            </div>
+																</c:if>
+								                            	<br>
+								                            	<br>
+															</c:otherwise>
+														</c:choose>
+													</c:if>
+												</c:forEach>
+											</div>
+										</div>
+	                                	<!-- 문제 끝 -->
 	                                </div>
 	                                
 	                            </div>

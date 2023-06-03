@@ -94,7 +94,7 @@
                     		<a class="collapse-item" href="${pageContext.request.contextPath}/student/modifyStudentPw">학생 비밀번호 변경</a>
                     	</c:when>
                     	<c:when test="${loginTeacher != null}">
-                    		<a class="collapse-item" href="${pageContext.request.contextPath}/teacher/modifyTeacherPw">강사 비밀번호 변경</a>
+                    		<a class="collapse-item" href="${pageContext.request.contextPath}/teacher/modifyTeacherPw">선생님 비밀번호 변경</a>
                     	</c:when>
                     	<c:when test="${loginEmp != null}">
                     		<a class="collapse-item" href="${pageContext.request.contextPath}/employee/modifyEmpPw">직원 비밀번호 변경</a>
@@ -115,9 +115,9 @@
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">관리자 기능:</h6>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/employee/empList">직원목록</a>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/employee/teacherList">선생님 목록</a>
-                    <a class="collapse-item" href="${pageContext.request.contextPath}/employee/studentList">학생목록</a>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/employee/empList">직원관리</a>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/employee/teacherList">선생님관리</a>
+                    <a class="collapse-item" href="${pageContext.request.contextPath}/employee/studentList">학생관리</a>
                 </div>
             </div>
         </li>

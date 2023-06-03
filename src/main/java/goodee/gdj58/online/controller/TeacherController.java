@@ -23,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class TeacherController {
-	@Autowired private Idservice idservice;
 	@Autowired private TeacherService teacherService;
 	// 3) 시험 관련 기능
 	// 문제 등록
@@ -62,10 +61,18 @@ public class TeacherController {
 							, @RequestParam(value = "testNo") int testNo) {
 		List<Map<String, Object>> list = teacherService.getTestOne(testNo);
 		Test test = teacherService.getTestTitle(testNo); // 테스트 정보
+		// 문제
+		List<Question> question = teacherService.getQeustion(testNo);
+		model.addAttribute("question", question);
+		// 보기
+		List<Map<String, Object>> example = teacherService.getExample(testNo);
+		model.addAttribute("example", example);
+		// 정답
 		List<Map<String, Object>> answer = teacherService.getTestAnswer(testNo);
+		model.addAttribute("answer", answer);
+		
 		model.addAttribute("test",test); // 시험정보
 		model.addAttribute("list",list); // 문제정보
-		model.addAttribute("answer",answer); // 정답
 		Map<String, Object> detail = teacherService.getTestDetail(testNo);
 		model.addAttribute("detail",detail); // 응시인원
 		log.debug("\u001B[31m" + list.size()/4 + "	<= 문제 개수");
@@ -180,13 +187,6 @@ public class TeacherController {
 	// 강사 추가
 	@PostMapping("/employee/addTeacher")
 	public String addTeacher(Teacher teacher, HttpSession session, Model model) {
-		// id 중복확인
-		String idCheck = idservice.getIdCheck(teacher.getTeacherId());
-		if(idCheck.equals("NO")) { // null(YES)이면 아이디 사용가능 NO->중복
-			log.debug("\u001B[31m" + "아이디 중복");
-			model.addAttribute("msg", "아이디 중복");
-			return "redirect:/employee/addTeacher";
-		}
 		
 		int row = teacherService.addTeacher(teacher);
 		if(row == 0) {

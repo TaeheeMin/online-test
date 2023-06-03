@@ -302,7 +302,6 @@
 					$('#msg').text('');
 				}
 				$('#addForm').submit();
-				alert('학생 등록 완료');
 			});
 		</script>
 	</body>

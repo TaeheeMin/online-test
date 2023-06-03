@@ -29,6 +29,16 @@ public class TeacherService {
 		return teacherMapper.insertQuestion(question);
 	}
 	
+	// 상세보기
+	// 2) 보기
+	public List<Map<String, Object>> getExample(int testNo){
+		return teacherMapper.selectExample(testNo);
+	}
+	// 1) 문제
+	public List<Question> getQeustion(int testNo){
+		return teacherMapper.selectQuestion(testNo);
+	}
+	
 	// 시험 상세보기
 	public Test getTestTitle(int testNo) {
 		return teacherMapper.selectTestTitle(testNo);

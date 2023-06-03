@@ -23,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class StudentController {
 	@Autowired StudentService studentService;
-	@Autowired private Idservice idservice;
 	// 2) 학생기능
 	// 답안지 제출
 	@PostMapping("/student/addPaper")
@@ -140,19 +139,13 @@ public class StudentController {
 	// 학생 추가
 	@PostMapping("/employee/addStudent")
 	public String addStudent(Student student, Model model) {
-		// id 중복확인
-		String idCheck = idservice.getIdCheck(student.getStudentId());
-		if(idCheck != null) { // null이면 아이디 사용가능
-			log.debug("\u001B[31m"+"아이디 중복");
-			model.addAttribute("errorMsg", "아이디 중복");
-			return "redirect:/employee/studentList";
-		}
-		
+
 		int row = studentService.addStudent(student);
+		log.debug("\u001B[31m"+"학생 등록"+"row : "+row);
+		
 		if(row == 0) {
 			model.addAttribute("errorMsg", "학생등록 실패");
 		}
-		log.debug("\u001B[31m"+"학생 등록성공");
 		return "redirect:/employee/studentList"; 
 	}
 	
